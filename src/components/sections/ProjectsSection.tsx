@@ -168,7 +168,6 @@ interface OtherProject {
   desc: string;
   workflowLabel: string;
   phases: { step: string; title: string; sub: string }[];
-  benchmark: string;
   tech: string[];
   github: string;
   demo: string;
@@ -187,7 +186,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Eval Stack', sub: 'Expression Tree' },
       { step: 'PHASE 03', title: 'Streak Score', sub: 'Real-Time Telemetry' },
     ],
-    benchmark: '100% Client-Side Speed',
     tech: ['JavaScript', 'HTML5', 'CSS3', 'Vercel'],
     github: 'https://github.com/sakshi1013-coder/aura-sh',
     demo: 'https://bodmas-game-xi.vercel.app/',
@@ -204,7 +202,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Wash Cycle', sub: 'Status Webhooks' },
       { step: 'PHASE 03', title: 'Dispatch', sub: 'SMS & Delivery' },
     ],
-    benchmark: 'Real-Time Order Telemetry',
     tech: ['React', 'TypeScript', 'Node.js', 'Tailwind CSS'],
     github: 'https://github.com/sakshi1013-coder/WashFlow',
     demo: 'https://wash-flow-xi.vercel.app/',
@@ -221,7 +218,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Rate Limiter', sub: 'Token Bucket' },
       { step: 'PHASE 03', title: 'Multi-Channel', sub: 'Email & Webhooks' },
     ],
-    benchmark: '5,000+ Msgs/Sec Throughput',
     tech: ['Node.js', 'Express.js', 'Redis', 'REST APIs'],
     github: 'https://github.com/sakshi1013-coder/Notification-System',
     demo: 'https://sakshi1013-coder.github.io/Notification-System/',
@@ -238,7 +234,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Vector Analysis', sub: 'Cosine Similarity' },
       { step: 'PHASE 03', title: 'Gap Report', sub: 'Skill Optimization' },
     ],
-    benchmark: '98% Keyword Match Accuracy',
     tech: ['Next.js', 'React', 'Python', 'Tailwind CSS'],
     github: 'https://github.com/sakshi1013-coder/JobLens',
     demo: 'https://job-lens-sigma.vercel.app/',
@@ -255,7 +250,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'State Engine', sub: 'Drag & Drop' },
       { step: 'PHASE 03', title: 'Persistence', sub: 'Local & Cloud Sync' },
     ],
-    benchmark: 'Zero-Latency State Updates',
     tech: ['React', 'TypeScript', 'Node.js', 'Tailwind CSS'],
     github: 'https://github.com/sakshi1013-coder/Focus-thetaskmanager',
     demo: 'https://focus-thetaskmanager.vercel.app/',
@@ -272,7 +266,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Categorizer', sub: 'Budget Rules' },
       { step: 'PHASE 03', title: 'Visualizer', sub: 'Interactive Charts' },
     ],
-    benchmark: 'Automated Cashflow Tracking',
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'MongoDB'],
     github: 'https://github.com/sakshi1013-coder/FundFlow',
     demo: 'https://fund-flow-liart.vercel.app/',
@@ -289,7 +282,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Tag Indexing', sub: 'Search Clustering' },
       { step: 'PHASE 03', title: 'SSR Delivery', sub: 'Instant Previews' },
     ],
-    benchmark: 'Sub-50ms Page Loads',
     tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
     github: 'https://github.com/sakshi1013-coder/Vero',
     demo: 'https://vero-khaki.vercel.app/',
@@ -306,7 +298,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Geo Filters', sub: 'Rental Matching' },
       { step: 'PHASE 03', title: 'Direct Connect', sub: 'Owner Routing' },
     ],
-    benchmark: 'Zero Brokerage Matching',
     tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Netlify'],
     github: 'https://github.com/sakshi1013-coder/NoBroker-clone',
     demo: 'https://sparkling-churros-4c3f35.netlify.app/',
@@ -323,7 +314,6 @@ const otherProjects: OtherProject[] = [
       { step: 'PHASE 02', title: 'Design System', sub: 'Typography & Colors' },
       { step: 'PHASE 03', title: 'Prototype', sub: 'Figma Components' },
     ],
-    benchmark: '100% WCAG Accessible Prototype',
     tech: ['Figma', 'UI/UX Design', 'Design Systems', 'Prototyping'],
     github: 'https://www.figma.com/make/m9p2grZlgnM4IJvLcW1nSi/examwalisite_recreation?t=bajbOGWw42gYeyhp-1',
     demo: 'https://www.figma.com/make/m9p2grZlgnM4IJvLcW1nSi/examwalisite_recreation?t=bajbOGWw42gYeyhp-1',
@@ -679,65 +669,56 @@ function OtherProjects3DCoverflow() {
                 </div>
               </div>
 
-              {/* Bottom Benchmark & CTA Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingTop: 4 }}>
-                <div>
-                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.6rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    BENCHMARK
-                  </div>
-                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.78rem', fontWeight: 800, color: '#0F172A' }}>
-                    {op.benchmark}
-                  </div>
-                </div>
+              {/* Bottom Action CTA Buttons */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, paddingTop: 4 }}>
+                <a
+                  href={op.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 14px',
+                    borderRadius: 10,
+                    background: '#F8FAFC',
+                    border: '1.5px solid #E2E8F0',
+                    color: '#0F172A',
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.74rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <GithubIcon c="#0F172A" s={14} />
+                  <span>Repo</span>
+                </a>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <a
-                    href={op.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 5,
-                      padding: '8px 12px',
-                      borderRadius: 10,
-                      background: '#F8FAFC',
-                      border: '1.5px solid #E2E8F0',
-                      color: '#0F172A',
-                      fontFamily: 'var(--font-space-grotesk)',
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <GithubIcon c="#0F172A" s={14} />
-                    <span>Repo</span>
-                  </a>
-
-                  <a
-                    href={op.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      padding: '9px 16px',
-                      borderRadius: 10,
-                      background: op.color,
-                      color: '#FFFFFF',
-                      fontFamily: 'var(--font-space-grotesk)',
-                      fontSize: '0.76rem',
-                      fontWeight: 800,
-                      textDecoration: 'none',
-                      boxShadow: `0 4px 14px ${op.color}40`,
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    <span>Live Link</span>
-                    <span style={{ fontSize: '0.8rem' }}>→</span>
-                  </a>
-                </div>
+                <a
+                  href={op.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '9px 18px',
+                    borderRadius: 10,
+                    background: op.color,
+                    color: '#FFFFFF',
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.78rem',
+                    fontWeight: 800,
+                    textDecoration: 'none',
+                    boxShadow: `0 4px 14px ${op.color}40`,
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <span>Live Link</span>
+                  <span style={{ fontSize: '0.8rem' }}>→</span>
+                </a>
               </div>
             </motion.div>
           );
