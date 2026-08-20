@@ -182,10 +182,10 @@ export default function AboutSection() {
       
       {/* ── 1. Top Header Area: Profile Photo + Resume Download Button ── */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -193,19 +193,12 @@ export default function AboutSection() {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '2rem',
-          marginBottom: '3rem',
-          background: 'rgba(255, 255, 255, 0.92)',
-          border: '1px solid rgba(124, 58, 237, 0.18)',
-          borderRadius: 28,
-          padding: 'clamp(1.5rem, 3.5vw, 2.5rem)',
-          boxShadow: '0 12px 35px rgba(124, 58, 237, 0.07)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
+          marginBottom: '3.5rem',
         }}
       >
         {/* Left Column: Heading & Resume Button */}
         <div style={{ flex: '1 1 500px', minWidth: 280 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(124, 58, 237, 0.1)', border: '1px solid rgba(124, 58, 237, 0.25)', borderRadius: 100, marginBottom: '1.2rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(124, 58, 237, 0.12)', border: '1px solid rgba(124, 58, 237, 0.3)', borderRadius: 100, marginBottom: '1.2rem' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#7C3AED' }} />
             <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', color: '#7C3AED', textTransform: 'uppercase' }}>
               01 / WHO I AM
@@ -215,9 +208,9 @@ export default function AboutSection() {
           <h1
             style={{
               fontFamily: 'var(--font-space-grotesk)',
-              fontSize: 'clamp(2rem, 3.8vw, 3.4rem)',
+              fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
               fontWeight: 800,
-              lineHeight: 1.12,
+              lineHeight: 1.1,
               letterSpacing: '-0.03em',
               color: '#0F172A',
               marginBottom: '1.25rem',
@@ -294,20 +287,19 @@ export default function AboutSection() {
               padding: 4,
               background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8))',
               boxShadow: '0 12px 32px rgba(124, 58, 237, 0.25)',
+              overflow: 'hidden',
             }}
           >
             <img
-              src="/profile.png"
+              src="/events/mtw2026_sakshi_plaid.png"
               alt="Sakshi Shingole"
               style={{
                 width: '100%',
                 height: '100%',
                 borderRadius: '50%',
                 objectFit: 'cover',
+                objectPosition: '64% 43%',
                 display: 'block',
-              }}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/sakshi.jpg';
               }}
             />
           </div>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from
 import SectionContainer, { SECTIONS_META } from './SectionContainer';
 import PixelUniverseBackground from './PixelUniverseBackground';
 import SwipeTransitionOverlay from './SwipeTransitionOverlay';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /* ─── Clean Modern Vector Icons ─────────────────────────────────────────── */
 const LayersIcon = ({ c, s = 22 }: { c: string; s?: number }) => (
@@ -127,54 +128,51 @@ export const PLANETS: PlanetDef[] = [
   },
 ];
 
-/* ─── Handwriting Signature Intro Overlay ────────────────────────────────── */
+/* ─── Curtain Mask-Reveal Signature Splash Intro Overlay ─────────────────── */
 function SignatureIntroOverlay({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
+  const prefersReduced = useReducedMotion();
+  const [curtainFinished, setCurtainFinished] = useState(false);
+  const [subtitleRevealed, setSubtitleRevealed] = useState(false);
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
 
   useEffect(() => {
-    const startTime = performance.now();
-    const duration = 1400;
-    let frameId: number;
+    if (prefersReduced) {
+      const t = setTimeout(() => {
+        setCurtainFinished(true);
+        setSubtitleRevealed(true);
+        setTimeout(() => onCompleteRef.current?.(), 1000);
+      }, 500);
+      return () => clearTimeout(t);
+    }
 
-    const animate = (time: number) => {
-      const elapsed = time - startTime;
-      const rawProgress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - rawProgress, 3);
-      setProgress(eased * 100);
+    // 1. Curtain wipe completes in ~1200ms (ease: [0.83, 0, 0.17, 1])
+    const curtainTimer = setTimeout(() => {
+      setCurtainFinished(true);
+    }, 1250);
 
-      if (rawProgress < 1) {
-        frameId = requestAnimationFrame(animate);
-      } else {
-        setTimeout(() => {
-          if (onCompleteRef.current) {
-            onCompleteRef.current();
-          }
-        }, 350);
-      }
-    };
+    // 2. Subtitle reveals ~200ms after curtain finishes (at 1450ms)
+    const subtitleTimer = setTimeout(() => {
+      setSubtitleRevealed(true);
+    }, 1450);
 
-    frameId = requestAnimationFrame(animate);
-
-    const fallbackTimer = setTimeout(() => {
-      setProgress(100);
-      if (onCompleteRef.current) {
-        onCompleteRef.current();
-      }
-    }, 2200);
+    // 3. Complete and transition to main site after ~2400ms
+    const completeTimer = setTimeout(() => {
+      onCompleteRef.current?.();
+    }, 2400);
 
     return () => {
-      cancelAnimationFrame(frameId);
-      clearTimeout(fallbackTimer);
+      clearTimeout(curtainTimer);
+      clearTimeout(subtitleTimer);
+      clearTimeout(completeTimer);
     };
-  }, []);
+  }, [prefersReduced]);
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
-      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed',
         inset: 0,
@@ -187,6 +185,7 @@ function SignatureIntroOverlay({ onComplete }: { onComplete: () => void }) {
         overflow: 'hidden',
       }}
     >
+      {/* Background Subtle Tech Dot Grid */}
       <div
         style={{
           position: 'absolute',
@@ -197,63 +196,98 @@ function SignatureIntroOverlay({ onComplete }: { onComplete: () => void }) {
         }}
       />
 
-      <div style={{ position: 'relative', display: 'inline-block', padding: '10px 45px 10px 20px' }}>
-        <div
+      {/* Signature Text Container with Overflow Hidden Masking */}
+      <div
+        style={{
+          position: 'relative',
+          display: 'inline-block',
+          padding: '10px 24px',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Fully Formed Signature Text */}
+        <motion.h1
+          initial={{ opacity: prefersReduced ? 0 : 1 }}
+          animate={{
+            opacity: 1,
+            filter: curtainFinished
+              ? 'drop-shadow(0 6px 24px rgba(124, 58, 237, 0.22)) drop-shadow(0 0 12px rgba(124, 58, 237, 0.12))'
+              : 'drop-shadow(0 2px 8px rgba(124, 58, 237, 0.04))',
+          }}
+          transition={{
+            duration: 0.6,
+            ease: 'easeOut',
+          }}
           style={{
-            position: 'relative',
-            overflow: 'visible',
-            clipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
-            WebkitClipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
-            transition: 'clip-path 0.05s linear',
+            fontFamily: 'var(--font-fleur-de-leah), "Fleur De Leah", cursive',
+            fontSize: 'clamp(4rem, 8.5vw, 6.8rem)',
+            fontWeight: 400,
+            color: '#0F172A',
+            letterSpacing: '0.02em',
+            lineHeight: 1.2,
+            whiteSpace: 'nowrap',
+            margin: 0,
+            userSelect: 'none',
           }}
         >
-          <h1
-            style={{
-              fontFamily: 'var(--font-fleur-de-leah), "Fleur De Leah", cursive',
-              fontSize: 'clamp(3.8rem, 8vw, 6.4rem)',
-              fontWeight: 400,
-              color: '#0F172A',
-              letterSpacing: '0.02em',
-              lineHeight: 1.25,
-              whiteSpace: 'nowrap',
-              margin: 0,
-              paddingRight: '45px',
-              filter: 'drop-shadow(0 4px 20px rgba(124, 58, 237, 0.15))',
-            }}
-          >
-            Sakshi Shingole
-          </h1>
-        </div>
+          Sakshi Shingole
+        </motion.h1>
 
-        {progress > 3 && progress < 97 && (
-          <div
+        {/* Sliding Mask Panel (Curtain opening left-to-right) */}
+        {!prefersReduced && (
+          <motion.div
+            initial={{ x: '0%' }}
+            animate={{ x: '102%' }}
+            transition={{
+              duration: 1.2,
+              ease: [0.83, 0, 0.17, 1], // Strong ease-in-out "swoosh" curve
+              delay: 0.1,
+            }}
             style={{
               position: 'absolute',
-              top: '40%',
-              left: `${progress}%`,
-              transform: 'translate(-50%, -50%)',
+              inset: 0,
+              background: '#FAF9FF',
               pointerEvents: 'none',
+              zIndex: 10,
+              willChange: 'transform',
             }}
           >
-            <span style={{ color: '#7C3AED', fontSize: '1.4rem', filter: 'drop-shadow(0 0 10px rgba(124, 58, 237, 0.4))' }}>
-              ✦
-            </span>
-          </div>
+            {/* Subtle Lavender/Purple Leading Edge Light Glow */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                width: 4,
+                background: 'linear-gradient(180deg, transparent 0%, rgba(124, 58, 237, 0.45) 30%, rgba(236, 72, 153, 0.55) 70%, transparent 100%)',
+                boxShadow: '0 0 16px rgba(124, 58, 237, 0.5)',
+              }}
+            />
+          </motion.div>
         )}
       </div>
 
+      {/* PORTFOLIO Subtitle (Secondary Reveal Beat ~200ms after curtain) */}
       <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: progress > 75 ? 1 : 0, y: progress > 75 ? 0 : 10 }}
-        transition={{ duration: 0.4 }}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{
+          opacity: subtitleRevealed ? 1 : 0,
+          y: subtitleRevealed ? 0 : 12,
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         style={{
           fontFamily: 'var(--font-space-grotesk)',
           fontWeight: 700,
-          fontSize: 'clamp(0.66rem, 0.78vw, 0.82rem)',
-          letterSpacing: '0.24em',
+          fontSize: 'clamp(0.68rem, 0.8vw, 0.85rem)',
+          letterSpacing: '0.28em',
           color: '#64748B',
-          marginTop: 18,
+          marginTop: 16,
           textTransform: 'uppercase',
+          userSelect: 'none',
         }}
       >
         PORTFOLIO

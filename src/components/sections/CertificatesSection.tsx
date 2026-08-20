@@ -104,7 +104,7 @@ const mainAchievements: ModalItem[] = [
     tags: ['1st Position Winner', 'SummerHacks 2026', 'ITM x Notion', 'Multimodal AI', 'WebSockets', 'OpenAI GPT-4o'],
     color: '#F59E0B',
     imageBanner: '/certificates/summerhacks.png',
-    linkedinUrl: 'https://www.linkedin.com/posts/sakshi-shingole-484913315_devfestmumbai-devfestmumbai2025-gdgmad-activity-7409617992831078401-NcLG',
+    linkedinUrl: 'https://lnkd.in/p/dD2j2fHp',
     githubUrl: 'https://github.com/sakshi1013-coder/aura-sh',
   },
   {
@@ -295,7 +295,7 @@ const detailedCerts: ModalItem[] = [
     tags: ['1st Position Winner', 'SummerHacks 2026', 'ITM x Notion', 'Rapid Prototyping'],
     color: '#F59E0B',
     imageBanner: '/certificates/summerhacks.png',
-    linkedinUrl: LINKEDIN_CERT_OVERLAY,
+    linkedinUrl: 'https://lnkd.in/p/dD2j2fHp',
   },
   {
     id: 'cert-women-who-master-hackathon',

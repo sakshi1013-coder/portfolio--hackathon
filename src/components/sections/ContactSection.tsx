@@ -267,13 +267,13 @@ export default function ContactSection() {
             );
           })}
 
-          {/* Social Profiles Grid */}
+          {/* Social Profiles Icons */}
           <div
             style={{
               background: 'rgba(255, 255, 255, 0.92)',
               border: '1px solid rgba(0, 0, 0, 0.07)',
               borderRadius: 20,
-              padding: '1.5rem',
+              padding: '1.25rem 1.5rem',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
             }}
@@ -282,7 +282,7 @@ export default function ContactSection() {
               Online Presence & Socials
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               {socialProfiles.map((p) => {
                 const IconComponent = p.Icon;
                 return (
@@ -291,44 +291,26 @@ export default function ContactSection() {
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    title={`${p.name} (${p.handle})`}
+                    aria-label={p.name}
+                    whileHover={{ y: -4, scale: 1.08 }}
+                    whileTap={{ scale: 0.94 }}
                     style={{
+                      width: 46,
+                      height: 46,
+                      borderRadius: 14,
+                      background: p.bg,
+                      border: `1.5px solid ${p.border}`,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 10,
-                      padding: '10px 14px',
-                      background: p.bg,
-                      border: `1px solid ${p.border}`,
-                      borderRadius: 12,
+                      justifyContent: 'center',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
                       textDecoration: 'none',
                       transition: 'all 0.2s ease',
+                      cursor: 'pointer',
                     }}
                   >
-                    <div
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 8,
-                        background: '#FFFFFF',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <IconComponent c={p.color} s={16} />
-                    </div>
-
-                    <div style={{ overflow: 'hidden' }}>
-                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.82rem', fontWeight: 800, color: '#0F172A', whiteSpace: 'nowrap' }}>
-                        {p.name}
-                      </div>
-                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '0.7rem', color: '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {p.handle}
-                      </div>
-                    </div>
+                    <IconComponent c={p.color} s={20} />
                   </motion.a>
                 );
               })}
