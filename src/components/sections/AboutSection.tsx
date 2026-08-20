@@ -253,9 +253,9 @@ export default function AboutSection() {
           </motion.a>
         </div>
 
-        {/* Right Column: Professional Portrait Frame */}
+        {/* Right Column: Professional Portrait Frame (Rounded Card, NOT circle) */}
         <motion.div
-          whileHover={{ scale: 1.03 }}
+          whileHover={{ scale: 1.02, y: -3 }}
           transition={{ duration: 0.3 }}
           style={{
             position: 'relative',
@@ -269,36 +269,36 @@ export default function AboutSection() {
           <div
             style={{
               position: 'absolute',
-              inset: -12,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(236, 72, 153, 0.2) 60%, transparent 80%)',
+              inset: -10,
+              borderRadius: 28,
+              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(236, 72, 153, 0.18) 60%, transparent 80%)',
               filter: 'blur(20px)',
               pointerEvents: 'none',
             }}
           />
 
-          {/* Portrait Container */}
+          {/* Portrait Container - Rounded Rectangle Frame */}
           <div
             style={{
               position: 'relative',
-              width: 140,
-              height: 140,
-              borderRadius: '50%',
-              padding: 4,
-              background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8))',
-              boxShadow: '0 12px 32px rgba(124, 58, 237, 0.25)',
+              width: 155,
+              height: 195,
+              borderRadius: 22,
+              padding: 3,
+              background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.75), rgba(236, 72, 153, 0.75))',
+              boxShadow: '0 16px 36px rgba(124, 58, 237, 0.22)',
               overflow: 'hidden',
             }}
           >
             <img
-              src="/events/mtw2026_sakshi_plaid.png"
+              src="/sakshi_portrait.png"
               alt="Sakshi Shingole"
               style={{
                 width: '100%',
                 height: '100%',
-                borderRadius: '50%',
+                borderRadius: 19,
                 objectFit: 'cover',
-                objectPosition: '64% 43%',
+                objectPosition: 'center top',
                 display: 'block',
               }}
             />
