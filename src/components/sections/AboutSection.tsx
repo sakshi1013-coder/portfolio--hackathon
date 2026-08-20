@@ -182,9 +182,10 @@ export default function AboutSection() {
       
       {/* ── 1. Top Header Area: Profile Photo + Resume Download Button ── */}
       <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -324,9 +325,10 @@ export default function AboutSection() {
       >
         {/* Left Column: Personal Introduction */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
         >
           <div
@@ -439,9 +441,10 @@ export default function AboutSection() {
 
         {/* Right Column: Identity Equation Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           style={{
             background: 'linear-gradient(145deg, #FFFFFF 0%, #FAF5FF 100%)',
             border: '1px solid rgba(124, 58, 237, 0.2)',
@@ -578,9 +581,10 @@ export default function AboutSection() {
 
       {/* ── 3. Core Engineering Pillars ── */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{ marginBottom: '4.5rem' }}
       >
         <div style={{ marginBottom: '1.5rem' }}>
@@ -669,9 +673,10 @@ export default function AboutSection() {
 
       {/* ── 4. Horizontal Event Showcase Cards (Alternating Photo + Text Layout) ── */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <div style={{ marginBottom: '2.2rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(124, 58, 237, 0.1)', border: '1px solid rgba(124, 58, 237, 0.25)', borderRadius: 100, marginBottom: '0.75rem' }}>
@@ -704,8 +709,11 @@ export default function AboutSection() {
             return (
               <motion.div
                 key={evt.id}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -6, scale: 1.008 }}
-                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   background: 'rgba(255, 255, 255, 0.94)',
                   border: `1.5px solid ${evt.color}28`,
