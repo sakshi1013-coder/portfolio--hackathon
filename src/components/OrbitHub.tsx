@@ -115,7 +115,7 @@ export const PLANETS: PlanetDef[] = [
   {
     id: 'certificates',
     num: '05',
-    shortTitle: 'AWARDS',
+    shortTitle: 'CREDENTIALS',
     titleLines: ['CERTIFICATES &', 'ACHIEVEMENTS'],
     desc: 'Verified AWS credentials, hackathon victories, and academic milestones.',
     href: '/certificates',
@@ -424,14 +424,16 @@ function PlanetNode({
             <span
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
-                fontSize: planet.shortTitle.length > 8 ? 'clamp(0.52rem, 0.58vw, 0.64rem)' : 'clamp(0.58rem, 0.64vw, 0.7rem)',
+                fontSize: 'clamp(0.56rem, 0.62vw, 0.68rem)',
                 fontWeight: 800,
-                letterSpacing: planet.shortTitle.length > 8 ? '0.02em' : '0.04em',
+                letterSpacing: '0.04em',
                 color: '#0F172A',
                 textTransform: 'uppercase',
                 lineHeight: 1,
                 textAlign: 'center',
-                maxWidth: '96%',
+                maxWidth: '92%',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -724,17 +726,17 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
   if (!mounted) return null;
   const isMobile = dims.w < 1080;
 
-  const maxAvailableX = (dims.w * 0.5) - 60;
-  const maxAvailableY = (dims.h * 0.5) - 55;
+  const maxAvailableX = (dims.w * 0.5) - 40;
+  const maxAvailableY = (dims.h * 0.5) - 35;
 
-  const r0_x = Math.max(220, Math.min(maxAvailableX * 0.52, 300));
-  const r0_y = Math.max(125, Math.min(maxAvailableY * 0.50, 180));
+  const r0_x = Math.max(260, Math.min(maxAvailableX * 0.55, 330));
+  const r0_y = Math.max(180, Math.min(maxAvailableY * 0.58, 235));
 
-  const r1_x = Math.max(320, Math.min(maxAvailableX * 0.73, 420));
-  const r1_y = Math.max(175, Math.min(maxAvailableY * 0.70, 245));
+  const r1_x = Math.max(360, Math.min(maxAvailableX * 0.77, 450));
+  const r1_y = Math.max(245, Math.min(maxAvailableY * 0.78, 305));
 
-  const r2_x = Math.max(420, Math.min(maxAvailableX * 0.92, 530));
-  const r2_y = Math.max(225, Math.min(maxAvailableY * 0.84, 300));
+  const r2_x = Math.max(460, Math.min(maxAvailableX * 0.96, 565));
+  const r2_y = Math.max(305, Math.min(maxAvailableY * 0.96, 375));
 
   const ringRadii: Array<{ rx: number; ry: number }> = [
     { rx: r0_x, ry: r0_y },
@@ -888,13 +890,14 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             </svg>
           </div>
 
-          {/* ── Central Sun Core Avatar & Hero Identity ── */}
+          {/* ── Central Sun Core Avatar (100% Dead-Center at Orbit Origin 0,0) ── */}
           <div
             style={{
               position: 'absolute',
+              left: 0,
+              top: 0,
               transform: 'translate(-50%, -50%)',
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               pointerEvents: 'auto',
@@ -905,106 +908,113 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             onMouseEnter={() => setIsPhotoHovered(true)}
             onMouseLeave={() => setIsPhotoHovered(false)}
           >
-            {/* Center Avatar Core Container */}
-            <div
+            {/* Soft Ambient Core Pulse */}
+            <motion.div
+              animate={{
+                scale: [1, 1.14, 1],
+                opacity: [0.35, 0.65, 0.35],
+              }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
               style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                position: 'absolute',
+                inset: -14,
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(124, 58, 237, 0.28) 0%, rgba(236, 72, 153, 0.12) 60%, transparent 80%)',
+                pointerEvents: 'none',
+              }}
+            />
+
+            {/* Perfect Circular Frame */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 16 }}
+              animate={{
+                opacity: 1,
+                scale: isPhotoHovered ? 1.06 : 1,
+                y: isPhotoHovered ? -4 : 0,
+              }}
+              transition={{ duration: 0.7, delay: showIntro ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                x: photoTX,
+                y: photoTY,
+                borderRadius: '50%',
+                padding: 4,
+                background: isPhotoHovered
+                  ? 'linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8))'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(124, 58, 237, 0.3))',
+                boxShadow: isPhotoHovered
+                  ? '0 16px 44px rgba(124, 58, 237, 0.32), 0 4px 16px rgba(0,0,0,0.06)'
+                  : '0 10px 34px rgba(124, 58, 237, 0.16), 0 2px 12px rgba(0,0,0,0.04)',
+                transition: 'background 0.3s ease, box-shadow 0.3s ease',
               }}
             >
-              {/* Soft Ambient Core Pulse */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.14, 1],
-                  opacity: [0.35, 0.65, 0.35],
-                }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+              <img
+                src="/profile.png"
+                alt="Sakshi Shingole - Click for 01 / About Me"
                 style={{
-                  position: 'absolute',
-                  inset: -14,
+                  display: 'block',
+                  width: isMobile ? '135px' : 'clamp(145px, 11vw, 175px)',
+                  height: isMobile ? '135px' : 'clamp(145px, 11vw, 175px)',
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(124, 58, 237, 0.28) 0%, rgba(236, 72, 153, 0.12) 60%, transparent 80%)',
-                  pointerEvents: 'none',
+                  objectFit: 'cover',
+                  userSelect: 'none',
+                }}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/sakshi.jpg';
                 }}
               />
+            </motion.div>
 
-              {/* Perfect Circular Frame */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 16 }}
-                animate={{
-                  opacity: 1,
-                  scale: isPhotoHovered ? 1.06 : 1,
-                  y: isPhotoHovered ? -4 : 0,
-                }}
-                transition={{ duration: 0.7, delay: showIntro ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  x: photoTX,
-                  y: photoTY,
-                  borderRadius: '50%',
-                  padding: 4,
-                  background: isPhotoHovered
-                    ? 'linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(236, 72, 153, 0.8))'
-                    : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(124, 58, 237, 0.3))',
-                  boxShadow: isPhotoHovered
-                    ? '0 16px 44px rgba(124, 58, 237, 0.32), 0 4px 16px rgba(0,0,0,0.06)'
-                    : '0 10px 34px rgba(124, 58, 237, 0.16), 0 2px 12px rgba(0,0,0,0.04)',
-                  transition: 'background 0.3s ease, box-shadow 0.3s ease',
-                }}
-              >
-                <img
-                  src="/profile.png"
-                  alt="Sakshi Shingole - Click for 01 / About Me"
-                  style={{
-                    display: 'block',
-                    width: isMobile ? '135px' : 'clamp(145px, 11vw, 175px)',
-                    height: isMobile ? '135px' : 'clamp(145px, 11vw, 175px)',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    userSelect: 'none',
-                  }}
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/sakshi.jpg';
-                  }}
-                />
-              </motion.div>
+            {/* Hover Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 6, scale: 0.9 }}
+              animate={{
+                opacity: isPhotoHovered ? 1 : 0,
+                y: isPhotoHovered ? 0 : 6,
+                scale: isPhotoHovered ? 1 : 0.9,
+              }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'absolute',
+                bottom: -10,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '4px 14px',
+                borderRadius: 100,
+                background: 'rgba(124, 58, 237, 0.94)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 4px 16px rgba(124, 58, 237, 0.45)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 5,
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap',
+                zIndex: 10,
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.08em', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                01 · ABOUT ME ✦ VIEW PROFILE
+              </span>
+            </motion.div>
+          </div>
 
-              {/* Hover Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 6, scale: 0.9 }}
-                animate={{
-                  opacity: isPhotoHovered ? 1 : 0,
-                  y: isPhotoHovered ? 0 : 6,
-                  scale: isPhotoHovered ? 1 : 0.9,
-                }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  position: 'absolute',
-                  bottom: -10,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  padding: '4px 14px',
-                  borderRadius: 100,
-                  background: 'rgba(124, 58, 237, 0.94)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 4px 16px rgba(124, 58, 237, 0.45)',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 5,
-                  pointerEvents: 'none',
-                  whiteSpace: 'nowrap',
-                  zIndex: 10,
-                }}
-              >
-                <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.08em', color: '#FFFFFF', textTransform: 'uppercase' }}>
-                  01 · ABOUT ME ✦ VIEW PROFILE
-                </span>
-              </motion.div>
-            </div>
-
+          {/* ── Center Identity Text (Cleanly Anchored Underneath Centered PFP) ── */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: isMobile ? 80 : 'clamp(85px, 6.5vw, 105px)',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pointerEvents: 'none',
+              zIndex: 25,
+              width: 'max-content',
+            }}
+          >
             {/* Scaled Up Name */}
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
@@ -1013,14 +1023,13 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 900,
-                fontSize: isMobile ? 'clamp(1.45rem, 5vw, 1.8rem)' : 'clamp(1.75rem, 2.25vw, 2.45rem)',
+                fontSize: isMobile ? 'clamp(1.35rem, 4.5vw, 1.7rem)' : 'clamp(1.6rem, 2vw, 2.2rem)',
                 lineHeight: 1,
                 letterSpacing: '-0.03em',
                 margin: '6px 0 0',
                 color: '#0F172A',
                 whiteSpace: 'nowrap',
                 textAlign: 'center',
-                pointerEvents: 'none',
               }}
             >
               SAKSHI SHINGOLE
@@ -1034,14 +1043,13 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 700,
-                fontSize: isMobile ? '0.54rem' : 'clamp(0.62rem, 0.68vw, 0.76rem)',
+                fontSize: isMobile ? '0.52rem' : 'clamp(0.6rem, 0.65vw, 0.72rem)',
                 letterSpacing: '0.12em',
                 color: '#475569',
                 marginTop: 4,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
-                pointerEvents: 'none',
               }}
             >
               SOFTWARE ENGINEER
@@ -1056,7 +1064,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.35, delay: showIntro ? 0 : 0.38 }}
-              style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 4, pointerEvents: 'none' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 4 }}
             >
               <div style={{ width: 28, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.4))' }} />
               <span style={{ color: '#7C3AED', fontSize: '0.55rem' }}>✦</span>
@@ -1071,11 +1079,10 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               style={{
                 fontFamily: 'var(--font-inter)',
                 fontStyle: 'italic',
-                fontSize: isMobile ? '0.72rem' : 'clamp(0.8rem, 0.86vw, 0.96rem)',
+                fontSize: isMobile ? '0.7rem' : 'clamp(0.78rem, 0.82vw, 0.9rem)',
                 color: '#64748B',
                 marginTop: 4,
                 textAlign: 'center',
-                pointerEvents: 'none',
               }}
             >
               "I build{' '}
@@ -1091,7 +1098,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.4 }}
                 style={{
-                  marginTop: 16,
+                  marginTop: 14,
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: 8,
