@@ -814,7 +814,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             pointerEvents: 'none',
           }}
         >
-          {/* ── 3 Elliptical Orbit Rings ── */}
+          {/* ── 3 Elliptical Orbit Rings & Real-Time Dynamic Connector Spokes ── */}
           <div
             style={{
               position: 'absolute',
@@ -824,6 +824,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               width: dims.w,
               height: dims.h,
               pointerEvents: 'none',
+              zIndex: 5,
             }}
           >
             <svg
@@ -833,23 +834,23 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             >
               <defs>
                 <linearGradient id="ringGrad0" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#7C3AED" stopOpacity="0.45" />
-                  <stop offset="50%" stopColor="#EC4899" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.45" />
+                  <stop offset="0%" stopColor="#10B981" stopOpacity="0.32" />
+                  <stop offset="50%" stopColor="#6366F1" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.32" />
                 </linearGradient>
                 <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.38" />
-                  <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.38" />
+                  <stop offset="0%" stopColor="#EC4899" stopOpacity="0.3" />
+                  <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#EC4899" stopOpacity="0.3" />
                 </linearGradient>
                 <linearGradient id="ringGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.35" />
-                  <stop offset="50%" stopColor="#EC4899" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.35" />
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.3" />
+                  <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.3" />
                 </linearGradient>
               </defs>
 
-              {/* Ring 0 — Inner */}
+              {/* Ring 0 — Inner Orbit Track */}
               <ellipse
                 cx={dims.w / 2}
                 cy={dims.h / 2}
@@ -857,12 +858,12 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                 ry={ringRadii[0].ry}
                 fill="none"
                 stroke="url(#ringGrad0)"
-                strokeWidth={1.8}
+                strokeWidth={1.2}
                 strokeDasharray="4 6"
-                opacity={0.85}
+                opacity={0.8}
               />
 
-              {/* Ring 1 — Middle */}
+              {/* Ring 1 — Middle Orbit Track */}
               <ellipse
                 cx={dims.w / 2}
                 cy={dims.h / 2}
@@ -870,12 +871,12 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                 ry={ringRadii[1].ry}
                 fill="none"
                 stroke="url(#ringGrad1)"
-                strokeWidth={1.8}
+                strokeWidth={1.2}
                 strokeDasharray="5 7"
-                opacity={0.75}
+                opacity={0.7}
               />
 
-              {/* Ring 2 — Outer */}
+              {/* Ring 2 — Outer Orbit Track */}
               <ellipse
                 cx={dims.w / 2}
                 cy={dims.h / 2}
@@ -883,10 +884,50 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                 ry={ringRadii[2].ry}
                 fill="none"
                 stroke="url(#ringGrad2)"
-                strokeWidth={1.8}
+                strokeWidth={1.2}
                 strokeDasharray="6 8"
-                opacity={0.65}
+                opacity={0.6}
               />
+
+              {/* Real-time Dynamic Connector Lines from Center Profile to Each Orbiting Planet */}
+              {!isMobile &&
+                PLANETS.map((planet) => {
+                  const ring = ringRadii[planet.ringIndex];
+                  const currentAngle = planet.initialAngle + ringAngles[planet.ringIndex];
+                  const rad = (currentAngle * Math.PI) / 180;
+
+                  const cx = dims.w / 2;
+                  const cy = dims.h / 2;
+
+                  const centerRadius = 76; // Border of center avatar circle
+                  const x1 = cx + centerRadius * Math.cos(rad);
+                  const y1 = cy + centerRadius * Math.sin(rad);
+
+                  const x2 = cx + ring.rx * Math.cos(rad);
+                  const y2 = cy + ring.ry * Math.sin(rad);
+
+                  return (
+                    <g key={`orbit-spoke-${planet.id}`}>
+                      <line
+                        x1={x1}
+                        y1={y1}
+                        x2={x2}
+                        y2={y2}
+                        stroke={planet.color}
+                        strokeWidth={1.2}
+                        strokeOpacity={0.34}
+                        strokeDasharray="4 4"
+                      />
+                      <circle
+                        cx={x2}
+                        cy={y2}
+                        r={3}
+                        fill={planet.color}
+                        fillOpacity={0.65}
+                      />
+                    </g>
+                  );
+                })}
             </svg>
           </div>
 
