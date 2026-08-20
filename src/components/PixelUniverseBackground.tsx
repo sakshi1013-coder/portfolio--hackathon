@@ -18,7 +18,8 @@ interface TechSprite {
     title: string;
     tagline: string;
     badge: string;
-    url: string;
+    liveUrl?: string;
+    githubUrl?: string;
   };
   svgRender: (color: string) => React.ReactNode;
 }
@@ -37,7 +38,7 @@ const TECH_SPRITES: TechSprite[] = [
       title: 'OrbitalShield / SpaceOps',
       tagline: 'High-availability satellite telemetry streaming & orbit trajectory anomaly detection system.',
       badge: 'SPACE ARCHITECTURE',
-      url: 'https://github.com/sakshi1013-coder/SpaceOps',
+      githubUrl: 'https://github.com/sakshi1013-coder/SpaceOps',
     },
     svgRender: () => (
       <svg width="36" height="36" viewBox="0 0 14 14" fill="none" style={{ imageRendering: 'pixelated' }}>
@@ -69,7 +70,8 @@ const TECH_SPRITES: TechSprite[] = [
       title: 'Aura — 1st Place Hackathon Winner',
       tagline: 'Real-time multimodal AI assistant utilizing WebRTC, WebSockets, and low-latency vision reasoning.',
       badge: '1ST PLACE WINNER',
-      url: 'https://github.com/sakshi1013-coder/aura-sh',
+      liveUrl: 'https://aura-sh.vercel.app/',
+      githubUrl: 'https://github.com/sakshi1013-coder/aura-sh',
     },
     svgRender: () => (
       <svg width="44" height="30" viewBox="0 0 16 10" fill="none" style={{ imageRendering: 'pixelated' }}>
@@ -96,7 +98,8 @@ const TECH_SPRITES: TechSprite[] = [
       title: 'ModuleHub — AI Agent Engine',
       tagline: 'Autonomous multi-node n8n workflow engine integrating OpenAI GPT-4o with Airtable & Outlook APIs.',
       badge: 'GENAI AUTOMATION',
-      url: 'https://github.com/sakshi1013-coder/ModuleHub',
+      liveUrl: 'https://module-hub-three.vercel.app/',
+      githubUrl: 'https://github.com/sakshi1013-coder/ModuleHub',
     },
     svgRender: () => (
       <svg width="28" height="28" viewBox="0 0 8 8" fill="none" style={{ imageRendering: 'pixelated' }}>
@@ -109,65 +112,68 @@ const TECH_SPRITES: TechSprite[] = [
   {
     id: 'spark',
     name: 'Inclusion Spark',
-    category: 'ACCESSIBLE AI TECH',
-    color: '#7C3AED',
+    category: 'SPEECH & TRANSLATION AI',
+    color: '#10B981',
     bottom: '12%',
     right: '8%',
     funIcon: '⚡',
     fact: 'Over 90% of global currency exists only as electronic numbers on servers — only about 8% of all money exists as physical paper or coins!',
     project: {
-      title: 'Samavesh — Inclusive Learning',
-      tagline: 'Empowering neurodiverse learners and speech/hearing impaired students with real-time sign language & adaptive UI.',
-      badge: 'ACCESSIBILITY PLATFORM',
-      url: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
+      title: 'VibeScribe — AI Speech Transcriber',
+      tagline: 'Low-latency real-time multilingual audio transcription & searchable note synchronization SaaS.',
+      badge: 'SPEECH AI SAAS',
+      liveUrl: 'https://vibe-scribe-beryl.vercel.app/login',
+      githubUrl: 'https://github.com/sakshi1013-coder/VibeScribe',
     },
     svgRender: () => (
       <svg width="26" height="26" viewBox="0 0 8 8" fill="none" style={{ imageRendering: 'pixelated' }}>
-        <rect x="3" y="1" width="2" height="6" fill="#7C3AED" />
-        <rect x="1" y="3" width="6" height="2" fill="#7C3AED" />
-        <rect x="3" y="3" width="2" height="2" fill="#DDD6FE" />
+        <rect x="3" y="1" width="2" height="6" fill="#10B981" />
+        <rect x="1" y="3" width="6" height="2" fill="#10B981" />
+        <rect x="3" y="3" width="2" height="2" fill="#A7F3D0" />
       </svg>
     ),
   },
   {
     id: 'satellite',
     name: 'Pixel Satellite',
-    category: 'DEV & OPEN SOURCE',
-    color: '#10B981',
+    category: 'ENTERPRISE CREDENTIALS',
+    color: '#0284C7',
     top: '46%',
     right: '5%',
     funIcon: '🛰️',
     fact: 'Linus Torvalds created the initial release of Git in just 10 days in 2005 to manage the Linux kernel development after BitKeeper revoked free access.',
     project: {
-      title: 'FundFlow — FinTech Analytics',
-      tagline: 'Financial expense tracking & budget allocation engine with interactive chart analytics and CSV exports.',
-      badge: 'FINTECH ENGINE',
-      url: 'https://github.com/sakshi1013-coder/FundFlow',
+      title: 'Accredian Enterprise Platform',
+      tagline: 'Full-stack enterprise credentialing & partner referral management dashboard with Prisma & PostgreSQL.',
+      badge: 'ENTERPRISE PLATFORM',
+      liveUrl: 'https://accredian-enterprise-omega-nine.vercel.app/',
+      githubUrl: 'https://github.com/sakshi1013-coder/accredian-enterprise',
     },
     svgRender: () => (
       <svg width="32" height="32" viewBox="0 0 12 12" fill="none" style={{ imageRendering: 'pixelated' }}>
-        <rect x="2" y="2" width="3" height="3" fill="#10B981" />
-        <rect x="7" y="7" width="3" height="3" fill="#10B981" />
+        <rect x="2" y="2" width="3" height="3" fill="#0284C7" />
+        <rect x="7" y="7" width="3" height="3" fill="#0284C7" />
         <rect x="5" y="5" width="2" height="2" fill="#FBBF24" />
-        <rect x="4" y="6" width="4" height="1" fill="#34D399" />
-        <rect x="6" y="4" width="1" height="4" fill="#34D399" />
+        <rect x="4" y="6" width="4" height="1" fill="#38BDF8" />
+        <rect x="6" y="4" width="1" height="4" fill="#38BDF8" />
       </svg>
     ),
   },
   {
     id: 'crystal',
     name: 'Code Crystal',
-    category: 'LANGUAGE & RUNTIMES',
+    category: 'FINTECH & ANALYTICS',
     color: '#6366F1',
     top: '52%',
     left: '5%',
     funIcon: '💎',
     fact: 'JavaScript was created by Brendan Eich in just 10 days in May 1995 under the code name "Mocha" before being renamed LiveScript and finally JavaScript!',
     project: {
-      title: 'Vero — Media Publishing',
-      tagline: 'Modern content publishing platform featuring Markdown live rendering, dynamic tagging, and rich sharing cards.',
-      badge: 'CONTENT PLATFORM',
-      url: 'https://github.com/sakshi1013-coder/Vero',
+      title: 'FundFlow — FinTech Platform',
+      tagline: 'Financial expense tracking & budget allocation platform with interactive chart analytics and CSV exports.',
+      badge: 'FINTECH ENGINE',
+      liveUrl: 'https://fund-flow-liart.vercel.app/',
+      githubUrl: 'https://github.com/sakshi1013-coder/FundFlow',
     },
     svgRender: () => (
       <svg width="26" height="26" viewBox="0 0 10 10" fill="none" style={{ imageRendering: 'pixelated' }}>
@@ -739,25 +745,56 @@ export default function PixelUniverseBackground() {
                         {sprite.project.tagline}
                       </p>
 
-                      <a
-                        href={sprite.project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 6,
-                          marginTop: 4,
-                          fontFamily: 'var(--font-space-grotesk)',
-                          fontSize: '0.74rem',
-                          fontWeight: 800,
-                          color: sprite.color,
-                          textDecoration: 'none',
-                        }}
-                      >
-                        <span>Explore Project Repo</span>
-                        <span style={{ fontSize: '0.8rem' }}>→</span>
-                      </a>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6, flexWrap: 'wrap' }}>
+                        {sprite.project.liveUrl && (
+                          <a
+                            href={sprite.project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 4,
+                              fontFamily: 'var(--font-space-grotesk)',
+                              fontSize: '0.72rem',
+                              fontWeight: 800,
+                              color: '#FFFFFF',
+                              background: sprite.color,
+                              padding: '4px 10px',
+                              borderRadius: 6,
+                              textDecoration: 'none',
+                              boxShadow: `0 2px 8px ${sprite.color}40`,
+                            }}
+                          >
+                            <span>Live App</span>
+                            <span style={{ fontSize: '0.75rem' }}>↗</span>
+                          </a>
+                        )}
+
+                        {sprite.project.githubUrl && (
+                          <a
+                            href={sprite.project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 4,
+                              fontFamily: 'var(--font-space-grotesk)',
+                              fontSize: '0.72rem',
+                              fontWeight: 700,
+                              color: '#0F172A',
+                              background: 'rgba(0, 0, 0, 0.05)',
+                              padding: '4px 8px',
+                              borderRadius: 6,
+                              textDecoration: 'none',
+                            }}
+                          >
+                            <span>GitHub</span>
+                            <span style={{ fontSize: '0.75rem' }}>→</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 )}

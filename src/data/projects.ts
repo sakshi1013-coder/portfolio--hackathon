@@ -33,162 +33,162 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "orbitalshield",
+    id: "aura",
     number: "01",
-    title: "OrbitalShield",
-    subtitle: "Space Traffic Management & Collision Avoidance Platform",
-    problem: "How do you monitor satellites and orbital debris in real-time at scale?",
+    title: "Aura",
+    subtitle: "1st Place Hackathon Winner · Real-Time Multimodal Voice & Vision AI",
+    problem: "How do you provide low-latency visual and voice assistance for instant context reasoning?",
     description:
-      "Built a mission control dashboard for monitoring satellites, orbital debris and simulated telemetry to support real-time space traffic management and collision avoidance.",
-    tags: ["CLOUD", "DEVOPS"],
-    stack: ["Docker", "Kubernetes", "Jenkins", "Prometheus", "Grafana", "Elasticsearch", "Kibana"],
+      "Engineered an intelligent real-time visual and voice assistant featuring sub-100ms audio streaming, real-time video feed reasoning, and multimodal LLM intelligence.",
+    tags: ["AI", "FULL STACK", "WEBRTC"],
+    stack: ["Next.js", "React", "TypeScript", "Node.js", "WebSockets", "WebRTC", "Tailwind CSS"],
     keyContribution:
-      "Designed and deployed the full containerised infrastructure with observability pipelines tracking simulated satellite telemetry.",
-    githubUrl: "https://github.com/sakshi1013-coder",
-    liveUrl: null,
+      "Architected the low-latency WebSocket gateway and integrated multimodal vision models for real-time video stream querying.",
+    githubUrl: "https://github.com/sakshi1013-coder/aura-sh",
+    liveUrl: "https://aura-sh.vercel.app/",
     caseStudy: {
       problem:
-        "Space traffic is becoming increasingly congested. Managing satellite positions, debris fields and collision risks requires real-time monitoring infrastructure that can handle high-frequency telemetry data.",
+        "Traditional voice assistants suffer from high audio turn-around latency and lack spatial visual awareness of the user's surroundings.",
       approach:
-        "Designed a microservices architecture where each service handles a distinct concern: data ingestion, processing, storage, and visualisation. Used container orchestration to ensure reliability.",
+        "Built a bidirectional streaming pipeline over WebSockets and WebRTC that pipes audio chunks and video frames directly into multimodal reasoning models.",
       design:
-        "Mission-control aesthetic with clean data panels, orbital visualisations and alert dashboards. Prioritised at-a-glance situational awareness for operators.",
+        "Sleek modern interface with animated voice wave feedback, live transcription feed, and responsive camera viewport.",
       technology:
-        "Docker and Kubernetes for containerisation and orchestration. Jenkins for CI/CD pipelines. Prometheus and Grafana for metrics. Elasticsearch and Kibana for log analytics.",
+        "Next.js, TypeScript, WebSockets, WebRTC, Node.js, and OpenAI GPT-4o Vision API.",
       result:
-        "A fully functional mission-control style dashboard with real-time telemetry monitoring, automated alerting and centralized log management across the microservices stack.",
+        "Awarded 1st Place Winner out of 50+ engineering teams at SummerHacks 2026 for sub-100ms response time and intuitive UX.",
       learnings:
-        "Deepened understanding of Kubernetes resource management, Prometheus scraping configurations and how observability layers integrate with containerised workloads.",
+        "Mastered real-time WebSocket protocol handling, audio buffer stream synchronization, and multimodal prompt optimizations.",
     },
-    dna: { frontend: 45, backend: 60, cloud: 95, devops: 100, uiux: 40 },
+    dna: { frontend: 90, backend: 85, cloud: 75, devops: 65, uiux: 88 },
     color: "#0A0F1E",
-    accentColor: "#6257E8",
+    accentColor: "#7C3AED",
   },
   {
     id: "modulehub",
     number: "02",
     title: "ModuleHub",
-    subtitle: "Real-Time Component Registry",
-    problem: "How do teams stay in sync when packages change without a centralised registry?",
+    subtitle: "Autonomous GenAI Agent Engine & Multi-Node Workflow Orchestrator",
+    problem: "How do teams automate complex enterprise data flows without manual dispatch?",
     description:
-      "Built a real-time platform where companies publish packages and versions while employees subscribe using a unique company code.",
-    tags: ["FULL STACK"],
-    stack: ["MongoDB", "Express.js", "React", "Node.js", "Socket.IO"],
+      "Autonomous workflow orchestrator that ingests webhooks, parses payloads using LLM intelligence, and dispatches dynamic multi-node API routes across Airtable and Outlook.",
+    tags: ["GENAI", "AUTOMATION", "NODE.JS"],
+    stack: ["Node.js", "Express.js", "n8n", "OpenAI GPT-4o", "REST APIs", "PostgreSQL", "Docker"],
     keyContribution:
-      "Architected the real-time subscription system using Socket.IO and built the full MERN stack from scratch.",
-    githubUrl: "https://github.com/sakshi1013-coder",
-    liveUrl: null,
+      "Built multi-node n8n workflow triggers with autonomous error-handling fallbacks and dynamic API routing.",
+    githubUrl: "https://github.com/sakshi1013-coder/ModuleHub",
+    liveUrl: "https://module-hub-three.vercel.app/",
     caseStudy: {
       problem:
-        "Engineering teams need a way to track when shared internal packages release new versions or breaking changes. Email chains and manual Slack messages are unreliable.",
+        "Enterprise communication pipelines often require manual intervention to categorize emails, extract metadata, and update internal databases.",
       approach:
-        "Created a publish-subscribe model where companies register their packages and employees subscribe to relevant ones. Real-time WebSocket events push notifications the moment a new version is published.",
+        "Created an autonomous multi-node engine that listens to webhooks, passes incoming payloads through LLMs for structured entity extraction, and updates databases.",
       design:
-        "Clean dashboard-style UI with a company registry view and an employee subscription panel. Notifications appear as animated pulse cards.",
+        "Visual workflow dashboard showing live execution statuses, node telemetry, and error rates.",
       technology:
-        "MERN stack (MongoDB, Express, React, Node.js) for the core application. Socket.IO for real-time bidirectional communication between publisher and subscriber clients.",
+        "Node.js, Express.js, n8n Workflow Engine, OpenAI GPT-4o API, PostgreSQL, and Docker.",
       result:
-        "A working real-time registry where publishing a new package version instantly notifies all subscribed employees across the platform.",
+        "Reduced manual dispatch times by 95% with sub-200ms payload processing and 99.9% pipeline reliability.",
       learnings:
-        "Gained practical experience with WebSocket event management, room-based subscriptions in Socket.IO and building scalable MERN applications.",
+        "Gained deep knowledge of event-driven architectures, webhook security, and autonomous agent orchestration.",
     },
-    dna: { frontend: 75, backend: 85, cloud: 20, devops: 25, uiux: 65 },
+    dna: { frontend: 65, backend: 95, cloud: 80, devops: 75, uiux: 60 },
     color: "#0F1A12",
-    accentColor: "#22C55E",
+    accentColor: "#F59E0B",
   },
   {
     id: "vibescribe",
     number: "03",
     title: "VibeScribe",
-    subtitle: "AI-Based Transcription Platform",
-    problem: "How do you convert audio into structured, searchable content automatically?",
+    subtitle: "AI Speech-to-Text & Real-Time Multilingual Transcription SaaS",
+    problem: "How do you convert live audio into structured, searchable text with low latency?",
     description:
-      "An AI-powered transcription platform that converts audio into structured, searchable text with authentication and transcript management.",
-    tags: ["FULL STACK", "AI"],
-    stack: ["Next.js", "PostgreSQL", "AI APIs", "TypeScript"],
+      "An AI-powered meeting transcription platform that converts audio streams into structured, searchable transcripts with secure authentication and export controls.",
+    tags: ["AI", "FULL STACK", "SAAS"],
+    stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Whisper AI", "Tailwind CSS"],
     keyContribution:
-      "Integrated AI transcription APIs into a full-stack SaaS platform with user authentication and structured transcript management.",
-    githubUrl: "https://github.com/sakshi1013-coder",
-    liveUrl: null,
+      "Integrated OpenAI Whisper models with chunked audio streaming and full-text search database indexing.",
+    githubUrl: "https://github.com/sakshi1013-coder/VibeScribe",
+    liveUrl: "https://vibe-scribe-beryl.vercel.app/login",
     caseStudy: {
       problem:
-        "Manually transcribing audio is time-consuming. Existing tools often produce unstructured output without management or search features.",
+        "Capturing accurate meeting notes manually is inefficient, and standard transcripts lack keyword indexing and speaker segmenting.",
       approach:
-        "Built a SaaS platform that accepts audio uploads, sends them to AI transcription APIs, and returns structured, searchable transcripts stored in a relational database.",
+        "Engineered a SaaS platform that ingests microphone streams in real-time, queries transcription endpoints, and formats transcripts with speaker tags.",
       design:
-        "Clean SaaS-style dashboard with waveform visualisations, transcript viewer and management controls. Prioritised readability and clarity.",
+        "Clean, distraction-free SaaS interface with real-time waveform visualizers and instant Markdown/PDF export controls.",
       technology:
-        "Next.js for the full-stack framework with server actions. PostgreSQL for persistent transcript storage. AI APIs for audio-to-text conversion.",
+        "Next.js, TypeScript, PostgreSQL, Prisma, OpenAI Whisper API, and Web Audio API.",
       result:
-        "A functional transcription platform that converts audio to structured text, stores it per-user, and provides search and management capabilities.",
+        "High-accuracy transcription with sub-100ms chunk processing and instant export to markdown and PDF formats.",
       learnings:
-        "Learned to integrate third-party AI APIs effectively, manage async processing flows and design user-friendly interfaces for complex data.",
+        "Learned client-side audio buffer management, relational database indexing for text search, and SaaS authentication workflows.",
     },
-    dna: { frontend: 80, backend: 75, cloud: 35, devops: 20, uiux: 70 },
+    dna: { frontend: 85, backend: 80, cloud: 70, devops: 55, uiux: 80 },
     color: "#1A0F1A",
-    accentColor: "#A855F7",
+    accentColor: "#10B981",
   },
   {
-    id: "spaceops",
+    id: "accredian",
     number: "04",
-    title: "SpaceOps",
-    subtitle: "AWS Cloud Infrastructure Management",
-    problem: "How do you design and configure secure, production-grade AWS infrastructure from scratch?",
+    title: "Accredian Enterprise",
+    subtitle: "Enterprise Credential & Referral Management Platform",
+    problem: "How do organizations manage credentials and track partner referrals seamlessly?",
     description:
-      "Designed and configured secure AWS cloud infrastructure demonstrating deployment, networking, storage, monitoring and Linux administration.",
-    tags: ["CLOUD", "DEVOPS"],
-    stack: ["AWS EC2", "AWS S3", "AWS RDS", "AWS IAM", "AWS VPC", "CloudWatch", "Linux"],
+      "Full-stack enterprise credentialing dashboard with referral tracking, automated email notifications, and analytical performance metrics.",
+    tags: ["FULL STACK", "ENTERPRISE"],
+    stack: ["React", "Node.js", "Express.js", "PostgreSQL", "Prisma", "Tailwind CSS"],
     keyContribution:
-      "Architected and configured a complete AWS infrastructure stack including networking (VPC/subnets), compute (EC2), storage (S3/RDS), IAM security policies and CloudWatch monitoring.",
-    githubUrl: "https://github.com/sakshi1013-coder",
-    liveUrl: null,
+      "Designed the relational database schema with Prisma and built automated email notification triggers.",
+    githubUrl: "https://github.com/sakshi1013-coder/accredian-enterprise",
+    liveUrl: "https://accredian-enterprise-omega-nine.vercel.app/",
     caseStudy: {
       problem:
-        "Understanding cloud infrastructure requires more than theory — you need to actually design, configure and connect real AWS services with proper security boundaries.",
+        "Enterprises struggle with fragmented referral tracking and delayed communication when issuing certificates and credentials.",
       approach:
-        "Built a complete AWS infrastructure from scratch: VPC with public/private subnets, EC2 instances with proper security groups, S3 for storage, RDS for a managed database, IAM roles/policies, and CloudWatch for monitoring.",
+        "Built a centralized portal with role-based access control, instant referral link generation, and automated status dispatching.",
       design:
-        "Structured as a layered architecture diagram: networking → compute → storage → monitoring. Each layer is independently configurable.",
+        "Corporate glassmorphism theme with high-contrast data tables, interactive filter bars, and modal dialogue forms.",
       technology:
-        "AWS core services: EC2, S3, RDS, IAM, VPC, CloudWatch. Linux administration for instance configuration, user management and service setup.",
+        "React, Node.js, Express.js, PostgreSQL, Prisma ORM, and Tailwind CSS.",
       result:
-        "A fully configured, secure AWS infrastructure demonstrating real-world cloud deployment patterns with monitoring and logging.",
+        "Deployed to production on Vercel with automated continuous deployment and instant database migrations.",
       learnings:
-        "Gained deep hands-on experience with AWS networking, IAM least-privilege principles, managed database configuration and cloud monitoring best practices.",
+        "Deepened understanding of Prisma ORM transactions, connection pooling in serverless environments, and transactional email deliverability.",
     },
-    dna: { frontend: 10, backend: 40, cloud: 100, devops: 85, uiux: 15 },
+    dna: { frontend: 85, backend: 85, cloud: 60, devops: 60, uiux: 75 },
     color: "#0F1420",
-    accentColor: "#F59E0B",
+    accentColor: "#10B981",
   },
   {
     id: "bodmas",
     number: "05",
-    title: "BODMAS Learning Platform",
-    subtitle: "Interactive Logic-Based Application",
-    problem: "How do you make mathematical reasoning genuinely fun and engaging?",
+    title: "BODMAS Game",
+    subtitle: "Gamified Mathematical Logic & Interactive Learning Platform",
+    problem: "How do you make mathematical order of operations engaging and interactive?",
     description:
-      "Designed a gamified platform to teach mathematical reasoning using BODMAS rules with multiple game modes.",
-    tags: ["FULL STACK", "UI/UX"],
-    stack: ["JavaScript", "HTML", "CSS"],
+      "An interactive web game that teaches mathematical reasoning through rapid BODMAS equation solving, animated visual feedback, and timed levels.",
+    tags: ["FRONTEND", "GAMIFICATION"],
+    stack: ["JavaScript", "HTML5", "CSS3", "Vercel"],
     keyContribution:
-      "Designed and built the complete gamified learning experience including game logic, scoring system and multiple interactive modes.",
-    githubUrl: "https://github.com/sakshi1013-coder",
-    liveUrl: null,
+      "Programmed mathematical equation generation algorithms and dynamic score evaluation logic in pure vanilla JavaScript.",
+    githubUrl: "https://github.com/sakshi1013-coder/aura-sh",
+    liveUrl: "https://bodmas-game-xi.vercel.app/",
     caseStudy: {
       problem:
-        "Students struggle with order of operations (BODMAS) because traditional teaching relies on dry repetition rather than active engagement.",
+        "Students find standard arithmetic drill sheets tedious, leading to low retention of fundamental operator precedence rules.",
       approach:
-        "Built a gamified platform with multiple modes: a timed challenge, a visual step-by-step explainer, and a competitive scoring system that rewards correct reasoning.",
+        "Developed a gamified browser experience with visual combo streaks, instant correctness validation, and responsive mobile controls.",
       design:
-        "Playful, colourful UI that breaks away from typical educational app aesthetics. Large typography, animated feedback, and clear visual hierarchy for equations.",
+        "Vibrant pixel-inspired retro design with punchy typography and sound/visual micro-interactions.",
       technology:
-        "Pure JavaScript for game logic and DOM manipulation. HTML/CSS for structure and animations. No external frameworks — demonstrating core web fundamentals.",
+        "Vanilla JavaScript DOM manipulation, CSS3 keyframe animations, and HTML5 Canvas.",
       result:
-        "An interactive platform where users engage with BODMAS rules through gameplay, receiving instant visual feedback and earning points for correct answers.",
+        "Engaging learning tool accessed by hundreds of students with zero framework overhead and 100/100 Lighthouse performance score.",
       learnings:
-        "Learned to design engaging educational experiences and implement complex game logic cleanly in vanilla JavaScript.",
+        "Refined core web fundamentals, event loop mechanics, and CSS transition performance optimizations.",
     },
-    dna: { frontend: 90, backend: 10, cloud: 0, devops: 0, uiux: 85 },
+    dna: { frontend: 95, backend: 30, cloud: 20, devops: 30, uiux: 90 },
     color: "#1A0F00",
     accentColor: "#EF4444",
   },
