@@ -116,9 +116,11 @@ export default function AchievementsSection() {
 
       {/* Main Dramatic 1st Place Hackathon Card */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+        initial={{ opacity: 0, y: 44, scale: 0.97 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        whileHover={{ y: -4 }}
         style={{
           background: 'linear-gradient(145deg, #FFFBEB 0%, #FEF3C7 60%, #FFF7ED 100%)',
           border: '1.5px solid rgba(245, 158, 11, 0.35)',
@@ -268,9 +270,11 @@ export default function AchievementsSection() {
             return (
               <motion.div
                 key={m.title}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.15 + idx * 0.08 }}
+                initial={{ opacity: 0, y: 35, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: 0.08 * (idx % 3), ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -6, scale: 1.01 }}
                 style={{
                   background: 'rgba(255, 255, 255, 0.92)',
                   border: `1px solid ${m.color}30`,
@@ -368,9 +372,14 @@ export default function AchievementsSection() {
             gap: '1.25rem',
           }}
         >
-          {education.map((edu) => (
-            <div
+          {education.map((edu, eduIdx) => (
+            <motion.div
               key={edu.institution}
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.08 * eduIdx, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4 }}
               style={{
                 background: 'rgba(255, 255, 255, 0.92)',
                 border: '1px solid #E2E8F0',
@@ -394,7 +403,7 @@ export default function AchievementsSection() {
               <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.84rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>
                 {edu.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

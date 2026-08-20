@@ -580,11 +580,16 @@ export default function AboutSection() {
             gap: '1.25rem',
           }}
         >
-          {pillars.map((pillar) => {
+          {pillars.map((pillar, pIdx) => {
             const Icon = pillar.Icon;
             return (
-              <div
+              <motion.div
                 key={pillar.title}
+                initial={{ opacity: 0, y: 32, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: 0.08 * pIdx, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -6, scale: 1.01 }}
                 style={{
                   background: 'rgba(255, 255, 255, 0.92)',
                   border: '1px solid rgba(0, 0, 0, 0.07)',
@@ -634,7 +639,7 @@ export default function AboutSection() {
                 >
                   {pillar.desc}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>

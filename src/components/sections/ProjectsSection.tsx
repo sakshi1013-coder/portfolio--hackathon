@@ -457,10 +457,11 @@ function OtherProjectsFullGrid() {
       {otherProjects.map((op, oIdx) => (
         <motion.div
           key={op.id}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.04 * oIdx }}
-          whileHover={{ y: -4 }}
+          initial={{ opacity: 0, y: 36, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.05 * (oIdx % 3), ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ y: -6, scale: 1.01 }}
           style={{
             background: '#FFFFFF',
             border: `1.5px solid ${op.color}25`,
