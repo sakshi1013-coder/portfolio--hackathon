@@ -44,7 +44,7 @@ const MailIcon = ({ c, s = 22 }: { c: string; s?: number }) => (
   </svg>
 );
 
-/* ─── 5 Planet Definitions Across 3 Concentric Rings ─────────────────────── */
+/* ─── 5 Planet Definitions Across 5 Distinct Concentric Rings ────────────── */
 export type PlanetDef = {
   id: string;
   num: string;
@@ -54,7 +54,7 @@ export type PlanetDef = {
   href: string;
   color: string;
   bg: string;
-  ringIndex: 0 | 1 | 2; // 0 = Inner, 1 = Middle, 2 = Outer
+  ringIndex: 0 | 1 | 2 | 3 | 4; // Distinct dedicated orbit ring for each planet
   initialAngle: number;
   Icon: (p: { c: string; s?: number }) => React.ReactElement;
 };
@@ -69,8 +69,8 @@ export const PLANETS: PlanetDef[] = [
     href: '/skills',
     color: '#10B981',
     bg: 'linear-gradient(145deg, rgba(240, 253, 244, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%)',
-    ringIndex: 0, // Inner Ring
-    initialAngle: -75,
+    ringIndex: 0, // Ring 0 (Inner)
+    initialAngle: -70,
     Icon: LayersIcon,
   },
   {
@@ -82,8 +82,8 @@ export const PLANETS: PlanetDef[] = [
     href: '/contact',
     color: '#6366F1',
     bg: 'linear-gradient(145deg, rgba(238, 242, 255, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%)',
-    ringIndex: 0, // Inner Ring
-    initialAngle: 105,
+    ringIndex: 1, // Ring 1
+    initialAngle: 110,
     Icon: MailIcon,
   },
   {
@@ -95,7 +95,7 @@ export const PLANETS: PlanetDef[] = [
     href: '/projects',
     color: '#EC4899',
     bg: 'linear-gradient(145deg, rgba(253, 242, 248, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%)',
-    ringIndex: 1, // Middle Ring
+    ringIndex: 2, // Ring 2 (Middle)
     initialAngle: -25,
     Icon: FolderCodeIcon,
   },
@@ -108,7 +108,7 @@ export const PLANETS: PlanetDef[] = [
     href: '/experience',
     color: '#F59E0B',
     bg: 'linear-gradient(145deg, rgba(255, 251, 235, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%)',
-    ringIndex: 1, // Middle Ring
+    ringIndex: 3, // Ring 3
     initialAngle: 155,
     Icon: BriefcaseIcon,
   },
@@ -121,7 +121,7 @@ export const PLANETS: PlanetDef[] = [
     href: '/certificates',
     color: '#0284C7',
     bg: 'linear-gradient(145deg, rgba(240, 249, 255, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%)',
-    ringIndex: 2, // Outer Ring
+    ringIndex: 4, // Ring 4 (Outer)
     initialAngle: 55,
     Icon: AwardIcon,
   },
@@ -602,8 +602,8 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
   const [showIntro, setShowIntro] = useState(!initialSectionId);
   const [dims, setDims] = useState({ w: 1440, h: 900 });
 
-  // Planetary Rotation Angles across 3 Distinct Concentric Rings
-  const [ringAngles, setRingAngles] = useState<[number, number, number]>([0, 0, 0]);
+  // Planetary Rotation Angles across 5 Distinct Concentric Rings (one per planet)
+  const [ringAngles, setRingAngles] = useState<number[]>([0, 0, 0, 0, 0]);
   const isHoveredRef = useRef(false);
   const [isPhotoHovered, setIsPhotoHovered] = useState(false);
 
@@ -654,7 +654,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
     return () => window.removeEventListener('mousemove', handleMouse);
   }, [mouseXMv, mouseYMv]);
 
-  // Continuous multi-speed celestial revolution animation loop
+  // Continuous multi-speed celestial revolution animation loop across 5 orbits
   useEffect(() => {
     let animFrameId: number;
     let lastTime = performance.now();
@@ -664,10 +664,12 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
       lastTime = time;
 
       if (!isHoveredRef.current && !activeSectionId && !swipeState.isActive) {
-        setRingAngles(([r0, r1, r2]) => [
-          (r0 + delta * 4.8) % 360,  // Ring 0 (Inner): ~4.8 deg/sec
-          (r1 + delta * 3.2) % 360,  // Ring 1 (Middle): ~3.2 deg/sec
-          (r2 + delta * 2.0) % 360,  // Ring 2 (Outer): ~2.0 deg/sec
+        setRingAngles(([r0, r1, r2, r3, r4]) => [
+          (r0 + delta * 5.0) % 360,  // Ring 0: ~5.0 deg/sec
+          (r1 + delta * 4.1) % 360,  // Ring 1: ~4.1 deg/sec
+          (r2 + delta * 3.2) % 360,  // Ring 2: ~3.2 deg/sec
+          (r3 + delta * 2.4) % 360,  // Ring 3: ~2.4 deg/sec
+          (r4 + delta * 1.6) % 360,  // Ring 4: ~1.6 deg/sec
         ]);
       }
 
@@ -729,19 +731,27 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
   const maxAvailableX = (dims.w * 0.5) - 40;
   const maxAvailableY = (dims.h * 0.5) - 35;
 
-  const r0_x = Math.max(260, Math.min(maxAvailableX * 0.55, 330));
-  const r0_y = Math.max(180, Math.min(maxAvailableY * 0.58, 235));
+  const r0_x = Math.max(200, Math.min(maxAvailableX * 0.38, 255));
+  const r0_y = Math.max(135, Math.min(maxAvailableY * 0.40, 180));
 
-  const r1_x = Math.max(360, Math.min(maxAvailableX * 0.77, 450));
-  const r1_y = Math.max(245, Math.min(maxAvailableY * 0.78, 305));
+  const r1_x = Math.max(265, Math.min(maxAvailableX * 0.52, 335));
+  const r1_y = Math.max(180, Math.min(maxAvailableY * 0.54, 235));
 
-  const r2_x = Math.max(460, Math.min(maxAvailableX * 0.96, 565));
-  const r2_y = Math.max(305, Math.min(maxAvailableY * 0.96, 375));
+  const r2_x = Math.max(335, Math.min(maxAvailableX * 0.67, 415));
+  const r2_y = Math.max(225, Math.min(maxAvailableY * 0.68, 290));
+
+  const r3_x = Math.max(405, Math.min(maxAvailableX * 0.81, 495));
+  const r3_y = Math.max(270, Math.min(maxAvailableY * 0.82, 345));
+
+  const r4_x = Math.max(475, Math.min(maxAvailableX * 0.95, 575));
+  const r4_y = Math.max(315, Math.min(maxAvailableY * 0.96, 400));
 
   const ringRadii: Array<{ rx: number; ry: number }> = [
     { rx: r0_x, ry: r0_y },
     { rx: r1_x, ry: r1_y },
     { rx: r2_x, ry: r2_y },
+    { rx: r3_x, ry: r3_y },
+    { rx: r4_x, ry: r4_y },
   ];
 
   // Dynamically derive unique ring indices directly from PLANETS configuration
@@ -836,24 +846,39 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               style={{ overflow: 'visible' }}
             >
               <defs>
+                {/* Ring 0 — Skills (#10B981 Emerald) */}
                 <linearGradient id="ringGrad0" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#10B981" stopOpacity="0.32" />
-                  <stop offset="50%" stopColor="#6366F1" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.32" />
+                  <stop offset="0%" stopColor="#10B981" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="#34D399" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#10B981" stopOpacity="0.4" />
                 </linearGradient>
+                {/* Ring 1 — Contact (#6366F1 Indigo) */}
                 <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#EC4899" stopOpacity="0.3" />
-                  <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.22" />
-                  <stop offset="100%" stopColor="#EC4899" stopOpacity="0.3" />
+                  <stop offset="0%" stopColor="#6366F1" stopOpacity="0.38" />
+                  <stop offset="50%" stopColor="#818CF8" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#6366F1" stopOpacity="0.38" />
                 </linearGradient>
+                {/* Ring 2 — Projects (#EC4899 Pink) */}
                 <linearGradient id="ringGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.3" />
-                  <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.3" />
+                  <stop offset="0%" stopColor="#EC4899" stopOpacity="0.38" />
+                  <stop offset="50%" stopColor="#F472B6" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#EC4899" stopOpacity="0.38" />
+                </linearGradient>
+                {/* Ring 3 — Experience (#F59E0B Amber) */}
+                <linearGradient id="ringGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.38" />
+                  <stop offset="50%" stopColor="#FBBF24" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.38" />
+                </linearGradient>
+                {/* Ring 4 — Certificates (#0284C7 Sky) */}
+                <linearGradient id="ringGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.38" />
+                  <stop offset="50%" stopColor="#38BDF8" stopOpacity="0.22" />
+                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.38" />
                 </linearGradient>
               </defs>
 
-              {/* Dynamically Render Exactly One Orbit Ring Track per Distinct Radius in Use */}
+              {/* Dynamically Render Exactly One Orbit Ring Track per Planet Radius */}
               {uniqueRingIndices.map((ringIdx) => {
                 const ring = ringRadii[ringIdx];
                 if (!ring) return null;
@@ -865,10 +890,10 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                     rx={ring.rx}
                     ry={ring.ry}
                     fill="none"
-                    stroke={`url(#ringGrad${ringIdx % 3})`}
-                    strokeWidth={1.2}
-                    strokeDasharray={`${4 + ringIdx} ${6 + ringIdx}`}
-                    opacity={Math.max(0.45, 0.85 - ringIdx * 0.1)}
+                    stroke={`url(#ringGrad${ringIdx})`}
+                    strokeWidth={1.3}
+                    strokeDasharray={`${4 + ringIdx} ${5 + ringIdx}`}
+                    opacity={0.8}
                   />
                 );
               })}
