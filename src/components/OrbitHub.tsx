@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from
 import SectionContainer, { SECTIONS_META } from './SectionContainer';
 import PixelUniverseBackground from './PixelUniverseBackground';
 import SwipeTransitionOverlay from './SwipeTransitionOverlay';
+import HandwritingIntro from './HandwritingIntro';
 
 /* ─── Clean Modern Vector Icons ─────────────────────────────────────────── */
 const LayersIcon = ({ c, s = 22 }: { c: string; s?: number }) => (
@@ -127,139 +128,9 @@ export const PLANETS: PlanetDef[] = [
   },
 ];
 
-/* ─── Handwriting Signature Intro Overlay ────────────────────────────────── */
+/* ─── Real Handwriting SVG Signature Intro Overlay ───────────────────────── */
 function SignatureIntroOverlay({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
-  const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
-
-  useEffect(() => {
-    const startTime = performance.now();
-    const duration = 1400;
-    let frameId: number;
-
-    const animate = (time: number) => {
-      const elapsed = time - startTime;
-      const rawProgress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - rawProgress, 3);
-      setProgress(eased * 100);
-
-      if (rawProgress < 1) {
-        frameId = requestAnimationFrame(animate);
-      } else {
-        setTimeout(() => {
-          if (onCompleteRef.current) {
-            onCompleteRef.current();
-          }
-        }, 350);
-      }
-    };
-
-    frameId = requestAnimationFrame(animate);
-
-    const fallbackTimer = setTimeout(() => {
-      setProgress(100);
-      if (onCompleteRef.current) {
-        onCompleteRef.current();
-      }
-    }, 2200);
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      clearTimeout(fallbackTimer);
-    };
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
-      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 99999,
-        background: '#FAF9FF',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'radial-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-          opacity: 0.8,
-        }}
-      />
-
-      <div style={{ position: 'relative', display: 'inline-block', padding: '10px 45px 10px 20px' }}>
-        <div
-          style={{
-            position: 'relative',
-            overflow: 'visible',
-            clipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
-            WebkitClipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
-            transition: 'clip-path 0.05s linear',
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: 'var(--font-fleur-de-leah), "Fleur De Leah", cursive',
-              fontSize: 'clamp(3.8rem, 8vw, 6.4rem)',
-              fontWeight: 400,
-              color: '#0F172A',
-              letterSpacing: '0.02em',
-              lineHeight: 1.25,
-              whiteSpace: 'nowrap',
-              margin: 0,
-              paddingRight: '45px',
-              filter: 'drop-shadow(0 4px 20px rgba(124, 58, 237, 0.15))',
-            }}
-          >
-            Sakshi Shingole
-          </h1>
-        </div>
-
-        {progress > 3 && progress < 97 && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '40%',
-              left: `${progress}%`,
-              transform: 'translate(-50%, -50%)',
-              pointerEvents: 'none',
-            }}
-          >
-            <span style={{ color: '#7C3AED', fontSize: '1.4rem', filter: 'drop-shadow(0 0 10px rgba(124, 58, 237, 0.4))' }}>
-              ✦
-            </span>
-          </div>
-        )}
-      </div>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: progress > 75 ? 1 : 0, y: progress > 75 ? 0 : 10 }}
-        transition={{ duration: 0.4 }}
-        style={{
-          fontFamily: 'var(--font-space-grotesk)',
-          fontWeight: 700,
-          fontSize: 'clamp(0.66rem, 0.78vw, 0.82rem)',
-          letterSpacing: '0.24em',
-          color: '#64748B',
-          marginTop: 18,
-          textTransform: 'uppercase',
-        }}
-      >
-        PORTFOLIO
-      </motion.p>
-    </motion.div>
-  );
+  return <HandwritingIntro onComplete={onComplete} />;
 }
 
 /* ─── Spacious, Clear, Highly Legible Planet Node (~74–82px) with Pop-Up Card ── */
