@@ -514,13 +514,9 @@ export default function CertificatesSection() {
     scrollPosRef.current = target;
   };
 
-  // Repeated cards for infinite seamless loop when in carousel mode
+  // Distinct certificate items without duplication
   const carouselDisplayItems = useMemo(() => {
-    if (filteredCerts.length === 0) return [];
-    if (filteredCerts.length <= 4) {
-      return [...filteredCerts, ...filteredCerts, ...filteredCerts];
-    }
-    return [...filteredCerts, ...filteredCerts];
+    return filteredCerts;
   }, [filteredCerts]);
 
   return (

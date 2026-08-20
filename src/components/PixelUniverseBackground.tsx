@@ -684,117 +684,38 @@ export default function PixelUniverseBackground() {
                     <p
                       style={{
                         fontFamily: 'var(--font-inter)',
-                        fontSize: '0.82rem',
-                        color: '#334155',
-                        lineHeight: 1.5,
-                        margin: '0 0 12px 0',
+                        fontSize: '0.86rem',
+                        color: '#1E293B',
+                        lineHeight: 1.55,
+                        margin: '0 0 10px 0',
                       }}
                     >
                       {sprite.fact}
                     </p>
 
-                    {/* Related Project Section */}
+                    {/* Fun Easter Egg footer tag */}
                     <div
                       style={{
-                        background: `${sprite.color}0D`,
-                        border: `1px solid ${sprite.color}30`,
-                        borderRadius: 12,
-                        padding: '10px 12px',
-                        display: 'flex',
-                        flexDirection: 'column',
+                        display: 'inline-flex',
+                        alignItems: 'center',
                         gap: 6,
+                        background: `${sprite.color}15`,
+                        borderRadius: 8,
+                        padding: '4px 10px',
+                        width: 'fit-content',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-space-grotesk)',
-                            fontSize: '0.62rem',
-                            fontWeight: 800,
-                            color: sprite.color,
-                            letterSpacing: '0.06em',
-                            textTransform: 'uppercase',
-                          }}
-                        >
-                          {sprite.project.badge}
-                        </span>
-                      </div>
-
-                      <h4
+                      <span style={{ fontSize: '0.75rem' }}>✨</span>
+                      <span
                         style={{
                           fontFamily: 'var(--font-space-grotesk)',
-                          fontSize: '0.88rem',
-                          fontWeight: 800,
-                          color: '#0F172A',
-                          margin: 0,
-                          lineHeight: 1.2,
+                          fontSize: '0.68rem',
+                          fontWeight: 700,
+                          color: sprite.color,
                         }}
                       >
-                        {sprite.project.title}
-                      </h4>
-
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-inter)',
-                          fontSize: '0.74rem',
-                          color: '#64748B',
-                          lineHeight: 1.4,
-                          margin: 0,
-                        }}
-                      >
-                        {sprite.project.tagline}
-                      </p>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6, flexWrap: 'wrap' }}>
-                        {sprite.project.liveUrl && (
-                          <a
-                            href={sprite.project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: 4,
-                              fontFamily: 'var(--font-space-grotesk)',
-                              fontSize: '0.72rem',
-                              fontWeight: 800,
-                              color: '#FFFFFF',
-                              background: sprite.color,
-                              padding: '4px 10px',
-                              borderRadius: 6,
-                              textDecoration: 'none',
-                              boxShadow: `0 2px 8px ${sprite.color}40`,
-                            }}
-                          >
-                            <span>Live App</span>
-                            <span style={{ fontSize: '0.75rem' }}>↗</span>
-                          </a>
-                        )}
-
-                        {sprite.project.githubUrl && (
-                          <a
-                            href={sprite.project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: 4,
-                              fontFamily: 'var(--font-space-grotesk)',
-                              fontSize: '0.72rem',
-                              fontWeight: 700,
-                              color: '#0F172A',
-                              background: 'rgba(0, 0, 0, 0.05)',
-                              padding: '4px 8px',
-                              borderRadius: 6,
-                              textDecoration: 'none',
-                            }}
-                          >
-                            <span>GitHub</span>
-                            <span style={{ fontSize: '0.75rem' }}>→</span>
-                          </a>
-                        )}
-                      </div>
+                        Interactive Tech Trivia
+                      </span>
                     </div>
                   </motion.div>
                 )}
