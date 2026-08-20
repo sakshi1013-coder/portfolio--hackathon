@@ -112,24 +112,24 @@ const TECH_SPRITES: TechSprite[] = [
   {
     id: 'spark',
     name: 'Inclusion Spark',
-    category: 'SPEECH & TRANSLATION AI',
-    color: '#10B981',
+    category: 'ACCESSIBLE AI TECH',
+    color: '#EC4899',
     bottom: '12%',
     right: '8%',
     funIcon: '⚡',
-    fact: 'Over 90% of global currency exists only as electronic numbers on servers — only about 8% of all money exists as physical paper or coins!',
+    fact: 'Over 1 billion people worldwide experience some form of disability. Building accessible, inclusive software creates a more empowering web for everyone!',
     project: {
-      title: 'VibeScribe — AI Speech Transcriber',
-      tagline: 'Low-latency real-time multilingual audio transcription & searchable note synchronization SaaS.',
-      badge: 'SPEECH AI SAAS',
-      liveUrl: 'https://vibe-scribe-beryl.vercel.app/login',
-      githubUrl: 'https://github.com/sakshi1013-coder/VibeScribe',
+      title: 'Samavesh — Inclusive Learning',
+      tagline: 'Empowering neurodiverse learners and speech/hearing impaired students with real-time sign language synthesis & adaptive UI.',
+      badge: 'ACCESSIBILITY PLATFORM',
+      liveUrl: 'https://samavesh-frontend.vercel.app/',
+      githubUrl: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
     },
     svgRender: () => (
       <svg width="26" height="26" viewBox="0 0 8 8" fill="none" style={{ imageRendering: 'pixelated' }}>
-        <rect x="3" y="1" width="2" height="6" fill="#10B981" />
-        <rect x="1" y="3" width="6" height="2" fill="#10B981" />
-        <rect x="3" y="3" width="2" height="2" fill="#A7F3D0" />
+        <rect x="3" y="1" width="2" height="6" fill="#EC4899" />
+        <rect x="1" y="3" width="6" height="2" fill="#EC4899" />
+        <rect x="3" y="3" width="2" height="2" fill="#FCE7F3" />
       </svg>
     ),
   },

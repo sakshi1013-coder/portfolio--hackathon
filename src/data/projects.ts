@@ -192,4 +192,36 @@ export const projects: Project[] = [
     color: "#1A0F00",
     accentColor: "#EF4444",
   },
+  {
+    id: "samavesh",
+    number: "06",
+    title: "Samavesh",
+    subtitle: "AI-Powered Inclusive Learning & Accessibility Engine",
+    problem: "How do you democratize digital education for neurodiverse and hearing/speech impaired students?",
+    description:
+      "AI-powered inclusive learning engine featuring real-time sign language gesture synthesis, text-to-speech conversion, and adaptive WCAG AAA layouts.",
+    tags: ["AI", "ACCESSIBILITY", "FULL STACK"],
+    stack: ["Next.js", "React", "TypeScript", "Node.js", "MongoDB", "Express.js"],
+    keyContribution:
+      "Engineered real-time sign language gesture synthesis and adaptive high-contrast accessibility interface.",
+    githubUrl: "https://github.com/sakshi1013-coder/Samavesh-Frontend",
+    liveUrl: "https://samavesh-frontend.vercel.app/",
+    caseStudy: {
+      problem:
+        "Traditional educational platforms lack adaptive interfaces and real-time assistive translation for diverse learners.",
+      approach:
+        "Built a WCAG AAA compliant platform with AI-assisted sign language gesture recognition and real-time speech captioning.",
+      design:
+        "High-contrast, accessible user interface with large interactive touch targets and customizable color profiles.",
+      technology:
+        "Next.js, React, Web Speech API, Node.js, Express, and MongoDB.",
+      result:
+        "Deployed to production on Vercel, providing accessible digital education to neurodiverse students.",
+      learnings:
+        "Deepened knowledge in web accessibility (a11y), assistive speech APIs, and inclusive design principles.",
+    },
+    dna: { frontend: 90, backend: 75, cloud: 60, devops: 50, uiux: 95 },
+    color: "#1A0F1A",
+    accentColor: "#EC4899",
+  },
 ];

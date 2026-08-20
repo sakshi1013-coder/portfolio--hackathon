@@ -71,6 +71,7 @@ export interface ModalItem {
   tags: string[];
   color: string;
   imageBanner: string;
+  galleryImages?: string[];
   linkedinUrl?: string;
   githubUrl?: string;
   credentialId?: string;
@@ -113,14 +114,19 @@ const mainAchievements: ModalItem[] = [
     companyName: 'Ideaframe Hackathon',
     badge: 'MENTOR · 20+ TEAMS',
     title: 'Technical Mentor & Guide — Ideaframe 2026',
-    subtitle: 'Hackathon Technical Guide & Evaluation Judge',
-    date: 'Jan 2026 – Feb 2026',
+    subtitle: 'School of Future Tech · ITM Skills University',
+    date: '13 August 2026',
     description: 'Mentored 20+ teams at Ideaframe 2026, guiding participants through ideation, technical architecture, and execution — helping first-time builders turn early concepts into working prototypes.',
     longDescription: 'Mentored 20+ student engineering teams at Ideaframe 2026, guiding participants through system architecture design, full-stack web debugging (React, Next.js, Node.js REST APIs), database modeling, and evaluating hackathon submissions based on code quality, technical execution, and innovation.',
-    tags: ['Mentorship', 'Technical Guidance', 'Ideation', 'System Architecture', 'Hackathon Judging'],
+    tags: ['Mentorship', 'Technical Guidance', 'Ideation', 'System Architecture', 'Hackathon Leadership', 'ITM Skills University'],
     color: '#7C3AED',
-    imageBanner: '/events/mtw2026_sakshi_plaid.png',
-    linkedinUrl: 'https://www.linkedin.com/posts/sakshi-shingole-484913315_mumbaitechweek-mtw2026-ai-activity-7467503170164809729-eRDe',
+    imageBanner: '/events/ideaframe_mentoring.jpg',
+    galleryImages: [
+      '/events/ideaframe_mentoring.jpg',
+      '/events/ideaframe_goodies.jpg',
+      '/events/ideaframe_group.jpg',
+    ],
+    linkedinUrl: 'https://lnkd.in/p/dQu4F8Q8',
   },
 ];
 
@@ -373,10 +379,43 @@ const detailedCerts: ModalItem[] = [
     imageBanner: '/certificates/bharatxr.png',
     linkedinUrl: LINKEDIN_CERT_OVERLAY,
   },
+  {
+    id: 'cert-ideaframe-mentorship',
+    type: 'certificate',
+    companyId: 'hackathon',
+    companyName: 'ITM Skills University',
+    badge: 'MENTORSHIP CERTIFICATE',
+    title: 'Certificate of Mentorship — IdeaFrame 2026',
+    subtitle: 'Hackathon Club · School of Future Tech',
+    date: 'Issued 13 August 2026',
+    description: 'Official Certificate of Mentorship awarded for active participation, mentorship, guidance, problem-solving, collaboration, and hackathon leadership at IdeaFrame 2026.',
+    longDescription: 'Official Certificate of Mentorship presented to Sakshi Shingole by Dean Dr. Kalpana Kumaran and HOD Dr. Aarti Pardeshi for mentoring and guiding 20+ participant teams throughout the IdeaFrame 2026 Hackathon at ITM Skills University.',
+    tags: ['Mentorship Certificate', 'IdeaFrame 2026', 'ITM Skills University', 'Hackathon Leadership'],
+    color: '#F59E0B',
+    imageBanner: '/certificates/ideaframe_mentorship_cert.jpg',
+    linkedinUrl: 'https://lnkd.in/p/dQu4F8Q8',
+  },
+  {
+    id: 'cert-ideaframe-letter-appreciation',
+    type: 'certificate',
+    companyId: 'hackathon',
+    companyName: 'School of Future Tech',
+    badge: 'LETTER OF APPRECIATION',
+    title: 'Letter of Appreciation — IdeaFrame 2026',
+    subtitle: 'Dean & Head of BTech CSE Recognition',
+    date: 'Issued 13 August 2026',
+    description: 'Official Letter of Appreciation from Dean Dr. Kalpana Kumaran and HOD Dr. Aarti Pardeshi for valuable contributions as Mentor to participants of IdeaFrame 2026.',
+    longDescription: 'Official Letter of Appreciation presented to Sakshi Shingole recognizing dedication, technical guidance, and genuine effort in mentoring hackathon participants and fostering peer learning at ITM Skills University.',
+    tags: ['Letter of Appreciation', 'IdeaFrame 2026', 'Dean Recognition', 'Student Leadership'],
+    color: '#7C3AED',
+    imageBanner: '/certificates/ideaframe_letter_of_appreciation.jpg',
+    linkedinUrl: 'https://lnkd.in/p/dQu4F8Q8',
+  },
 ];
 
 export default function CertificatesSection() {
   const [selectedModalItem, setSelectedModalItem] = useState<ModalItem | null>(null);
+  const [activeGalleryIdx, setActiveGalleryIdx] = useState<number>(0);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -386,9 +425,10 @@ export default function CertificatesSection() {
   const animationFrameRef = useRef<number | null>(null);
   const scrollPosRef = useRef<number>(0);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll and reset gallery index when modal is open
   useEffect(() => {
     if (selectedModalItem) {
+      setActiveGalleryIdx(0);
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -1548,7 +1588,7 @@ export default function CertificatesSection() {
                 zIndex: 10,
               }}
             >
-              {/* Image Banner Header */}
+              {/* Image Banner Header with Multi-Photo Gallery Support */}
               <div
                 style={{
                   position: 'relative',
@@ -1559,7 +1599,11 @@ export default function CertificatesSection() {
                 }}
               >
                 <img
-                  src={selectedModalItem.imageBanner}
+                  src={
+                    selectedModalItem.galleryImages && selectedModalItem.galleryImages.length > 0
+                      ? selectedModalItem.galleryImages[activeGalleryIdx % selectedModalItem.galleryImages.length]
+                      : selectedModalItem.imageBanner
+                  }
                   alt={selectedModalItem.title}
                   style={{
                     width: '100%',
@@ -1568,6 +1612,95 @@ export default function CertificatesSection() {
                     background: '#0F172A',
                   }}
                 />
+
+                {/* Left/Right Gallery Navigation if multiple photos */}
+                {selectedModalItem.galleryImages && selectedModalItem.galleryImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveGalleryIdx((cur) =>
+                          cur === 0 ? selectedModalItem.galleryImages!.length - 1 : cur - 1
+                        );
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 14,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: 36,
+                        height: 36,
+                        borderRadius: '50%',
+                        background: 'rgba(0, 0, 0, 0.65)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        fontSize: '1.1rem',
+                        fontWeight: 900,
+                        backdropFilter: 'blur(8px)',
+                        zIndex: 2,
+                      }}
+                      title="Previous Photo"
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveGalleryIdx((cur) =>
+                          (cur + 1) % selectedModalItem.galleryImages!.length
+                        );
+                      }}
+                      style={{
+                        position: 'absolute',
+                        right: 60,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: 36,
+                        height: 36,
+                        borderRadius: '50%',
+                        background: 'rgba(0, 0, 0, 0.65)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        fontSize: '1.1rem',
+                        fontWeight: 900,
+                        backdropFilter: 'blur(8px)',
+                        zIndex: 2,
+                      }}
+                      title="Next Photo"
+                    >
+                      →
+                    </button>
+
+                    {/* Photo Counter Badge */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 12,
+                        left: 14,
+                        background: 'rgba(0,0,0,0.72)',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: 100,
+                        padding: '3px 12px',
+                        color: '#FFFFFF',
+                        fontFamily: 'var(--font-space-grotesk)',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        backdropFilter: 'blur(8px)',
+                        zIndex: 2,
+                      }}
+                    >
+                      Photo {activeGalleryIdx + 1} / {selectedModalItem.galleryImages.length}
+                    </div>
+                  </>
+                )}
 
                 {/* Close Button */}
                 <button
@@ -1590,11 +1723,53 @@ export default function CertificatesSection() {
                     fontWeight: 700,
                     backdropFilter: 'blur(8px)',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    zIndex: 3,
                   }}
                 >
                   ✕
                 </button>
               </div>
+
+              {/* Multi-Photo Thumbnail Bar */}
+              {selectedModalItem.galleryImages && selectedModalItem.galleryImages.length > 1 && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '10px 1.5rem',
+                    background: '#F8FAFC',
+                    borderBottom: '1px solid #E2E8F0',
+                    overflowX: 'auto',
+                  }}
+                >
+                  {selectedModalItem.galleryImages.map((imgUrl, gIdx) => (
+                    <button
+                      key={imgUrl}
+                      onClick={() => setActiveGalleryIdx(gIdx)}
+                      style={{
+                        width: 60,
+                        height: 44,
+                        borderRadius: 8,
+                        overflow: 'hidden',
+                        border: activeGalleryIdx === gIdx ? `2px solid ${selectedModalItem.color}` : '2px solid transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        background: '#0F172A',
+                        boxShadow: activeGalleryIdx === gIdx ? `0 0 10px ${selectedModalItem.color}80` : 'none',
+                        transition: 'all 0.2s ease',
+                        flexShrink: 0,
+                        opacity: activeGalleryIdx === gIdx ? 1 : 0.65,
+                      }}
+                    >
+                      <img src={imgUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </button>
+                  ))}
+                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 600, color: '#64748B', marginLeft: 4 }}>
+                    Click photo to switch view
+                  </span>
+                </div>
+              )}
 
               {/* Modal Content Scroll Area */}
               <div style={{ padding: '1.75rem 2rem 2rem', overflowY: 'auto' }}>

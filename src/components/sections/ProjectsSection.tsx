@@ -152,7 +152,7 @@ const featuredProjects: FeaturedProject[] = [
       'Real-time speech synthesis and audio transcript captioning for diverse learners',
     ],
     tech: ['Next.js', 'React', 'TypeScript', 'Node.js', 'MongoDB', 'Express.js'],
-    liveUrl: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
+    liveUrl: 'https://samavesh-frontend.vercel.app/',
     githubUrl: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
     imageUrl: '/events/aws_group.jpg',
   },
