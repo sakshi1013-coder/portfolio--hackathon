@@ -127,12 +127,156 @@ export const PLANETS: PlanetDef[] = [
   },
 ];
 
+/* ─── Elegant "Sakshi Shingole" Signature Logo Intro in Fleur De Leah Font ─── */
+function LogoIntroOverlay({ onComplete }: { onComplete: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
+  useEffect(() => {
+    const startTime = performance.now();
+    const duration = 1450; // Smooth writing cadence
+    let frameId: number;
+
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+      const rawProgress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - rawProgress, 3); // Cubic ease out
+      setProgress(eased * 100);
+
+      if (rawProgress < 1) {
+        frameId = requestAnimationFrame(animate);
+      } else {
+        const timer = setTimeout(() => {
+          if (onCompleteRef.current) {
+            onCompleteRef.current();
+          }
+        }, 400);
+        return () => clearTimeout(timer);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    const fallbackTimer = setTimeout(() => {
+      setProgress(100);
+      if (onCompleteRef.current) {
+        onCompleteRef.current();
+      }
+    }, 2400);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(fallbackTimer);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+      onClick={() => onCompleteRef.current && onCompleteRef.current()}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 99999,
+        background: '#FAF9FF',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        cursor: 'pointer',
+      }}
+    >
+      {/* Ambient Grid Pattern */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'radial-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          opacity: 0.8,
+        }}
+      />
+
+      {/* Central Signature Wrapper */}
+      <div style={{ position: 'relative', display: 'inline-block', padding: '10px 45px 10px 20px' }}>
+        {/* Handwriting reveal via clip-path */}
+        <div
+          style={{
+            position: 'relative',
+            overflow: 'visible',
+            clipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
+            WebkitClipPath: progress >= 99 ? 'none' : `inset(0 ${Math.max(0, 100 - progress)}% 0 0)`,
+            transition: 'clip-path 0.05s linear',
+          }}
+        >
+          <h1
+            style={{
+              fontFamily: 'var(--font-fleur-de-leah), "Fleur De Leah", cursive',
+              fontSize: 'clamp(3.8rem, 8vw, 6.4rem)',
+              fontWeight: 400,
+              color: '#0F172A',
+              letterSpacing: '0.02em',
+              lineHeight: 1.25,
+              whiteSpace: 'nowrap',
+              margin: 0,
+              paddingRight: '45px',
+              filter: 'drop-shadow(0 4px 20px rgba(124, 58, 237, 0.15))',
+            }}
+          >
+            Sakshi Shingole
+          </h1>
+        </div>
+
+        {/* Glowing Ink Tip Spark */}
+        {progress > 3 && progress < 97 && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '40%',
+              left: `${progress}%`,
+              transform: 'translate(-50%, -50%)',
+              pointerEvents: 'none',
+            }}
+          >
+            <span style={{ color: '#7C3AED', fontSize: '1.4rem', filter: 'drop-shadow(0 0 10px rgba(124, 58, 237, 0.4))' }}>
+              ✦
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Subtitle Badge */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: progress > 75 ? 1 : 0, y: progress > 75 ? 0 : 10 }}
+        transition={{ duration: 0.4 }}
+        style={{
+          fontFamily: 'var(--font-space-grotesk)',
+          fontWeight: 700,
+          fontSize: 'clamp(0.66rem, 0.78vw, 0.82rem)',
+          letterSpacing: '0.24em',
+          color: '#64748B',
+          marginTop: 18,
+          textTransform: 'uppercase',
+        }}
+      >
+        PORTFOLIO
+      </motion.p>
+    </motion.div>
+  );
+}
+
 /* ─── Spacious, Clear, Highly Legible Planet Node (~74–82px) with Pop-Up Card ── */
 function PlanetNode({
   planet,
   index,
   posX,
   posY,
+  showIntro,
   isDimmed,
   onCardClick,
   onHoverChange,
@@ -141,6 +285,7 @@ function PlanetNode({
   index: number;
   posX: number;
   posY: number;
+  showIntro: boolean;
   isDimmed: boolean;
   onCardClick: (cardId: string, color: string) => void;
   onHoverChange: (isHovered: boolean) => void;
@@ -166,13 +311,17 @@ function PlanetNode({
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.4 }}
-      animate={{
-        opacity: isDimmed ? 0 : 1,
-        scale: isDimmed ? 0.85 : 1,
-        zIndex: isExpanded ? 50 : 20,
-      }}
+      animate={
+        showIntro
+          ? { opacity: 0, scale: 0.4 }
+          : {
+              opacity: isDimmed ? 0 : 1,
+              scale: isDimmed ? 0.85 : 1,
+              zIndex: isExpanded ? 50 : 20,
+            }
+      }
       transition={{
-        delay: 0.12 + index * 0.08,
+        delay: showIntro ? 0 : 0.2 + index * 0.08,
         duration: 0.55,
         ease: [0.16, 1, 0.3, 1],
       }}
@@ -450,6 +599,7 @@ function PlanetNode({
 /* ─── Master OrbitHub Component with Scaled Up Composition & Wide Radii ──── */
 export default function OrbitHub({ initialSectionId }: { initialSectionId?: string }) {
   const [mounted, setMounted] = useState(false);
+  const [showIntro, setShowIntro] = useState(!initialSectionId);
   const [dims, setDims] = useState({ w: 1440, h: 900 });
 
   // Planetary Rotation Angles across 3 Distinct Concentric Rings
@@ -477,6 +627,10 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
 
   const photoTX = useTransform(sMouseX, [0, 1], [-8, 8]);
   const photoTY = useTransform(sMouseY, [0, 1], [-6, 6]);
+
+  const handleIntroComplete = useCallback(() => {
+    setShowIntro(false);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -603,6 +757,13 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
         overflow: 'hidden',
       }}
     >
+      {/* ── Handwriting Signature Logo Intro Overlay in Fleur De Leah Font ── */}
+      <AnimatePresence>
+        {showIntro && !initialSectionId && (
+          <LogoIntroOverlay onComplete={handleIntroComplete} />
+        )}
+      </AnimatePresence>
+
       {/* ── Multi-Panel Staggered Swipe Reveal Transition (Orbit Hub -> Section) ── */}
       <SwipeTransitionOverlay
         isActive={swipeState.isActive}
@@ -653,156 +814,121 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             pointerEvents: 'none',
           }}
         >
-          {/* ── SVG Layer: 3 Concentric Orbit Rings & Connector Spoke Guidelines ── */}
-          {!isMobile && (
-            <svg
-              style={{
-                position: 'absolute',
-                left: `-${dims.w / 2}px`,
-                top: `-${dims.h / 2}px`,
-                width: `${dims.w}px`,
-                height: `${dims.h}px`,
-                pointerEvents: 'none',
-                zIndex: 5,
-                overflow: 'visible',
-              }}
-            >
-              {/* Ring 0 (Inner Orbit Track) */}
-              <motion.ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={r0_x}
-                ry={r0_y}
-                fill="none"
-                stroke="rgba(16, 185, 129, 0.22)"
-                strokeWidth="1.2"
-                strokeDasharray="4 6"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
-              />
-
-              {/* Ring 1 (Middle Orbit Track) */}
-              <motion.ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={r1_x}
-                ry={r1_y}
-                fill="none"
-                stroke="rgba(245, 158, 11, 0.22)"
-                strokeWidth="1.3"
-                strokeDasharray="5 7"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.4, delay: 0.35, ease: 'easeOut' }}
-              />
-
-              {/* Ring 2 (Outer Orbit Track) */}
-              <motion.ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={r2_x}
-                ry={r2_y}
-                fill="none"
-                stroke="rgba(2, 132, 199, 0.22)"
-                strokeWidth="1.4"
-                strokeDasharray="6 8"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.6, delay: 0.5, ease: 'easeOut' }}
-              />
-
-              {/* Connectors from Center to Each Moving Planet */}
-              {PLANETS.map((planet) => {
-                const ring = ringRadii[planet.ringIndex];
-                const currentAngle = planet.initialAngle + ringAngles[planet.ringIndex];
-                const rad = (currentAngle * Math.PI) / 180;
-
-                const cx = dims.w / 2;
-                const cy = dims.h / 2;
-
-                const x1 = cx + 85 * Math.cos(rad);
-                const y1 = cy + 85 * Math.sin(rad);
-
-                const x2 = cx + ring.rx * Math.cos(rad);
-                const y2 = cy + ring.ry * Math.sin(rad);
-
-                return (
-                  <g key={`orbit-link-${planet.id}`}>
-                    <line
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke={planet.color}
-                      strokeWidth="1.1"
-                      strokeOpacity="0.28"
-                      strokeDasharray="3 5"
-                    />
-                    <circle
-                      cx={x2}
-                      cy={y2}
-                      r={2.5}
-                      fill={planet.color}
-                      fillOpacity={0.6}
-                    />
-                  </g>
-                );
-              })}
-            </svg>
-          )}
-
-          {/* ── CENTER HERO SECTION ── */}
+          {/* ── 3 Elliptical Orbit Rings ── */}
           <div
             style={{
               position: 'absolute',
               left: 0,
               top: 0,
               transform: 'translate(-50%, -50%)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              zIndex: 25,
+              width: dims.w,
+              height: dims.h,
               pointerEvents: 'none',
             }}
           >
-            {/* Clickable Perfect Circular Portrait Photo */}
+            <svg
+              width="100%"
+              height="100%"
+              style={{ overflow: 'visible' }}
+            >
+              <defs>
+                <linearGradient id="ringGrad0" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#7C3AED" stopOpacity="0.45" />
+                  <stop offset="50%" stopColor="#EC4899" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.45" />
+                </linearGradient>
+                <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.38" />
+                  <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.38" />
+                </linearGradient>
+                <linearGradient id="ringGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.35" />
+                  <stop offset="50%" stopColor="#EC4899" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.35" />
+                </linearGradient>
+              </defs>
+
+              {/* Ring 0 — Inner */}
+              <ellipse
+                cx={dims.w / 2}
+                cy={dims.h / 2}
+                rx={ringRadii[0].rx}
+                ry={ringRadii[0].ry}
+                fill="none"
+                stroke="url(#ringGrad0)"
+                strokeWidth={1.8}
+                strokeDasharray="4 6"
+                opacity={0.85}
+              />
+
+              {/* Ring 1 — Middle */}
+              <ellipse
+                cx={dims.w / 2}
+                cy={dims.h / 2}
+                rx={ringRadii[1].rx}
+                ry={ringRadii[1].ry}
+                fill="none"
+                stroke="url(#ringGrad1)"
+                strokeWidth={1.8}
+                strokeDasharray="5 7"
+                opacity={0.75}
+              />
+
+              {/* Ring 2 — Outer */}
+              <ellipse
+                cx={dims.w / 2}
+                cy={dims.h / 2}
+                rx={ringRadii[2].rx}
+                ry={ringRadii[2].ry}
+                fill="none"
+                stroke="url(#ringGrad2)"
+                strokeWidth={1.8}
+                strokeDasharray="6 8"
+                opacity={0.65}
+              />
+            </svg>
+          </div>
+
+          {/* ── Central Sun Core Avatar & Hero Identity ── */}
+          <div
+            style={{
+              position: 'absolute',
+              transform: 'translate(-50%, -50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pointerEvents: 'auto',
+              zIndex: 30,
+              cursor: 'pointer',
+            }}
+            onClick={() => triggerSwipeTransition('about', '#7C3AED')}
+            onMouseEnter={() => setIsPhotoHovered(true)}
+            onMouseLeave={() => setIsPhotoHovered(false)}
+          >
+            {/* Center Avatar Core Container */}
             <div
               style={{
                 position: 'relative',
-                pointerEvents: 'auto',
-                cursor: 'pointer',
-                marginBottom: 10,
-              }}
-              onClick={() => triggerSwipeTransition('about', '#7C3AED')}
-              onMouseEnter={() => {
-                isHoveredRef.current = true;
-                setIsPhotoHovered(true);
-              }}
-              onMouseLeave={() => {
-                isHoveredRef.current = false;
-                setIsPhotoHovered(false);
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {/* Circular Breathing Glow Pulse */}
+              {/* Soft Ambient Core Pulse */}
               <motion.div
                 animate={{
-                  scale: isPhotoHovered ? 1.22 : [1, 1.1, 1],
-                  opacity: isPhotoHovered ? 0.85 : [0.35, 0.65, 0.35],
+                  scale: [1, 1.14, 1],
+                  opacity: [0.35, 0.65, 0.35],
                 }}
-                transition={{
-                  duration: isPhotoHovered ? 0.3 : 4.5,
-                  repeat: isPhotoHovered ? 0 : Infinity,
-                  ease: 'easeInOut',
-                }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                 style={{
                   position: 'absolute',
-                  inset: -16,
+                  inset: -14,
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, rgba(236, 72, 153, 0.22) 50%, transparent 75%)',
-                  filter: 'blur(24px)',
+                  background: 'radial-gradient(circle, rgba(124, 58, 237, 0.28) 0%, rgba(236, 72, 153, 0.12) 60%, transparent 80%)',
                   pointerEvents: 'none',
-                  zIndex: -1,
                 }}
               />
 
@@ -814,7 +940,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                   scale: isPhotoHovered ? 1.06 : 1,
                   y: isPhotoHovered ? -4 : 0,
                 }}
-                transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.7, delay: showIntro ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   x: photoTX,
                   y: photoTY,
@@ -885,7 +1011,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.55, delay: showIntro ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 900,
@@ -906,7 +1032,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.32 }}
+              transition={{ duration: 0.45, delay: showIntro ? 0 : 0.32 }}
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 700,
@@ -931,7 +1057,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.35, delay: 0.38 }}
+              transition={{ duration: 0.35, delay: showIntro ? 0 : 0.38 }}
               style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 4, pointerEvents: 'none' }}
             >
               <div style={{ width: 28, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.4))' }} />
@@ -943,7 +1069,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.p
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.42 }}
+              transition={{ duration: 0.35, delay: showIntro ? 0 : 0.42 }}
               style={{
                 fontFamily: 'var(--font-inter)',
                 fontStyle: 'italic',
@@ -965,7 +1091,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
                 style={{
                   marginTop: 16,
                   display: 'grid',
@@ -1034,6 +1160,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                   index={i}
                   posX={posX}
                   posY={posY}
+                  showIntro={showIntro}
                   isDimmed={isHubDimmed}
                   onCardClick={triggerSwipeTransition}
                   onHoverChange={(hovered) => {
