@@ -253,7 +253,7 @@ export default function AboutSection() {
           </motion.a>
         </div>
 
-        {/* Right Column: Clean Standalone Portrait Photo (No Background Color Box, Big & Natural PNG) */}
+        {/* Right Column: Clean Standalone Portrait Photo with Blurred/Feathered Left, Right, & Bottom Edges */}
         <motion.div
           whileHover={{ scale: 1.03, y: -4 }}
           transition={{ duration: 0.3 }}
@@ -274,8 +274,9 @@ export default function AboutSection() {
               maxHeight: 380,
               objectFit: 'contain',
               display: 'block',
-              mixBlendMode: 'multiply',
-              filter: 'drop-shadow(0 16px 32px rgba(0, 0, 0, 0.08))',
+              filter: 'drop-shadow(0 16px 32px rgba(0, 0, 0, 0.05))',
+              WebkitMaskImage: 'radial-gradient(ellipse 86% 80% at 50% 38%, #000000 52%, rgba(0,0,0,0.6) 72%, transparent 96%)',
+              maskImage: 'radial-gradient(ellipse 86% 80% at 50% 38%, #000000 52%, rgba(0,0,0,0.6) 72%, transparent 96%)',
             }}
           />
         </motion.div>
