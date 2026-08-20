@@ -253,9 +253,9 @@ export default function AboutSection() {
           </motion.a>
         </div>
 
-        {/* Right Column: Professional Portrait Frame (Rounded Card, NOT circle) */}
+        {/* Right Column: Clean Standalone Portrait Photo (No Background Color Box, Big & Natural PNG) */}
         <motion.div
-          whileHover={{ scale: 1.02, y: -3 }}
+          whileHover={{ scale: 1.03, y: -4 }}
           transition={{ duration: 0.3 }}
           style={{
             position: 'relative',
@@ -265,44 +265,19 @@ export default function AboutSection() {
             justifyContent: 'center',
           }}
         >
-          {/* Ambient Glow Aura */}
-          <div
+          <img
+            src="/sakshi_portrait.png"
+            alt="Sakshi Shingole"
             style={{
-              position: 'absolute',
-              inset: -10,
-              borderRadius: 28,
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(236, 72, 153, 0.18) 60%, transparent 80%)',
-              filter: 'blur(20px)',
-              pointerEvents: 'none',
+              width: 'clamp(230px, 25vw, 300px)',
+              height: 'auto',
+              maxHeight: 380,
+              objectFit: 'contain',
+              display: 'block',
+              mixBlendMode: 'multiply',
+              filter: 'drop-shadow(0 16px 32px rgba(0, 0, 0, 0.08))',
             }}
           />
-
-          {/* Portrait Container - Rounded Rectangle Frame */}
-          <div
-            style={{
-              position: 'relative',
-              width: 155,
-              height: 195,
-              borderRadius: 22,
-              padding: 3,
-              background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.75), rgba(236, 72, 153, 0.75))',
-              boxShadow: '0 16px 36px rgba(124, 58, 237, 0.22)',
-              overflow: 'hidden',
-            }}
-          >
-            <img
-              src="/sakshi_portrait.png"
-              alt="Sakshi Shingole"
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: 19,
-                objectFit: 'cover',
-                objectPosition: 'center top',
-                display: 'block',
-              }}
-            />
-          </div>
         </motion.div>
       </motion.div>
 
