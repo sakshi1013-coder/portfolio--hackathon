@@ -8,7 +8,7 @@ export default function AchievementsPage() {
   return (
     <>
       <div className="noise-overlay" aria-hidden="true" />
-      <OrbitHub initialSectionId="achievements" />
+      <OrbitHub initialSectionId="certificates" />
     </>
   );
 }

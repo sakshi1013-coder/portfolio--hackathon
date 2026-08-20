@@ -1,19 +1,14 @@
 'use client';
 
-import BackToHub from '@/components/BackToHub';
-import ProjectGallery from '@/components/ProjectGallery';
-import Footer from '@/components/Footer';
-import SectionJourneyLayout from '@/components/SectionJourneyLayout';
+import dynamic from 'next/dynamic';
+
+const OrbitHub = dynamic(() => import('@/components/OrbitHub'), { ssr: false });
 
 export default function ProjectsPage() {
   return (
-    <SectionJourneyLayout currentSectionId="projects">
+    <>
       <div className="noise-overlay" aria-hidden="true" />
-      <BackToHub />
-      <main style={{ paddingTop: '64px' }}>
-        <ProjectGallery />
-      </main>
-      <Footer />
-    </SectionJourneyLayout>
+      <OrbitHub initialSectionId="projects" />
+    </>
   );
 }

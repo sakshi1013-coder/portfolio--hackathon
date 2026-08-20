@@ -1,0 +1,677 @@
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import SkillIcon from '../SkillIcon';
+
+const ExternalLinkIcon = ({ c = '#7C3AED', s = 15 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+);
+
+const GithubIcon = ({ c = '#0F172A', s = 16 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill={c}>
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+  </svg>
+);
+
+// ── Top 5 Featured Projects Detailed Schema ──
+interface ArchNode {
+  label: string;
+  sub: string;
+  icon: string;
+}
+
+interface FeaturedProject {
+  id: string;
+  title: string;
+  tagline: string;
+  purpose: string;
+  color: string;
+  badge: string;
+  archNodes: ArchNode[];
+  highlights: string[];
+  tech: string[];
+  liveUrl: string;
+  githubUrl: string;
+  imageUrl: string;
+}
+
+const featuredProjects: FeaturedProject[] = [
+  {
+    id: 'aura',
+    title: 'Aura',
+    tagline: '1st Place Hackathon Winner · Real-time visual & voice AI assistance platform',
+    purpose: 'Engineered an intelligent real-time visual and voice assistant built for instant context understanding. Features low-latency audio processing, real-time video stream analysis, and multimodal LLM intelligence.',
+    color: '#7C3AED',
+    badge: '1ST PLACE HACKATHON WINNER',
+    archNodes: [
+      { label: 'Client App', sub: 'Next.js + Tailwind CSS', icon: 'Next.js' },
+      { label: 'Audio Gateway', sub: 'WebSockets & WebRTC', icon: 'React' },
+      { label: 'AI Intelligence', sub: 'OpenAI GPT-4o Vision API', icon: 'Prompt Engineering' },
+      { label: 'Backend Server', sub: 'Node.js + Express', icon: 'Node.js' },
+    ],
+    highlights: [
+      'Awarded 1st Place Winner out of 50+ engineering hackathon teams',
+      'Low-latency WebSockets streaming enabling sub-100ms real-time audio response',
+      'Integrated multimodal vision LLMs to answer real-time camera feed queries',
+    ],
+    tech: ['Next.js', 'React', 'TypeScript', 'Node.js', 'WebSockets', 'Tailwind CSS'],
+    liveUrl: 'https://github.com/sakshi1013-coder/aura-sh',
+    githubUrl: 'https://github.com/sakshi1013-coder/aura-sh',
+    imageUrl: '/events/devfest_wall.jpg',
+  },
+  {
+    id: 'samavesh',
+    title: 'Samavesh',
+    tagline: 'AI-powered inclusive learning engine for accessible digital education',
+    purpose: 'Built to democratize digital learning for neurodiverse students and individuals with speech or hearing impairments using real-time sign language synthesis, text-to-speech conversion, and adaptive UI layouts.',
+    color: '#EC4899',
+    badge: 'INCLUSIVE TECH PLATFORM',
+    archNodes: [
+      { label: 'Accessible UI', sub: 'Next.js + WCAG AAA', icon: 'React' },
+      { label: 'Speech Engine', sub: 'Web Speech API', icon: 'JavaScript' },
+      { label: 'API Microservice', sub: 'Node.js + Express', icon: 'Express.js' },
+      { label: 'Database', sub: 'MongoDB Datastore', icon: 'MongoDB' },
+    ],
+    highlights: [
+      'AI-assisted sign language gesture recognition & real-time text translation module',
+      'Adaptive high-contrast WCAG AAA layout engine for accessible user experiences',
+      'Real-time speech synthesis and audio transcript captioning for diverse learners',
+    ],
+    tech: ['Next.js', 'React', 'TypeScript', 'Node.js', 'MongoDB', 'Express.js'],
+    liveUrl: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
+    githubUrl: 'https://github.com/sakshi1013-coder/Samavesh-Frontend',
+    imageUrl: '/events/aws_group.jpg',
+  },
+  {
+    id: 'modulehub',
+    title: 'ModuleHub',
+    tagline: 'Autonomous GenAI agent engine & automated multi-node workflow orchestrator',
+    purpose: 'Designed to automate enterprise payload ingestion, LLM-powered context parsing, and dynamic multi-node API routing without requiring manual human dispatch or intervention.',
+    color: '#F59E0B',
+    badge: 'AI WORKFLOW ENGINE',
+    archNodes: [
+      { label: 'Trigger Node', sub: 'Webhooks / Outlook', icon: 'REST APIs' },
+      { label: 'Orchestrator', sub: 'n8n Workflow Engine', icon: 'Node.js' },
+      { label: 'AI Intelligence', sub: 'OpenAI GPT-4o LLM', icon: 'Prompt Engineering' },
+      { label: 'Database', sub: 'Airtable / PostgreSQL', icon: 'PostgreSQL' },
+    ],
+    highlights: [
+      'Multi-node n8n workflow integrating OpenAI GPT-4o with Airtable & Outlook APIs',
+      'Automated webhook trigger handling with sub-200ms payload routing',
+      'Self-healing error fallback mechanism ensuring 99.9% pipeline execution reliability',
+    ],
+    tech: ['Node.js', 'Express.js', 'REST APIs', 'PostgreSQL', 'Docker', 'Python'],
+    liveUrl: 'https://github.com/sakshi1013-coder/ModuleHub',
+    githubUrl: 'https://github.com/sakshi1013-coder/ModuleHub',
+    imageUrl: '/events/n8n_workshop_group.jpg',
+  },
+  {
+    id: 'orbitalshield',
+    title: 'OrbitalShield',
+    tagline: 'High-availability real-time space satellite telemetry & anomaly detection pipeline',
+    purpose: 'Architected to monitor satellite telemetry streams in real-time, detect orbital trajectory anomalies, and stream high-concurrency sensor metrics to aerospace telemetry consoles with zero data loss.',
+    color: '#0284C7',
+    badge: 'SPACE TELEMETRY ARCHITECTURE',
+    archNodes: [
+      { label: 'Client / Console', sub: 'Next.js + WebSockets', icon: 'React' },
+      { label: 'Ingestion API', sub: 'Node.js + Express', icon: 'Node.js' },
+      { label: 'Event Cache', sub: 'Redis Pub/Sub', icon: 'RDS' },
+      { label: 'Observability', sub: 'Docker + Kubernetes', icon: 'Kubernetes' },
+    ],
+    highlights: [
+      'Real-time Prometheus & Grafana dashboarding for 50,000+ telemetry events/sec',
+      'Containerized microservice deployment on Kubernetes clusters with HPA scaling',
+      'Sub-50ms fault-tolerant Redis event streaming & collision risk alerts',
+    ],
+    tech: ['Next.js', 'Node.js', 'Docker', 'Kubernetes', 'AWS', 'PostgreSQL', 'Redis'],
+    liveUrl: 'https://github.com/sakshi1013-coder/OrbitalShield',
+    githubUrl: 'https://github.com/sakshi1013-coder/OrbitalShield',
+    imageUrl: '/events/mtw2026.jpg',
+  },
+  {
+    id: 'vibescribe',
+    title: 'VibeScribe',
+    tagline: 'Low-latency real-time multilingual audio & speech-to-text transcriber',
+    purpose: 'Solves real-time meeting transcription and live translation challenges by streaming low-latency WebRTC/WebSocket audio buffers to OpenAI Whisper models with live transcript synchronization.',
+    color: '#10B981',
+    badge: 'MULTIMODAL SPEECH AI',
+    archNodes: [
+      { label: 'Audio Buffer Client', sub: 'React + WebRTC', icon: 'React' },
+      { label: 'Streaming Gateway', sub: 'WebSocket Server', icon: 'Node.js' },
+      { label: 'Speech Model', sub: 'OpenAI Whisper AI', icon: 'Python' },
+      { label: 'Store & Export', sub: 'MongoDB Datastore', icon: 'MongoDB' },
+    ],
+    highlights: [
+      'Sub-100ms streaming transcription latency using WebSocket audio chunking',
+      'Multi-language translation with custom technical domain phrase highlighting',
+      'Clean interactive audio visualizer & exportable Markdown/PDF transcript editor',
+    ],
+    tech: ['React', 'Next.js', 'TypeScript', 'Node.js', 'MongoDB', 'Python'],
+    liveUrl: 'https://github.com/sakshi1013-coder/VibeScribe',
+    githubUrl: 'https://github.com/sakshi1013-coder/VibeScribe',
+    imageUrl: '/events/mtw2026_sakshi_plaid.png',
+  },
+];
+
+// ── Tier 2: Other Projects Brief Grid Data (Exact GitHub Repositories) ──
+interface OtherProject {
+  id: string;
+  title: string;
+  badge: string;
+  desc: string;
+  tech: string[];
+  github: string;
+  demo: string;
+  color: string;
+}
+
+const otherProjects: OtherProject[] = [
+  {
+    id: 'nobroker-clone',
+    title: 'NoBroker Clone — Real Estate Platform',
+    badge: 'FULL STACK CLONE',
+    desc: 'Full-stack property rental & real estate listing platform with zero brokerage fees, property search filters, and owner contact routing.',
+    tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
+    github: 'https://github.com/sakshi1013-coder/NoBroker-clone',
+    demo: 'https://github.com/sakshi1013-coder/NoBroker-clone',
+    color: '#EF4444',
+  },
+  {
+    id: 'driftwrite-blogs',
+    title: 'DriftWrite — Markdown Blogging Engine',
+    badge: 'BLOGGING ENGINE',
+    desc: 'Dynamic blogging and article publishing platform featuring live Markdown parsing, syntax highlighting, and category tagging.',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+    github: 'https://github.com/sakshi1013-coder/DriftWriteBlogs',
+    demo: 'https://github.com/sakshi1013-coder/DriftWriteBlogs',
+    color: '#8B5CF6',
+  },
+  {
+    id: 'focus-taskmanager',
+    title: 'Focus — Task Manager Engine',
+    badge: 'PRODUCTIVITY ENGINE',
+    desc: 'High-efficiency productivity & task management application featuring drag-and-drop kanban boards, priority tagging, and state persistence.',
+    tech: ['React', 'TypeScript', 'Node.js', 'Tailwind CSS'],
+    github: 'https://github.com/sakshi1013-coder/Focus-thetaskmanager',
+    demo: 'https://github.com/sakshi1013-coder/Focus-thetaskmanager',
+    color: '#7C3AED',
+  },
+  {
+    id: 'notification-system',
+    title: 'Notification System Pipeline',
+    badge: 'BACKEND SYSTEM',
+    desc: 'Real-time multi-channel notification dispatch pipeline with queue processing, email/SMS webhooks, and rate-limiting throttling.',
+    tech: ['Node.js', 'Express.js', 'Redis', 'REST APIs'],
+    github: 'https://github.com/sakshi1013-coder/Notification-System',
+    demo: 'https://github.com/sakshi1013-coder/Notification-System',
+    color: '#F59E0B',
+  },
+  {
+    id: 'joblens',
+    title: 'JobLens — AI Job Analytics',
+    badge: 'AI JOB ANALYTICS',
+    desc: 'AI-assisted career analytics and resume keyword optimization tool helping job seekers tailor applications with real-time match scoring.',
+    tech: ['Next.js', 'React', 'Python', 'Tailwind CSS'],
+    github: 'https://github.com/sakshi1013-coder/JobLens',
+    demo: 'https://github.com/sakshi1013-coder/JobLens',
+    color: '#EC4899',
+  },
+  {
+    id: 'accredian-enterprise',
+    title: 'Accredian Enterprise Platform',
+    badge: 'ENTERPRISE PLATFORM',
+    desc: 'Full-stack enterprise referral and credential management dashboard with automated email dispatches and analytical reporting.',
+    tech: ['React', 'Node.js', 'PostgreSQL', 'Prisma'],
+    github: 'https://github.com/sakshi1013-coder/accredian-enterprise',
+    demo: 'https://github.com/sakshi1013-coder/accredian-enterprise',
+    color: '#10B981',
+  },
+  {
+    id: 'spaceops',
+    title: 'SpaceOps — Flight Control Dashboard',
+    badge: 'AEROSPACE DASHBOARD',
+    desc: 'Mission-critical satellite flight telemetry and orbital trajectory console featuring interactive 3D WebGL orbit propagation.',
+    tech: ['React', 'Python', 'FastAPI', 'PostgreSQL', 'Docker'],
+    github: 'https://github.com/sakshi1013-coder/SpaceOps',
+    demo: 'https://github.com/sakshi1013-coder/SpaceOps',
+    color: '#0284C7',
+  },
+  {
+    id: 'fundflow',
+    title: 'FundFlow — Financial Engine',
+    badge: 'FINTECH ENGINE',
+    desc: 'Financial expense tracking & budget allocation platform with interactive chart analytics, recurring transaction alerts, and CSV exports.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'MongoDB'],
+    github: 'https://github.com/sakshi1013-coder/FundFlow',
+    demo: 'https://github.com/sakshi1013-coder/FundFlow',
+    color: '#14B8A6',
+  },
+  {
+    id: 'vero',
+    title: 'Vero — Content & Media Platform',
+    badge: 'CONTENT PLATFORM',
+    desc: 'Modern content publishing & media platform featuring Markdown text editing, dynamic tag filtering, and automated social sharing previews.',
+    tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
+    github: 'https://github.com/sakshi1013-coder/Vero',
+    demo: 'https://github.com/sakshi1013-coder/Vero',
+    color: '#6366F1',
+  },
+];
+
+export default function ProjectsSection() {
+  return (
+    <div style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(2rem, 5vw, 4rem) 1.5rem 6rem' }}>
+      
+      {/* ── Top Header Area ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ marginBottom: '3.5rem' }}
+      >
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(124, 58, 237, 0.12)', border: '1px solid rgba(124, 58, 237, 0.3)', borderRadius: 100, marginBottom: '1rem' }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#7C3AED' }} />
+          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', color: '#7C3AED', textTransform: 'uppercase' }}>
+            03 / FEATURED PROJECTS
+          </span>
+        </div>
+
+        <h1
+          style={{
+            fontFamily: 'var(--font-space-grotesk)',
+            fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
+            fontWeight: 800,
+            lineHeight: 1.1,
+            letterSpacing: '-0.03em',
+            color: '#0F172A',
+            maxWidth: 850,
+          }}
+        >
+          Engineering work, AI systems &{' '}
+          <span style={{ color: '#7C3AED' }}>
+            full-stack applications.
+          </span>
+        </h1>
+        <p
+          style={{
+            fontFamily: 'var(--font-inter)',
+            fontSize: '1rem',
+            color: '#64748B',
+            marginTop: '0.75rem',
+            maxWidth: 720,
+            lineHeight: 1.6,
+          }}
+        >
+          A detailed showcase of production-grade web platforms, space telemetry pipelines, inclusive AI applications, and workflow automations from Sakshi&apos;s GitHub repository.
+        </p>
+      </motion.div>
+
+      {/* ── TIER 1: TOP 5 FEATURED PROJECTS (Aura, Samavesh, ModuleHub, OrbitalShield, VibeScribe) ── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', marginBottom: '5rem' }}>
+        {featuredProjects.map((proj, idx) => (
+          <FeaturedProjectCard key={proj.id} proj={proj} idx={idx} />
+        ))}
+      </div>
+
+      {/* ── TIER 2: OTHER PROJECTS (Brief Grid of 9 GitHub Projects) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ marginTop: '4rem', borderTop: '1px solid rgba(0, 0, 0, 0.08)', paddingTop: '3.5rem' }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', background: 'rgba(0,0,0,0.04)', borderRadius: 100, marginBottom: '0.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.68rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                MORE BUILDS
+              </span>
+            </div>
+            <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.8rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+              Other Projects & Repositories
+            </h2>
+          </div>
+          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.8rem', fontWeight: 700, color: '#94A3B8' }}>
+            0{otherProjects.length} builds
+          </span>
+        </div>
+
+        {/* Compact Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+          {otherProjects.map((op, oIdx) => (
+            <motion.div
+              key={op.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.06 * oIdx, ease: 'easeOut' }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: `1.5px solid ${op.color}25`,
+                borderRadius: 18,
+                padding: '1.35rem',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.62rem', fontWeight: 800, color: op.color, background: `${op.color}15`, padding: '2px 8px', borderRadius: 5, textTransform: 'uppercase' }}>
+                    {op.badge}
+                  </span>
+                </div>
+
+                <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.4rem', lineHeight: 1.3 }}>
+                  {op.title}
+                </h3>
+
+                <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.84rem', color: '#64748B', lineHeight: 1.5, marginBottom: '1rem' }}>
+                  {op.desc}
+                </p>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: '1.25rem' }}>
+                  {op.tech.map((t) => (
+                    <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-space-grotesk)', fontSize: '0.68rem', fontWeight: 600, color: '#475569', background: '#F1F5F9', padding: '3px 8px', borderRadius: 6 }}>
+                      <SkillIcon name={t} size={13} />
+                      <span>{t}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '0.75rem' }}>
+                <a href={op.github} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, color: '#0F172A', textDecoration: 'none' }}>
+                  <GithubIcon c="#0F172A" s={14} />
+                  <span>Repo</span>
+                </a>
+                <a href={op.demo} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 800, color: op.color, textDecoration: 'none', marginLeft: 'auto' }}>
+                  <span>Demo</span>
+                  <ExternalLinkIcon c={op.color} s={13} />
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+{/* Detailed Featured Project Card with Alternating Layout & Animated Architecture Diagram */}
+function FeaturedProjectCard({ proj, idx }: { proj: FeaturedProject; idx: number }) {
+  const isEven = idx % 2 === 0;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        background: '#FFFFFF',
+        border: `1.5px solid ${proj.color}30`,
+        borderRadius: 28,
+        padding: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+        boxShadow: '0 16px 45px rgba(0, 0, 0, 0.05)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Top Accent Line */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4.5, background: proj.color }} />
+
+      {/* Grid Container — Alternating Left / Right Column Layout */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '2.5rem',
+          alignItems: 'center',
+        }}
+      >
+        {/* ── Text Info Content Column ── */}
+        <div style={{ order: isEven ? 1 : 2 }}>
+          {/* Top Badge & Number */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.68rem',
+                fontWeight: 800,
+                color: proj.color,
+                background: `${proj.color}15`,
+                border: `1px solid ${proj.color}30`,
+                padding: '4px 11px',
+                borderRadius: 8,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {proj.badge}
+            </span>
+
+            <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.85rem', fontWeight: 800, color: '#94A3B8' }}>
+              0{idx + 1} / 05
+            </span>
+          </div>
+
+          {/* Project Title & Tagline */}
+          <h2
+            style={{
+              fontFamily: 'var(--font-space-grotesk)',
+              fontSize: 'clamp(1.6rem, 2.5vw, 2.1rem)',
+              fontWeight: 800,
+              color: '#0F172A',
+              letterSpacing: '-0.025em',
+              lineHeight: 1.2,
+              marginBottom: 6,
+            }}
+          >
+            {proj.title}
+          </h2>
+
+          <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.88rem', fontWeight: 700, color: proj.color, marginBottom: '1.25rem' }}>
+            {proj.tagline}
+          </div>
+
+          {/* Purpose Paragraph */}
+          <p
+            style={{
+              fontFamily: 'var(--font-inter)',
+              fontSize: '0.94rem',
+              color: '#475569',
+              lineHeight: 1.65,
+              marginBottom: '1.5rem',
+            }}
+          >
+            {proj.purpose}
+          </p>
+
+          {/* Key Highlights Bullet Points */}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', color: '#94A3B8', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+              Key System Highlights
+            </div>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+              {proj.highlights.map((h, i) => (
+                <li key={i} style={{ fontFamily: 'var(--font-inter)', fontSize: '0.88rem', color: '#334155', lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 9 }}>
+                  <span style={{ color: proj.color, fontWeight: 900, marginTop: -1 }}>▹</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tech Stack Pills with Brand Icons */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: '1.75rem' }}>
+            {proj.tech.map((t, tIdx) => (
+              <motion.span
+                key={t}
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.04 * tIdx }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  color: '#334155',
+                  background: '#F1F5F9',
+                  border: '1px solid #E2E8F0',
+                  padding: '4px 10px',
+                  borderRadius: 8,
+                }}
+              >
+                <SkillIcon name={t} size={15} />
+                <span>{t}</span>
+              </motion.span>
+            ))}
+          </div>
+
+          {/* Action Link Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <a
+              href={proj.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+                padding: '9px 18px',
+                borderRadius: 12,
+                background: proj.color,
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.8rem',
+                fontWeight: 800,
+                textDecoration: 'none',
+                boxShadow: `0 4px 14px ${proj.color}40`,
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              <span>Live Demo</span>
+              <ExternalLinkIcon c="#FFFFFF" s={14} />
+            </a>
+
+            <a
+              href={proj.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+                padding: '9px 18px',
+                borderRadius: 12,
+                background: '#F8FAFC',
+                border: '1.5px solid #E2E8F0',
+                color: '#0F172A',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.8rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              <GithubIcon c="#0F172A" s={16} />
+              <span>GitHub Code</span>
+            </a>
+          </div>
+        </div>
+
+        {/* ── Architecture Diagram & Visual Preview Column ── */}
+        <div style={{ order: isEven ? 2 : 1 }}>
+          <motion.div
+            whileHover={{ scale: 1.025 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            style={{
+              background: '#F8FAFC',
+              border: `1.5px solid ${proj.color}25`,
+              borderRadius: 22,
+              padding: '1.5rem',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.03)',
+            }}
+          >
+            {/* Diagram Title */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+              <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 800, color: proj.color, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                System Architecture Flow
+              </span>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: proj.color }} />
+            </div>
+
+            {/* Visual Node Diagram (Frontend -> Backend -> Event -> DB) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative' }}>
+              {proj.archNodes.map((node, nIdx) => (
+                <React.Fragment key={node.label}>
+                  {/* Node Box */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: 0.08 * nIdx }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '12px 14px',
+                      background: '#FFFFFF',
+                      border: `1px solid ${proj.color}30`,
+                      borderRadius: 14,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+                    }}
+                  >
+                    <div style={{ width: 32, height: 32, borderRadius: 10, background: `${proj.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: proj.color, flexShrink: 0 }}>
+                      <SkillIcon name={node.icon} size={18} />
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.84rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
+                        {node.label}
+                      </div>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 600, color: proj.color }}>
+                        {node.sub}
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Animated Connecting SVG Arrow Line */}
+                  {nIdx < proj.archNodes.length - 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', margin: '-4px 0' }}>
+                      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+                        <motion.path
+                          d="M12 0V16M12 16L7 11M12 16L17 11"
+                          stroke={proj.color}
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          initial={{ pathLength: 0 }}
+                          whileInView={{ pathLength: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.08 * nIdx + 0.1 }}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

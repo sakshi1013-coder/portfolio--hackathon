@@ -5,14 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --bg: #F7F8F6;
+  --bg: #FAF9FF;
   --surface: #FFFFFF;
-  --text-primary: #151515;
-  --text-secondary: #666666;
-  --border: #E5E5E5;
-  --accent: #6257E8;
-  --accent-soft: #E9E7FF;
-  --accent-blue: #DCEAFF;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --border: rgba(0, 0, 0, 0.08);
+  --accent: #7C3AED;
+  --accent-soft: rgba(124, 58, 237, 0.12);
+  --accent-blue: #0284C7;
   --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-inter: 'Inter', sans-serif;
   --font-fleur-de-leah: 'Fleur De Leah', cursive;
@@ -25,7 +25,7 @@
 }
 
 html {
-  scroll-behavior: auto; /* lenis handles smooth scroll */
+  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 

@@ -31,6 +31,32 @@ const CheckCircleIcon = ({ c = '#10B981', s = 48 }: { c?: string; s?: number }) 
   </svg>
 );
 
+const GithubIcon = ({ c = '#0F172A', s = 18 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill={c}>
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+  </svg>
+);
+
+const LinkedinIcon = ({ c = '#0077B5', s = 18 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill={c}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z" />
+  </svg>
+);
+
+const InstagramIcon = ({ c = '#E1306C', s = 18 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const XTwitterIcon = ({ c = '#0F172A', s = 17 }: { c?: string; s?: number }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill={c}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
 const contactInfo = [
   {
     Icon: MailIcon,
@@ -58,6 +84,45 @@ const contactInfo = [
   },
 ];
 
+const socialProfiles = [
+  {
+    name: 'LinkedIn',
+    handle: 'sakshi-shingole',
+    url: 'https://www.linkedin.com/in/sakshi-shingole-484913315/',
+    Icon: LinkedinIcon,
+    color: '#0077B5',
+    bg: 'rgba(0, 119, 181, 0.08)',
+    border: 'rgba(0, 119, 181, 0.25)',
+  },
+  {
+    name: 'Instagram',
+    handle: '@sakshi_shingole',
+    url: 'https://www.instagram.com/sakshi_shingole?igsh=azdtYWF6azRpeHA1',
+    Icon: InstagramIcon,
+    color: '#E1306C',
+    bg: 'rgba(225, 48, 108, 0.08)',
+    border: 'rgba(225, 48, 108, 0.25)',
+  },
+  {
+    name: 'X (Twitter)',
+    handle: '@saku_8055',
+    url: 'https://x.com/saku_8055?t=yTgvW2O49wvmDHFF0X7Y5A&s=09',
+    Icon: XTwitterIcon,
+    color: '#0F172A',
+    bg: 'rgba(15, 23, 42, 0.06)',
+    border: 'rgba(15, 23, 42, 0.18)',
+  },
+  {
+    name: 'GitHub',
+    handle: 'sakshi1013-coder',
+    url: 'https://github.com/sakshi1013-coder',
+    Icon: GithubIcon,
+    color: '#0F172A',
+    bg: 'rgba(15, 23, 42, 0.06)',
+    border: 'rgba(15, 23, 42, 0.18)',
+  },
+];
+
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -77,7 +142,7 @@ export default function ContactSection() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         style={{ marginBottom: '2.5rem' }}
       >
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: '#6366F115', border: '1px solid #6366F130', borderRadius: 100, marginBottom: '1rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: 100, marginBottom: '1rem' }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366F1' }} />
           <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', color: '#6366F1', textTransform: 'uppercase' }}>
             06 / GET IN TOUCH
@@ -96,15 +161,8 @@ export default function ContactSection() {
           }}
         >
           Let&apos;s collaborate &{' '}
-          <span
-            style={{
-              background: 'linear-gradient(135deg, #6366F1 0%, #EC4899 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            build something impactful.
+          <span style={{ color: '#6366F1' }}>
+            build something meaningful.
           </span>
         </h1>
         <p
@@ -130,7 +188,7 @@ export default function ContactSection() {
           alignItems: 'start',
         }}
       >
-        {/* Left Column: Direct Contact Info */}
+        {/* Left Column: Direct Contact Info + Social Profiles */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,11 +201,12 @@ export default function ContactSection() {
               <div
                 key={info.label}
                 style={{
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(0,0,0,0.06)',
+                  background: 'rgba(255, 255, 255, 0.92)',
+                  border: '1px solid rgba(0, 0, 0, 0.07)',
                   borderRadius: 20,
                   padding: '1.6rem',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.02)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
+                  backdropFilter: 'blur(20px)',
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: 16,
@@ -158,8 +217,8 @@ export default function ContactSection() {
                     width: 44,
                     height: 44,
                     borderRadius: 14,
-                    background: '#6366F115',
-                    border: '1px solid #6366F130',
+                    background: 'rgba(99, 102, 241, 0.15)',
+                    border: '1px solid rgba(99, 102, 241, 0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -209,60 +268,68 @@ export default function ContactSection() {
           {/* Social Profiles Grid */}
           <div
             style={{
-              background: '#FFFFFF',
-              border: '1px solid rgba(0,0,0,0.06)',
+              background: 'rgba(255, 255, 255, 0.92)',
+              border: '1px solid rgba(0, 0, 0, 0.07)',
               borderRadius: 20,
               padding: '1.5rem',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
             }}
           >
             <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>
-              Online Presence
+              Online Presence & Socials
             </div>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <a
-                href="https://github.com/sakshi1013-coder"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: '8px 16px',
-                  background: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: 10,
-                  fontFamily: 'var(--font-space-grotesk)',
-                  fontSize: '0.8rem',
-                  fontWeight: 700,
-                  color: '#0F172A',
-                  textDecoration: 'none',
-                }}
-              >
-                <span>GitHub</span>
-                <span style={{ color: '#6366F1' }}>↗</span>
-              </a>
-              <a
-                href="[REPLACE WITH LINKEDIN URL]"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: '8px 16px',
-                  background: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: 10,
-                  fontFamily: 'var(--font-space-grotesk)',
-                  fontSize: '0.8rem',
-                  fontWeight: 700,
-                  color: '#0F172A',
-                  textDecoration: 'none',
-                }}
-              >
-                <span>LinkedIn</span>
-                <span style={{ color: '#6366F1' }}>↗</span>
-              </a>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
+              {socialProfiles.map((p) => {
+                const IconComponent = p.Icon;
+                return (
+                  <motion.a
+                    key={p.name}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '10px 14px',
+                      background: p.bg,
+                      border: `1px solid ${p.border}`,
+                      borderRadius: 12,
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
+                        background: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <IconComponent c={p.color} s={16} />
+                    </div>
+
+                    <div style={{ overflow: 'hidden' }}>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.82rem', fontWeight: 800, color: '#0F172A', whiteSpace: 'nowrap' }}>
+                        {p.name}
+                      </div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '0.7rem', color: '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {p.handle}
+                      </div>
+                    </div>
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         </motion.div>
@@ -273,11 +340,12 @@ export default function ContactSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           style={{
-            background: '#FFFFFF',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            background: 'rgba(255, 255, 255, 0.94)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
             borderRadius: 24,
             padding: '2.25rem',
-            boxShadow: '0 16px 40px rgba(99, 102, 241, 0.05)',
+            boxShadow: '0 16px 40px rgba(99, 102, 241, 0.06)',
+            backdropFilter: 'blur(24px)',
           }}
         >
           <h2
@@ -300,7 +368,7 @@ export default function ContactSection() {
               style={{
                 padding: '2.5rem 1.5rem',
                 textAlign: 'center',
-                background: 'rgba(16, 185, 129, 0.06)',
+                background: 'rgba(16, 185, 129, 0.08)',
                 border: '1px solid rgba(16, 185, 129, 0.3)',
                 borderRadius: 16,
               }}

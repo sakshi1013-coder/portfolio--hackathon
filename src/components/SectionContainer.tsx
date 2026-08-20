@@ -4,11 +4,11 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AboutSection from './sections/AboutSection';
 import SkillsSection from './sections/SkillsSection';
+import ProjectsSection from './sections/ProjectsSection';
 import ExperienceSection from './sections/ExperienceSection';
 import CertificatesSection from './sections/CertificatesSection';
-import AchievementsSection from './sections/AchievementsSection';
 import ContactSection from './sections/ContactSection';
-import CloudBackground from './CloudBackground';
+import PixelUniverseBackground from './PixelUniverseBackground';
 
 export type SectionMeta = {
   id: string;
@@ -21,139 +21,177 @@ export type SectionMeta = {
 export const SECTIONS_META: SectionMeta[] = [
   { id: 'about', num: '01', title: 'ABOUT ME', shortTitle: 'About', color: '#7C3AED' },
   { id: 'skills', num: '02', title: 'TECHNICAL SKILLS', shortTitle: 'Skills', color: '#10B981' },
-  { id: 'experience', num: '03', title: 'EXPERIENCE', shortTitle: 'Experience', color: '#F59E0B' },
-  { id: 'certificates', num: '04', title: 'CERTIFICATES', shortTitle: 'Certificates', color: '#0284C7' },
-  { id: 'achievements', num: '05', title: 'ACHIEVEMENTS', shortTitle: 'Achievements', color: '#EC4899' },
+  { id: 'projects', num: '03', title: 'PROJECTS', shortTitle: 'Projects', color: '#EC4899' },
+  { id: 'experience', num: '04', title: 'EXPERIENCE', shortTitle: 'Experience', color: '#F59E0B' },
+  { id: 'certificates', num: '05', title: 'CERTIFICATES & ACHIEVEMENTS', shortTitle: 'Credentials', color: '#0284C7' },
   { id: 'contact', num: '06', title: 'CONTACT', shortTitle: 'Contact', color: '#6366F1' },
 ];
 
 const slideVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? '100%' : direction < 0 ? '-100%' : 0,
+    x: direction > 0 ? '100%' : '-100%',
     opacity: 0,
+    scale: 0.98,
   }),
   center: {
     x: 0,
     opacity: 1,
+    scale: 1,
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? '-100%' : direction < 0 ? '100%' : 0,
+    x: direction < 0 ? '100%' : '-100%',
     opacity: 0,
+    scale: 0.98,
   }),
 };
+
+interface SectionContainerProps {
+  activeSectionId: string;
+  onClose: () => void;
+  onNavigateSection: (sectionId: string) => void;
+}
 
 export default function SectionContainer({
   activeSectionId,
   onClose,
   onNavigateSection,
-}: {
-  activeSectionId: string;
-  onClose: () => void;
-  onNavigateSection: (id: string) => void;
-}) {
-  const currentIndex = Math.max(
-    0,
-    SECTIONS_META.findIndex((s) => s.id === activeSectionId)
-  );
-  const currentSection = SECTIONS_META[currentIndex] || SECTIONS_META[0];
+}: SectionContainerProps) {
+  const currentIndex = SECTIONS_META.findIndex((s) => s.id === activeSectionId);
+  const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+  const currentSection = SECTIONS_META[safeIndex];
+
+  const prevSection = safeIndex > 0 ? SECTIONS_META[safeIndex - 1] : null;
+  const nextSection = safeIndex < SECTIONS_META.length - 1 ? SECTIONS_META[safeIndex + 1] : null;
+
   const [direction, setDirection] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
-  // Touch gesture refs
-  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
-  const wheelLockRef = useRef<boolean>(false);
+  const prevIndexRef = useRef(safeIndex);
 
-  // Transition to specific index with direction
+  useEffect(() => {
+    if (safeIndex !== prevIndexRef.current) {
+      setDirection(safeIndex > prevIndexRef.current ? 1 : -1);
+      prevIndexRef.current = safeIndex;
+    }
+  }, [safeIndex]);
+
   const goToIndex = useCallback(
     (newIndex: number) => {
-      if (isTransitioning || newIndex === currentIndex || newIndex < 0 || newIndex >= SECTIONS_META.length) {
-        return;
-      }
+      if (newIndex < 0 || newIndex >= SECTIONS_META.length || isTransitioning) return;
+      if (newIndex === safeIndex) return;
+
       setIsTransitioning(true);
-      setDirection(newIndex > currentIndex ? 1 : -1);
+      setDirection(newIndex > safeIndex ? 1 : -1);
       onNavigateSection(SECTIONS_META[newIndex].id);
+
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 550);
+      }, 400);
     },
-    [currentIndex, isTransitioning, onNavigateSection]
+    [safeIndex, isTransitioning, onNavigateSection]
   );
 
   const goNext = useCallback(() => {
-    if (currentIndex < SECTIONS_META.length - 1) {
-      goToIndex(currentIndex + 1);
+    if (safeIndex < SECTIONS_META.length - 1) {
+      goToIndex(safeIndex + 1);
     }
-  }, [currentIndex, goToIndex]);
+  }, [safeIndex, goToIndex]);
 
   const goPrev = useCallback(() => {
-    if (currentIndex > 0) {
-      goToIndex(currentIndex - 1);
+    if (safeIndex > 0) {
+      goToIndex(safeIndex - 1);
     }
-  }, [currentIndex, goToIndex]);
+  }, [safeIndex, goToIndex]);
 
-  // Keyboard navigation: Left/Right arrows change section, Escape returns home
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         goNext();
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         goPrev();
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goNext, goPrev, onClose]);
 
-  // Trackpad horizontal swipe detection
+  // Reliable Global Touch Swipe Gesture
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.6 && Math.abs(e.deltaX) > 32) {
-        if (wheelLockRef.current || isTransitioning) return;
-        wheelLockRef.current = true;
-        if (e.deltaX > 0) {
+    const onTouchStart = (e: TouchEvent) => {
+      const target = e.target as HTMLElement | null;
+      // Do not intercept if touch starts on interactive input or sliders
+      if (target?.closest('input') || target?.closest('textarea') || target?.closest('[data-no-swipe]')) {
+        touchStartRef.current = null;
+        return;
+      }
+
+      const touch = e.touches[0];
+      touchStartRef.current = {
+        x: touch.clientX,
+        y: touch.clientY,
+        time: Date.now(),
+      };
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!touchStartRef.current || isTransitioning) return;
+      const touch = e.changedTouches[0];
+      const diffX = touch.clientX - touchStartRef.current.x;
+      const diffY = touch.clientY - touchStartRef.current.y;
+      const elapsed = Date.now() - touchStartRef.current.time;
+
+      // Horizontal swipe threshold: > 45px, horizontal dominant, under 800ms
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.15 && elapsed < 800) {
+        if (diffX < -45) {
           goNext();
-        } else {
+        } else if (diffX > 45) {
           goPrev();
         }
-        setTimeout(() => {
-          wheelLockRef.current = false;
-        }, 650);
+      }
+      touchStartRef.current = null;
+    };
+
+    const onTouchCancel = () => {
+      touchStartRef.current = null;
+    };
+
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', onTouchCancel, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchCancel);
+    };
+  }, [goNext, goPrev, isTransitioning]);
+
+  // Trackpad 2-finger horizontal gesture
+  useEffect(() => {
+    let lastWheelTime = 0;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) > 50 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.5) {
+        const now = Date.now();
+        if (now - lastWheelTime < 650) return;
+        lastWheelTime = now;
+
+        if (e.deltaX > 50) {
+          goNext();
+        } else if (e.deltaX < -50) {
+          goPrev();
+        }
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [goNext, goPrev, isTransitioning]);
-
-  // Touch gesture handlers for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        time: Date.now(),
-      };
-    }
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStartRef.current || isTransitioning) return;
-    const touch = e.changedTouches[0];
-    const diffX = touch.clientX - touchStartRef.current.x;
-    const diffY = touch.clientY - touchStartRef.current.y;
-    const elapsed = Date.now() - touchStartRef.current.time;
-
-    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY) * 1.5 && elapsed < 800) {
-      if (diffX < 0) {
-        goNext();
-      } else {
-        goPrev();
-      }
-    }
-    touchStartRef.current = null;
-  };
+    window.addEventListener('wheel', onWheel, { passive: true });
+    return () => window.removeEventListener('wheel', onWheel);
+  }, [goNext, goPrev]);
 
   // Render current section component
   const renderSectionContent = () => {
@@ -162,12 +200,12 @@ export default function SectionContainer({
         return <AboutSection />;
       case 'skills':
         return <SkillsSection />;
+      case 'projects':
+        return <ProjectsSection />;
       case 'experience':
         return <ExperienceSection />;
       case 'certificates':
         return <CertificatesSection />;
-      case 'achievements':
-        return <AchievementsSection />;
       case 'contact':
         return <ContactSection />;
       default:
@@ -181,18 +219,16 @@ export default function SectionContainer({
         position: 'fixed',
         inset: 0,
         zIndex: 50,
-        background: '#F8FAFC',
+        background: '#FAF9FF',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
       }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
-      {/* ── Animated Volumetric Clouds Background ── */}
-      <CloudBackground />
+      {/* ── Light Pastel Pixel Universe Animated Background ── */}
+      <PixelUniverseBackground />
 
-      {/* ── Fixed Top Navigation Bar (Clean & Minimal) ── */}
+      {/* ── Fixed Top Navigation Bar (Light Glassmorphism with Number Stepper) ── */}
       <header
         style={{
           position: 'fixed',
@@ -201,17 +237,18 @@ export default function SectionContainer({
           right: 0,
           height: 64,
           zIndex: 100,
-          background: 'rgba(255, 255, 255, 0.88)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.07)',
+          background: '#FFFFFF',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 clamp(1rem, 3vw, 2.5rem)',
+          padding: '0 clamp(1rem, 2.5vw, 2.5rem)',
         }}
       >
-        {/* Left: HOME / Return to Orbit Hub Button */}
+        {/* Left: Return to Orbit Hub Button */}
         <button
           onClick={onClose}
           title="Return to Orbit Homepage (Esc)"
@@ -221,7 +258,7 @@ export default function SectionContainer({
             gap: 8,
             padding: '7px 14px',
             borderRadius: 100,
-            background: 'rgba(15, 23, 42, 0.04)',
+            background: 'rgba(0, 0, 0, 0.04)',
             border: '1px solid rgba(0, 0, 0, 0.08)',
             cursor: 'pointer',
             fontFamily: 'var(--font-space-grotesk)',
@@ -233,11 +270,11 @@ export default function SectionContainer({
             transition: 'all 0.2s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(15, 23, 42, 0.08)';
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.08)';
             e.currentTarget.style.transform = 'scale(1.02)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(15, 23, 42, 0.04)';
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
@@ -245,55 +282,110 @@ export default function SectionContainer({
           <span>ORBIT HUB</span>
         </button>
 
-        {/* Center: Current Section Indicator & Dot Stepper */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          {/* Subtle Dots for all 6 sections */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            {SECTIONS_META.map((sec, i) => (
-              <button
-                key={sec.id}
-                onClick={() => goToIndex(i)}
-                title={`Jump directly to ${sec.num} — ${sec.title}`}
-                style={{
-                  width: i === currentIndex ? 22 : 7,
-                  height: 7,
-                  borderRadius: 100,
-                  background: i === currentIndex ? sec.color : 'rgba(0, 0, 0, 0.15)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  transition: 'all 0.25s ease',
-                  boxShadow: i === currentIndex ? `0 0 8px ${sec.color}66` : 'none',
-                }}
-              />
-            ))}
-          </div>
-
+        {/* Center: Number-Wise Stepper Tabs (01 to 06) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, overflowX: 'auto', scrollbarWidth: 'none' }}>
           <div
             style={{
-              fontFamily: 'var(--font-space-grotesk)',
-              fontSize: '0.76rem',
-              fontWeight: 800,
-              letterSpacing: '0.06em',
-              color: '#0F172A',
               display: 'flex',
               alignItems: 'center',
-              gap: 6,
+              background: 'rgba(0, 0, 0, 0.03)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              borderRadius: 100,
+              padding: '3px 4px',
+              gap: 4,
             }}
           >
-            <span style={{ color: currentSection.color }}>{currentSection.num}</span>
-            <span style={{ color: '#CBD5E1' }}>/</span>
-            <span style={{ color: '#64748B' }}>06</span>
-            <span style={{ color: '#CBD5E1', margin: '0 2px' }}>·</span>
-            <span style={{ color: currentSection.color }}>{currentSection.title}</span>
+            {SECTIONS_META.map((sec, i) => {
+              const isSelected = i === safeIndex;
+              return (
+                <button
+                  key={sec.id}
+                  onClick={() => goToIndex(i)}
+                  title={`Go to ${sec.num} — ${sec.title}`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: isSelected ? '5px 12px' : '5px 8px',
+                    borderRadius: 100,
+                    background: isSelected ? `${sec.color}18` : 'transparent',
+                    border: isSelected ? `1.5px solid ${sec.color}` : '1.5px solid transparent',
+                    color: isSelected ? '#0F172A' : '#64748B',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.74rem',
+                    fontWeight: isSelected ? 800 : 600,
+                    letterSpacing: '0.04em',
+                    transition: 'all 0.2s ease',
+                    boxShadow: isSelected ? `0 2px 8px ${sec.color}25` : 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  <span style={{ color: isSelected ? sec.color : '#94A3B8' }}>{sec.num}</span>
+                  {isSelected && (
+                    <span style={{ color: sec.color, fontSize: '0.68rem', textTransform: 'uppercase', fontWeight: 800 }}>
+                      {sec.shortTitle}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Right side spacer to keep center balanced */}
-        <div style={{ width: 110 }} />
+        {/* Right: Section Counter Indicator & Close */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              fontFamily: 'var(--font-space-grotesk)',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: '#64748B',
+            }}
+          >
+            <span style={{ color: currentSection.color, fontWeight: 800 }}>{currentSection.num}</span>
+            <span>/</span>
+            <span>06</span>
+          </div>
+
+          <button
+            onClick={onClose}
+            title="Close to Hub (Esc)"
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              background: 'rgba(0, 0, 0, 0.04)',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              color: '#64748B',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
+              e.currentTarget.style.color = '#DC2626';
+              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
+              e.currentTarget.style.color = '#64748B';
+              e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.08)';
+            }}
+          >
+            ✕
+          </button>
+        </div>
       </header>
 
-      {/* ── Main Full-Screen Section Content Container ── */}
+      {/* ── Main Full-Screen Section Content Container with Horizontal Swipe ── */}
       <div
         style={{
           position: 'relative',
@@ -314,8 +406,9 @@ export default function SectionContainer({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 280, damping: 30 },
-              opacity: { duration: 0.3 },
+              x: { type: 'spring', stiffness: 320, damping: 32 },
+              opacity: { duration: 0.25 },
+              scale: { duration: 0.25 },
             }}
             style={{
               position: 'absolute',
@@ -325,37 +418,12 @@ export default function SectionContainer({
               overflowY: 'auto',
               overflowX: 'hidden',
               WebkitOverflowScrolling: 'touch',
+              scrollBehavior: 'smooth',
             }}
           >
             {renderSectionContent()}
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      {/* ── Subtle Floating Gesture Hint at Bottom ── */}
-      <div
-        aria-hidden
-        style={{
-          position: 'fixed',
-          bottom: 14,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 80,
-          pointerEvents: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '5px 14px',
-          background: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(0,0,0,0.06)',
-          borderRadius: 100,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-        }}
-      >
-        <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.66rem', fontWeight: 600, color: '#94A3B8' }}>
-          ↕ Vertical scroll to read · ↔ Horizontal swipe / Arrow keys to switch sections
-        </span>
       </div>
     </div>
   );

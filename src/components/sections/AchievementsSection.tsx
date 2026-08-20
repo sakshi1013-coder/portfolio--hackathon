@@ -16,13 +16,6 @@ const TrophyIcon = ({ c = '#F59E0B', s = 24 }: { c?: string; s?: number }) => (
   </svg>
 );
 
-const MedalIcon = ({ c = '#F59E0B', s = 24 }: { c?: string; s?: number }) => (
-  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="8" r="7" />
-    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-  </svg>
-);
-
 const GraduationCapIcon = ({ c = '#7C3AED', s = 22 }: { c?: string; s?: number }) => (
   <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
@@ -77,9 +70,9 @@ export default function AchievementsSection() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         style={{ marginBottom: '2.5rem' }}
       >
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: '#EC489915', border: '1px solid #EC489930', borderRadius: 100, marginBottom: '1rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', background: 'rgba(236, 72, 153, 0.12)', border: '1px solid rgba(236, 72, 153, 0.3)', borderRadius: 100, marginBottom: '1rem' }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#EC4899' }} />
-          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', color: '#EC4899', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', color: '#DB2777', textTransform: 'uppercase' }}>
             05 / PROOF OF WORK & AWARDS
           </span>
         </div>
@@ -166,12 +159,12 @@ export default function AchievementsSection() {
                 width: 96,
                 height: 96,
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #F59E0B25, #FEF3C7)',
-                border: '2px solid #F59E0B50',
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.25), #FEF3C7)',
+                border: '2px solid rgba(245, 158, 11, 0.5)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 8px 24px rgba(245,158,11,0.25)',
+                boxShadow: '0 8px 24px rgba(245, 158, 11, 0.25)',
               }}
             >
               <TrophyIcon c="#D97706" s={46} />
@@ -187,7 +180,7 @@ export default function AchievementsSection() {
                 letterSpacing: '0.12em',
                 color: '#FFFFFF',
                 textAlign: 'center',
-                boxShadow: '0 4px 12px rgba(245,158,11,0.35)',
+                boxShadow: '0 4px 12px rgba(245, 158, 11, 0.35)',
               }}
             >
               1ST PLACE WINNER
@@ -279,11 +272,12 @@ export default function AchievementsSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.15 + idx * 0.08 }}
                 style={{
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(0,0,0,0.06)',
+                  background: 'rgba(255, 255, 255, 0.92)',
+                  border: `1px solid ${m.color}30`,
                   borderRadius: 20,
                   padding: '1.75rem',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.02)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
+                  backdropFilter: 'blur(16px)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -378,10 +372,11 @@ export default function AchievementsSection() {
             <div
               key={edu.institution}
               style={{
-                background: '#FFFFFF',
+                background: 'rgba(255, 255, 255, 0.92)',
                 border: '1px solid #E2E8F0',
                 borderRadius: 18,
                 padding: '1.5rem',
+                backdropFilter: 'blur(16px)',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>

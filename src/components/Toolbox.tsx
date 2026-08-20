@@ -128,7 +128,7 @@ export default function Toolbox() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
                     {cat.skills.slice(0, 2).map((s) => (
                       <span
-                        key={s}
+                        key={s.name}
                         style={{
                           padding: '2px 8px',
                           background: cat.color + '12',
@@ -139,7 +139,7 @@ export default function Toolbox() {
                           color: cat.color,
                         }}
                       >
-                        {s}
+                        {s.name}
                       </span>
                     ))}
                     {cat.skills.length > 2 && (
@@ -170,7 +170,7 @@ export default function Toolbox() {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', paddingTop: '0.25rem' }}>
                         {cat.skills.map((skill, si) => (
                           <motion.span
-                            key={skill}
+                            key={skill.name}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: si * 0.05 }}
@@ -185,7 +185,7 @@ export default function Toolbox() {
                               color: '#fff',
                             }}
                           >
-                            {skill}
+                            {skill.name}
                           </motion.span>
                         ))}
                       </div>
