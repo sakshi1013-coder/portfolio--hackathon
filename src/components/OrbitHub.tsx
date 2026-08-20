@@ -744,6 +744,9 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
     { rx: r2_x, ry: r2_y },
   ];
 
+  // Dynamically derive unique ring indices directly from PLANETS configuration
+  const uniqueRingIndices = Array.from(new Set(PLANETS.map((p) => p.ringIndex))).sort((a, b) => a - b);
+
   const isHubDimmed = swipeState.isActive || !!activeSectionId;
 
   return (
@@ -850,44 +853,25 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                 </linearGradient>
               </defs>
 
-              {/* Ring 0 — Inner Orbit Track */}
-              <ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={ringRadii[0].rx}
-                ry={ringRadii[0].ry}
-                fill="none"
-                stroke="url(#ringGrad0)"
-                strokeWidth={1.2}
-                strokeDasharray="4 6"
-                opacity={0.8}
-              />
-
-              {/* Ring 1 — Middle Orbit Track */}
-              <ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={ringRadii[1].rx}
-                ry={ringRadii[1].ry}
-                fill="none"
-                stroke="url(#ringGrad1)"
-                strokeWidth={1.2}
-                strokeDasharray="5 7"
-                opacity={0.7}
-              />
-
-              {/* Ring 2 — Outer Orbit Track */}
-              <ellipse
-                cx={dims.w / 2}
-                cy={dims.h / 2}
-                rx={ringRadii[2].rx}
-                ry={ringRadii[2].ry}
-                fill="none"
-                stroke="url(#ringGrad2)"
-                strokeWidth={1.2}
-                strokeDasharray="6 8"
-                opacity={0.6}
-              />
+              {/* Dynamically Render Exactly One Orbit Ring Track per Distinct Radius in Use */}
+              {uniqueRingIndices.map((ringIdx) => {
+                const ring = ringRadii[ringIdx];
+                if (!ring) return null;
+                return (
+                  <ellipse
+                    key={`orbit-track-ring-${ringIdx}`}
+                    cx={dims.w / 2}
+                    cy={dims.h / 2}
+                    rx={ring.rx}
+                    ry={ring.ry}
+                    fill="none"
+                    stroke={`url(#ringGrad${ringIdx % 3})`}
+                    strokeWidth={1.2}
+                    strokeDasharray={`${4 + ringIdx} ${6 + ringIdx}`}
+                    opacity={Math.max(0.45, 0.85 - ringIdx * 0.1)}
+                  />
+                );
+              })}
 
               {/* Real-time Dynamic Connector Lines from Center Profile to Each Orbiting Planet */}
               {!isMobile &&
