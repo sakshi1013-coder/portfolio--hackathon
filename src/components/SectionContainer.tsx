@@ -333,56 +333,6 @@ export default function SectionContainer({
           </div>
         </div>
 
-        {/* Right: Section Counter Indicator & Close */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              fontFamily: 'var(--font-space-grotesk)',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              color: '#64748B',
-            }}
-          >
-            <span style={{ color: currentSection.color, fontWeight: 800 }}>{currentSection.num}</span>
-            <span>/</span>
-            <span>06</span>
-          </div>
-
-          <button
-            onClick={onClose}
-            title="Close to Hub (Esc)"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-              background: 'rgba(0, 0, 0, 0.04)',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
-              color: '#64748B',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              fontSize: '0.85rem',
-              fontWeight: 700,
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
-              e.currentTarget.style.color = '#DC2626';
-              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
-              e.currentTarget.style.color = '#64748B';
-              e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.08)';
-            }}
-          >
-            ✕
-          </button>
-        </div>
       </header>
 
       {/* ── Main Full-Screen Section Content Container with Horizontal Swipe ── */}
