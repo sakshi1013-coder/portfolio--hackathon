@@ -5,7 +5,6 @@ import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from
 import SectionContainer, { SECTIONS_META } from './SectionContainer';
 import PixelUniverseBackground from './PixelUniverseBackground';
 import SwipeTransitionOverlay from './SwipeTransitionOverlay';
-import HandwritingIntro from './HandwritingIntro';
 
 /* ─── Clean Modern Vector Icons ─────────────────────────────────────────── */
 const LayersIcon = ({ c, s = 22 }: { c: string; s?: number }) => (
@@ -128,18 +127,12 @@ export const PLANETS: PlanetDef[] = [
   },
 ];
 
-/* ─── Real Handwriting SVG Signature Intro Overlay ───────────────────────── */
-function SignatureIntroOverlay({ onComplete }: { onComplete: () => void }) {
-  return <HandwritingIntro onComplete={onComplete} />;
-}
-
 /* ─── Spacious, Clear, Highly Legible Planet Node (~74–82px) with Pop-Up Card ── */
 function PlanetNode({
   planet,
   index,
   posX,
   posY,
-  showIntro,
   isDimmed,
   onCardClick,
   onHoverChange,
@@ -148,7 +141,6 @@ function PlanetNode({
   index: number;
   posX: number;
   posY: number;
-  showIntro: boolean;
   isDimmed: boolean;
   onCardClick: (cardId: string, color: string) => void;
   onHoverChange: (isHovered: boolean) => void;
@@ -174,18 +166,14 @@ function PlanetNode({
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.4 }}
-      animate={
-        showIntro
-          ? { opacity: 0, scale: 0.4 }
-          : {
-              opacity: isDimmed ? 0 : 1,
-              scale: isDimmed ? 0.85 : 1,
-              zIndex: isExpanded ? 50 : 20,
-            }
-      }
+      animate={{
+        opacity: isDimmed ? 0 : 1,
+        scale: isDimmed ? 0.85 : 1,
+        zIndex: isExpanded ? 50 : 20,
+      }}
       transition={{
-        delay: showIntro ? 0 : 0.35 + index * 0.1,
-        duration: 0.6,
+        delay: 0.12 + index * 0.08,
+        duration: 0.55,
         ease: [0.16, 1, 0.3, 1],
       }}
       style={{
@@ -462,7 +450,6 @@ function PlanetNode({
 /* ─── Master OrbitHub Component with Scaled Up Composition & Wide Radii ──── */
 export default function OrbitHub({ initialSectionId }: { initialSectionId?: string }) {
   const [mounted, setMounted] = useState(false);
-  const [showIntro, setShowIntro] = useState(!initialSectionId);
   const [dims, setDims] = useState({ w: 1440, h: 900 });
 
   // Planetary Rotation Angles across 3 Distinct Concentric Rings
@@ -490,10 +477,6 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
 
   const photoTX = useTransform(sMouseX, [0, 1], [-8, 8]);
   const photoTY = useTransform(sMouseY, [0, 1], [-6, 6]);
-
-  const handleIntroComplete = useCallback(() => {
-    setShowIntro(false);
-  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -620,13 +603,6 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
         overflow: 'hidden',
       }}
     >
-      {/* ── Handwriting Intro Screen Animation ── */}
-      <AnimatePresence>
-        {showIntro && !initialSectionId && (
-          <SignatureIntroOverlay onComplete={handleIntroComplete} />
-        )}
-      </AnimatePresence>
-
       {/* ── Multi-Panel Staggered Swipe Reveal Transition (Orbit Hub -> Section) ── */}
       <SwipeTransitionOverlay
         isActive={swipeState.isActive}
@@ -838,7 +814,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                   scale: isPhotoHovered ? 1.06 : 1,
                   y: isPhotoHovered ? -4 : 0,
                 }}
-                transition={{ duration: 0.7, delay: showIntro ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   x: photoTX,
                   y: photoTY,
@@ -909,7 +885,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: showIntro ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.55, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 900,
@@ -930,7 +906,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: showIntro ? 0 : 0.32 }}
+              transition={{ duration: 0.45, delay: 0.32 }}
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
                 fontWeight: 700,
@@ -955,7 +931,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.35, delay: showIntro ? 0 : 0.38 }}
+              transition={{ duration: 0.35, delay: 0.38 }}
               style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 4, pointerEvents: 'none' }}
             >
               <div style={{ width: 28, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.4))' }} />
@@ -967,7 +943,7 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
             <motion.p
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: showIntro ? 0 : 0.42 }}
+              transition={{ duration: 0.35, delay: 0.42 }}
               style={{
                 fontFamily: 'var(--font-inter)',
                 fontStyle: 'italic',
@@ -1058,7 +1034,6 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
                   index={i}
                   posX={posX}
                   posY={posY}
-                  showIntro={showIntro}
                   isDimmed={isHubDimmed}
                   onCardClick={triggerSwipeTransition}
                   onHoverChange={(hovered) => {
