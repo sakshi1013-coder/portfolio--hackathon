@@ -322,6 +322,8 @@ const otherProjects: OtherProject[] = [
 ];
 
 export default function ProjectsSection() {
+  const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
+
   return (
     <div style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(2rem, 5vw, 4rem) 1.5rem 6rem' }}>
       
@@ -376,7 +378,7 @@ export default function ProjectsSection() {
         ))}
       </div>
 
-      {/* ── TIER 2: 3D COVERFLOW PERSPECTIVE CAROUSEL FOR OTHER BUILDS ── */}
+      {/* ── TIER 2: OTHER PROJECTS & REPOSITORIES (With View Toggle: 3D Carousel vs Show All Projects) ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -384,7 +386,7 @@ export default function ProjectsSection() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         style={{ marginTop: '4rem', borderTop: '1px solid rgba(0, 0, 0, 0.08)', paddingTop: '3.5rem' }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: '2.5rem' }}>
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', background: 'rgba(0,0,0,0.04)', borderRadius: 100, marginBottom: '0.5rem' }}>
               <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.68rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
@@ -395,20 +397,231 @@ export default function ProjectsSection() {
               Other Projects & Repositories
             </h2>
           </div>
-          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.8rem', fontWeight: 700, color: '#94A3B8' }}>
-            0{otherProjects.length} builds
-          </span>
+
+          {/* View Mode Toggle Switch */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#F1F5F9', border: '1.5px solid #E2E8F0', borderRadius: 100, padding: 4 }}>
+            <button
+              onClick={() => setViewMode('carousel')}
+              style={{
+                padding: '7px 16px',
+                borderRadius: 100,
+                border: 'none',
+                background: viewMode === 'carousel' ? '#7C3AED' : 'transparent',
+                color: viewMode === 'carousel' ? '#FFFFFF' : '#64748B',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: viewMode === 'carousel' ? '0 2px 8px rgba(124, 58, 237, 0.3)' : 'none',
+              }}
+            >
+              3D Carousel
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              style={{
+                padding: '7px 16px',
+                borderRadius: 100,
+                border: 'none',
+                background: viewMode === 'grid' ? '#7C3AED' : 'transparent',
+                color: viewMode === 'grid' ? '#FFFFFF' : '#64748B',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: viewMode === 'grid' ? '0 2px 8px rgba(124, 58, 237, 0.3)' : 'none',
+              }}
+            >
+              Show All Projects ({otherProjects.length})
+            </button>
+          </div>
         </div>
 
-        {/* 3D Coverflow Interactive Carousel Stage */}
-        <OtherProjects3DCoverflow />
+        {/* Dynamic Display: 3D Coverflow or Full Grid */}
+        {viewMode === 'carousel' ? (
+          <OtherProjects3DCoverflow onShowAll={() => setViewMode('grid')} />
+        ) : (
+          <OtherProjectsFullGrid />
+        )}
       </motion.div>
     </div>
   );
 }
 
+{/* ── All Projects Responsive Grid Component (When "Show All Projects" is selected) ── */}
+function OtherProjectsFullGrid() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+      {otherProjects.map((op, oIdx) => (
+        <motion.div
+          key={op.id}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.04 * oIdx }}
+          whileHover={{ y: -4 }}
+          style={{
+            background: '#FFFFFF',
+            border: `1.5px solid ${op.color}25`,
+            borderRadius: 22,
+            padding: '1.6rem',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.04)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: 16,
+          }}
+        >
+          <div>
+            {/* Header Badge & Primary Tech Icon */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontSize: '0.66rem',
+                  fontWeight: 800,
+                  color: op.color,
+                  background: `${op.color}15`,
+                  border: `1px solid ${op.color}35`,
+                  padding: '3px 10px',
+                  borderRadius: 100,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {op.badge}
+              </span>
+
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 8,
+                  background: `${op.color}12`,
+                  border: `1px solid ${op.color}30`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: op.color,
+                }}
+              >
+                <SkillIcon name={op.tech[0]} size={16} />
+              </div>
+            </div>
+
+            {/* Title */}
+            <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.18rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.25, margin: '0 0 8px 0' }}>
+              {op.title}
+            </h3>
+
+            {/* Description */}
+            <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.84rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 14px 0' }}>
+              {op.desc}
+            </p>
+
+            {/* Workflow Milestones Box */}
+            <div
+              style={{
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: 14,
+                padding: '10px 12px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+                marginBottom: 14,
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: op.color }} />
+                <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.64rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase' }}>
+                  {op.workflowLabel}
+                </span>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5 }}>
+                {op.phases.map((p) => (
+                  <div key={p.step} style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 6, padding: '5px 4px' }}>
+                    <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.55rem', fontWeight: 800, color: op.color }}>
+                      {p.step}
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.64rem', fontWeight: 700, color: '#0F172A', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {p.title}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Stack Pills */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {op.tech.map((t) => (
+                <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-space-grotesk)', fontSize: '0.68rem', fontWeight: 600, color: '#475569', background: '#F1F5F9', padding: '3px 8px', borderRadius: 6 }}>
+                  <SkillIcon name={t} size={13} />
+                  <span>{t}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: '0.85rem' }}>
+            <a
+              href={op.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                padding: '7px 12px',
+                borderRadius: 8,
+                background: '#F8FAFC',
+                border: '1.5px solid #E2E8F0',
+                color: '#0F172A',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              <GithubIcon c="#0F172A" s={14} />
+              <span>Repo</span>
+            </a>
+
+            <a
+              href={op.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                padding: '8px 16px',
+                borderRadius: 8,
+                background: op.color,
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-space-grotesk)',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                textDecoration: 'none',
+                boxShadow: `0 3px 10px ${op.color}35`,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span>Live Link</span>
+              <span style={{ fontSize: '0.78rem' }}>→</span>
+            </a>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 {/* ── 3D Coverflow Carousel Component (Website Light Themed, Continuous Auto-Change, No Emojis) ── */}
-function OtherProjects3DCoverflow() {
+function OtherProjects3DCoverflow({ onShowAll }: { onShowAll?: () => void }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Auto change slides continuously every 3.8 seconds
@@ -746,6 +959,34 @@ function OtherProjects3DCoverflow() {
           />
         ))}
       </div>
+
+      {/* Quick Option to Switch to Show All Projects Grid View */}
+      {onShowAll && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
+          <button
+            onClick={onShowAll}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: '#FFFFFF',
+              border: '1.5px solid #E2E8F0',
+              padding: '8px 20px',
+              borderRadius: 100,
+              fontFamily: 'var(--font-space-grotesk)',
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              color: '#7C3AED',
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(124, 58, 237, 0.08)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <span>Show All Projects in Grid View ({otherProjects.length})</span>
+            <span style={{ fontSize: '0.85rem' }}>↓</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
