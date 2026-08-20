@@ -203,8 +203,6 @@ export default function PixelUniverseBackground() {
   const layer1Y = useTransform(smoothMouseY, [0, 1], [-14, 14]);
   const layer2X = useTransform(smoothMouseX, [0, 1], [-26, 26]);
   const layer2Y = useTransform(smoothMouseY, [0, 1], [-20, 20]);
-  const headphoneParallaxX = useTransform(smoothMouseX, [0, 1], [-10, 10]);
-  const headphoneParallaxY = useTransform(smoothMouseY, [0, 1], [-8, 8]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -450,59 +448,6 @@ export default function PixelUniverseBackground() {
           }}
         />
       </motion.div>
-
-      {/* ── 3. AUTHENTIC RETRO 8-BIT HEADPHONE WATERMARK SILHOUETTE (10–12% Opacity) ── */}
-      <div
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(480px, 46vw, 680px)',
-          height: 'clamp(480px, 46vw, 680px)',
-          pointerEvents: 'none',
-          zIndex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <motion.div
-          style={{
-            x: headphoneParallaxX,
-            y: headphoneParallaxY,
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          animate={{
-            scale: [1, 1.02, 1],
-            rotate: [-1, 1, -1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        >
-          <img
-            src="/pixel_headphones.png"
-            alt=""
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              imageRendering: 'pixelated',
-              mixBlendMode: 'multiply',
-              opacity: 0.11,
-              userSelect: 'none',
-              pointerEvents: 'none',
-            }}
-          />
-        </motion.div>
-      </div>
 
       {/* ── 4. HTML5 Canvas: 8-Bit Pixel Starfield & Pixel Shooting Stars ── */}
       <canvas

@@ -115,7 +115,7 @@ export const PLANETS: PlanetDef[] = [
   {
     id: 'certificates',
     num: '05',
-    shortTitle: 'CREDENTIALS',
+    shortTitle: 'AWARDS',
     titleLines: ['CERTIFICATES &', 'ACHIEVEMENTS'],
     desc: 'Verified AWS credentials, hackathon victories, and academic milestones.',
     href: '/certificates',
@@ -424,16 +424,14 @@ function PlanetNode({
             <span
               style={{
                 fontFamily: 'var(--font-space-grotesk)',
-                fontSize: 'clamp(0.56rem, 0.62vw, 0.68rem)',
+                fontSize: planet.shortTitle.length > 8 ? 'clamp(0.52rem, 0.58vw, 0.64rem)' : 'clamp(0.58rem, 0.64vw, 0.7rem)',
                 fontWeight: 800,
-                letterSpacing: '0.04em',
+                letterSpacing: planet.shortTitle.length > 8 ? '0.02em' : '0.04em',
                 color: '#0F172A',
                 textTransform: 'uppercase',
                 lineHeight: 1,
                 textAlign: 'center',
-                maxWidth: '92%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
+                maxWidth: '96%',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -726,17 +724,17 @@ export default function OrbitHub({ initialSectionId }: { initialSectionId?: stri
   if (!mounted) return null;
   const isMobile = dims.w < 1080;
 
-  const maxAvailableX = (dims.w * 0.5) - 40;
-  const maxAvailableY = (dims.h * 0.5) - 35;
+  const maxAvailableX = (dims.w * 0.5) - 60;
+  const maxAvailableY = (dims.h * 0.5) - 55;
 
-  const r0_x = Math.max(260, Math.min(maxAvailableX * 0.55, 330));
-  const r0_y = Math.max(180, Math.min(maxAvailableY * 0.58, 235));
+  const r0_x = Math.max(220, Math.min(maxAvailableX * 0.52, 300));
+  const r0_y = Math.max(125, Math.min(maxAvailableY * 0.50, 180));
 
-  const r1_x = Math.max(360, Math.min(maxAvailableX * 0.77, 450));
-  const r1_y = Math.max(245, Math.min(maxAvailableY * 0.78, 305));
+  const r1_x = Math.max(320, Math.min(maxAvailableX * 0.73, 420));
+  const r1_y = Math.max(175, Math.min(maxAvailableY * 0.70, 245));
 
-  const r2_x = Math.max(460, Math.min(maxAvailableX * 0.96, 565));
-  const r2_y = Math.max(305, Math.min(maxAvailableY * 0.96, 375));
+  const r2_x = Math.max(420, Math.min(maxAvailableX * 0.92, 530));
+  const r2_y = Math.max(225, Math.min(maxAvailableY * 0.84, 300));
 
   const ringRadii: Array<{ rx: number; ry: number }> = [
     { rx: r0_x, ry: r0_y },
