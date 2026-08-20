@@ -242,20 +242,21 @@ export default function AboutSection() {
               gap: 10,
               padding: '12px 24px',
               borderRadius: 100,
-              background: 'linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)',
-              color: '#FFFFFF',
+              background: '#FFFFFF',
+              border: '1.5px solid rgba(124, 58, 237, 0.35)',
+              color: '#7C3AED',
               fontFamily: 'var(--font-space-grotesk)',
               fontSize: '0.86rem',
               fontWeight: 800,
               letterSpacing: '0.04em',
               textDecoration: 'none',
-              boxShadow: '0 8px 25px rgba(124, 58, 237, 0.35)',
-              transition: 'box-shadow 0.2s ease',
+              boxShadow: '0 6px 20px rgba(124, 58, 237, 0.12)',
+              transition: 'all 0.2s ease',
             }}
           >
-            <DownloadIcon c="#FFFFFF" s={18} />
+            <DownloadIcon c="#7C3AED" s={18} />
             <span>Download Resume</span>
-            <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>→</span>
+            <span style={{ fontSize: '0.9rem', color: '#7C3AED' }}>→</span>
           </motion.a>
         </div>
 
