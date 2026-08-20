@@ -37,6 +37,7 @@ interface FeaturedProject {
   tech: string[];
   liveUrl: string;
   githubUrl: string;
+  postUrl?: string;
   imageUrl: string;
 }
 
@@ -62,6 +63,7 @@ const featuredProjects: FeaturedProject[] = [
     tech: ['Next.js', 'React', 'TypeScript', 'Node.js', 'WebSockets', 'Tailwind CSS'],
     liveUrl: 'https://aura-sh.vercel.app/',
     githubUrl: 'https://github.com/sakshi1013-coder/aura-sh',
+    postUrl: 'https://lnkd.in/p/dD2j2fHp',
     imageUrl: '/events/devfest_wall.jpg',
   },
   {
@@ -971,9 +973,9 @@ function FeaturedProjectCard({ proj, idx }: { proj: FeaturedProject; idx: number
           </div>
 
           {/* Action Link Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <a
-              href={proj.githubUrl}
+              href={proj.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -1019,6 +1021,32 @@ function FeaturedProjectCard({ proj, idx }: { proj: FeaturedProject; idx: number
               <GithubIcon c="#0F172A" s={16} />
               <span>GitHub Code</span>
             </a>
+
+            {proj.postUrl && (
+              <a
+                href={proj.postUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '9px 16px',
+                  borderRadius: 12,
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  border: '1.5px solid rgba(245, 158, 11, 0.35)',
+                  color: '#D97706',
+                  fontFamily: 'var(--font-space-grotesk)',
+                  fontSize: '0.8rem',
+                  fontWeight: 800,
+                  textDecoration: 'none',
+                  transition: 'transform 0.2s ease',
+                }}
+              >
+                <span>🏆 Winner Post</span>
+                <span style={{ fontSize: '0.85rem' }}>↗</span>
+              </a>
+            )}
           </div>
         </div>
 
