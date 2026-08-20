@@ -282,8 +282,21 @@ export default function SectionContainer({
           <span>ORBIT HUB</span>
         </button>
 
-        {/* Center: Number-Wise Stepper Tabs (01 to 06) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, overflowX: 'auto', scrollbarWidth: 'none' }}>
+        {/* Center: Number-Wise Stepper Tabs (01 to 06) — Mathematically Centered */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            maxWidth: 'calc(100vw - 240px)',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            zIndex: 1,
+          }}
+        >
           <div
             style={{
               display: 'flex',
@@ -333,6 +346,8 @@ export default function SectionContainer({
           </div>
         </div>
 
+        {/* Right Invisible Balance Spacer */}
+        <div style={{ width: 110, visibility: 'hidden', pointerEvents: 'none' }} />
       </header>
 
       {/* ── Main Full-Screen Section Content Container with Horizontal Swipe ── */}
