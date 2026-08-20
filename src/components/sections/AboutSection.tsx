@@ -573,8 +573,8 @@ export default function AboutSection() {
                 Current Engineering Focus
               </span>
             </div>
-            <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.84rem', color: '#64748B', lineHeight: 1.5, margin: 0 }}>
-              Deepening knowledge in cloud architecture (AWS), microservice patterns, container orchestration (Kubernetes), and integrating LLM-assisted developer workflows.
+            <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.84rem', color: '#64748B', lineHeight: 1.55, margin: 0 }}>
+              Currently learning and building with <strong style={{ color: '#0284C7' }}>Flutter & Dart</strong> (cross-platform app engineering) and <strong style={{ color: '#10B981' }}>Machine Learning (ML)</strong> models, alongside cloud architecture (AWS), microservice patterns, container orchestration (Kubernetes), and LLM-assisted developer workflows.
             </p>
           </div>
         </motion.div>
