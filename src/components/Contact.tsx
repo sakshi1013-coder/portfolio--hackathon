@@ -9,7 +9,7 @@ const contactDetails = [
     icon: <Mail size={18} />,
     label: 'Email',
     value: 'shingolesakshi@gmail.com',
-    href: 'mailto:shingolesakshi@gmail.com',
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com',
   },
   {
     icon: <Phone size={18} />,

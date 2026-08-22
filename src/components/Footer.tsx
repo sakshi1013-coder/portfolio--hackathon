@@ -16,8 +16,7 @@ export default function Footer() {
     { icon: <GithubIcon />, label: 'GitHub', href: 'https://github.com/sakshi1013-coder', cursorLabel: '↗' },
     { icon: <MailIcon />, label: 'Instagram', href: 'https://www.instagram.com/sakshi_shingole?igsh=azdtYWF6azRpeHA1', cursorLabel: '↗' },
     { icon: <MailIcon />, label: 'X (Twitter)', href: 'https://x.com/saku_8055?t=yTgvW2O49wvmDHFF0X7Y5A&s=09', cursorLabel: '↗' },
-    { icon: <FileTextIcon />, label: 'Resume', href: '/resume', cursorLabel: '↗' },
-    { icon: <MailIcon />, label: 'Email', href: 'mailto:shingolesakshi@gmail.com', cursorLabel: '↗' },
+    { icon: <MailIcon />, label: 'Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com', cursorLabel: '↗' },
   ];
 
   return (

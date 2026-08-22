@@ -62,10 +62,12 @@ const contactInfo = [
     Icon: MailIcon,
     label: 'Email',
     value: 'shingolesakshi@gmail.com',
-    href: 'mailto:shingolesakshi@gmail.com',
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com',
+    mailtoHref: 'mailto:shingolesakshi@gmail.com',
     desc: 'Direct email for collaborations, hiring, and project inquiries.',
-    action: 'Open in Email App ↗',
+    action: 'Open in Gmail ↗',
     color: '#6366F1',
+    isEmail: true,
   },
   {
     Icon: PhoneIcon,
@@ -76,6 +78,7 @@ const contactInfo = [
     desc: 'Available for calls & WhatsApp messages during IST hours.',
     action: 'Call Directly ↗',
     color: '#10B981',
+    isEmail: false,
   },
   {
     Icon: MapPinIcon,
@@ -85,6 +88,7 @@ const contactInfo = [
     desc: 'Open to on-site, hybrid, and worldwide remote opportunities.',
     action: 'View on Google Maps ↗',
     color: '#F59E0B',
+    isEmail: false,
   },
 ];
 
@@ -129,15 +133,9 @@ const socialProfiles = [
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedMessage, setCopiedMessage] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-
-  const getMailtoUrl = () => {
-    const subject = encodeURIComponent(formData.subject.trim() || `Portfolio Message from ${formData.name.trim()}`);
-    const body = encodeURIComponent(
-      `Hello Sakshi,\n\n${formData.message.trim()}\n\n---\nSender Information:\nName: ${formData.name.trim()}\nEmail: ${formData.email.trim()}`
-    );
-    return `mailto:shingolesakshi@gmail.com?subject=${subject}&body=${body}`;
-  };
 
   const getGmailWebUrl = () => {
     const subject = encodeURIComponent(formData.subject.trim() || `Portfolio Message from ${formData.name.trim()}`);
@@ -147,12 +145,36 @@ export default function ContactSection() {
     return `https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com&su=${subject}&body=${body}`;
   };
 
+  const getMailtoUrl = () => {
+    const subject = encodeURIComponent(formData.subject.trim() || `Portfolio Message from ${formData.name.trim()}`);
+    const body = encodeURIComponent(
+      `Hello Sakshi,\n\n${formData.message.trim()}\n\n---\nSender Information:\nName: ${formData.name.trim()}\nEmail: ${formData.email.trim()}`
+    );
+    return `mailto:shingolesakshi@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText('shingolesakshi@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
+  const handleCopyMessage = () => {
+    const text = `To: shingolesakshi@gmail.com\nSubject: ${formData.subject || 'Portfolio Inquiry'}\n\n${formData.message}\n\nFrom: ${formData.name} (${formData.email})`;
+    navigator.clipboard.writeText(text);
+    setCopiedMessage(true);
+    setTimeout(() => setCopiedMessage(false), 2500);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
 
-    // Automatically trigger native email client in app
-    window.location.href = getMailtoUrl();
+    // Immediately open Gmail compose in a new tab
+    const gmailUrl = getGmailWebUrl();
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -273,13 +295,17 @@ export default function ContactSection() {
                     {info.desc}
                   </p>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                     <span
                       style={{
                         fontFamily: 'var(--font-space-grotesk)',
                         fontSize: '0.76rem',
                         fontWeight: 700,
                         color: info.color,
+                        background: `${info.color}12`,
+                        border: `1px solid ${info.color}30`,
+                        borderRadius: 100,
+                        padding: '4px 12px',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 4,
@@ -287,6 +313,47 @@ export default function ContactSection() {
                     >
                       {info.action}
                     </span>
+
+                    {info.isEmail && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleCopyEmail}
+                          style={{
+                            fontFamily: 'var(--font-space-grotesk)',
+                            fontSize: '0.74rem',
+                            fontWeight: 700,
+                            color: copiedEmail ? '#059669' : '#64748B',
+                            background: copiedEmail ? 'rgba(16, 185, 129, 0.12)' : 'rgba(0, 0, 0, 0.04)',
+                            border: `1px solid ${copiedEmail ? 'rgba(16, 185, 129, 0.35)' : 'rgba(0, 0, 0, 0.1)'}`,
+                            borderRadius: 100,
+                            padding: '4px 10px',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          {copiedEmail ? '✓ Copied Email' : 'Copy Email'}
+                        </button>
+
+                        <a
+                          href={info.mailtoHref}
+                          onClick={(e) => e.stopPropagation()}
+                          style={{
+                            fontFamily: 'var(--font-space-grotesk)',
+                            fontSize: '0.74rem',
+                            fontWeight: 600,
+                            color: '#64748B',
+                            background: 'rgba(0, 0, 0, 0.04)',
+                            border: '1px solid rgba(0, 0, 0, 0.1)',
+                            borderRadius: 100,
+                            padding: '4px 10px',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          Default App ↗
+                        </a>
+                      </>
+                    )}
 
                     {info.whatsappHref && (
                       <a
@@ -302,7 +369,7 @@ export default function ContactSection() {
                           background: 'rgba(16, 185, 129, 0.1)',
                           border: '1px solid rgba(16, 185, 129, 0.3)',
                           borderRadius: 100,
-                          padding: '3px 10px',
+                          padding: '4px 10px',
                           textDecoration: 'none',
                           display: 'inline-flex',
                           alignItems: 'center',
@@ -396,7 +463,7 @@ export default function ContactSection() {
             Send a Direct Message
           </h2>
           <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.88rem', color: '#64748B', marginBottom: '1.5rem' }}>
-            Clicking send will automatically open your email app with your message pre-populated.
+            Clicking send will instantly open a pre-filled Gmail compose window for you.
           </p>
 
           {submitted ? (
@@ -413,57 +480,78 @@ export default function ContactSection() {
                 <CheckCircleIcon c="#10B981" s={52} />
               </div>
               <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.25rem', fontWeight: 800, color: '#065F46', marginBottom: 6 }}>
-                Message Prepared & Ready!
+                Gmail Compose Window Opened!
               </h3>
               <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.9rem', color: '#047857', lineHeight: 1.6, maxWidth: 420, margin: '0 auto 1.5rem' }}>
-                Your email app has been triggered. You can also use the buttons below to open directly in your preferred client:
+                Your message has been formatted. If your browser blocked the new tab, use the direct buttons below:
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 320, margin: '0 auto 1.5rem' }}>
-                <a
-                  href={getMailtoUrl()}
-                  style={{
-                    padding: '11px 18px',
-                    background: '#6366F1',
-                    color: '#FFFFFF',
-                    borderRadius: 12,
-                    fontFamily: 'var(--font-space-grotesk)',
-                    fontSize: '0.82rem',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 8,
-                    boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
-                  }}
-                >
-                  <MailIcon c="#FFFFFF" s={18} />
-                  <span>Open in Mail App ↗</span>
-                </a>
-
                 <a
                   href={getGmailWebUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    padding: '11px 18px',
-                    background: '#FFFFFF',
-                    color: '#0F172A',
-                    border: '1px solid #CBD5E1',
+                    padding: '12px 18px',
+                    background: 'linear-gradient(135deg, #6366F1, #4F46E5)',
+                    color: '#FFFFFF',
                     borderRadius: 12,
                     fontFamily: 'var(--font-space-grotesk)',
-                    fontSize: '0.82rem',
+                    fontSize: '0.85rem',
                     fontWeight: 700,
                     textDecoration: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 8,
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
                   }}
                 >
-                  <span>Open in Gmail Web ↗</span>
+                  <MailIcon c="#FFFFFF" s={18} />
+                  <span>Open in Gmail ↗</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyMessage}
+                  style={{
+                    padding: '11px 18px',
+                    background: copiedMessage ? 'rgba(16, 185, 129, 0.12)' : '#FFFFFF',
+                    color: copiedMessage ? '#059669' : '#0F172A',
+                    border: `1px solid ${copiedMessage ? '#10B981' : '#CBD5E1'}`,
+                    borderRadius: 12,
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                  }}
+                >
+                  <span>{copiedMessage ? '✓ Message Copied to Clipboard' : 'Copy Message Text'}</span>
+                </button>
+
+                <a
+                  href={getMailtoUrl()}
+                  style={{
+                    padding: '10px 18px',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    color: '#475569',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: 12,
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                  }}
+                >
+                  <span>Open in Apple / Desktop Mail ↗</span>
                 </a>
               </div>
 
@@ -610,11 +698,16 @@ export default function ContactSection() {
                   cursor: 'pointer',
                   boxShadow: '0 8px 24px rgba(99, 102, 241, 0.3)',
                   transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                OPEN IN EMAIL APP & SEND →
+                <MailIcon c="#FFFFFF" s={18} />
+                <span>OPEN IN GMAIL & SEND →</span>
               </button>
             </form>
           )}

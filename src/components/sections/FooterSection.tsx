@@ -248,7 +248,7 @@ export default function FooterSection({
                 { label: 'GitHub Repository', value: 'github.com/sakshi1013-coder', href: 'https://github.com/sakshi1013-coder', icon: '💻' },
                 { label: 'Instagram Profile', value: '@sakshi_shingole', href: 'https://www.instagram.com/sakshi_shingole?igsh=azdtYWF6azRpeHA1', icon: '📸' },
                 { label: 'X (Twitter)', value: '@saku_8055', href: 'https://x.com/saku_8055?t=yTgvW2O49wvmDHFF0X7Y5A&s=09', icon: '🐦' },
-                { label: 'Email Contact', value: 'shingolesakshi@gmail.com', href: 'mailto:shingolesakshi@gmail.com', icon: '✉️' },
+                { label: 'Email Contact', value: 'shingolesakshi@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com', icon: '✉️' },
                 { label: 'Direct Phone', value: '+91-8369238055', href: 'tel:+918369238055', icon: '📞' },
               ].map((link) => (
                 <a
