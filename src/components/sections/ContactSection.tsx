@@ -64,23 +64,27 @@ const contactInfo = [
     value: 'shingolesakshi@gmail.com',
     href: 'mailto:shingolesakshi@gmail.com',
     desc: 'Direct email for collaborations, hiring, and project inquiries.',
-    action: 'Send Email ↗',
+    action: 'Open in Email App ↗',
+    color: '#6366F1',
   },
   {
     Icon: PhoneIcon,
-    label: 'Phone',
+    label: 'Phone / WhatsApp',
     value: '+91-8369238055',
     href: 'tel:+918369238055',
-    desc: 'Available for discussions during regular IST business hours.',
+    whatsappHref: 'https://wa.me/918369238055?text=Hi%20Sakshi,%20I%20saw%20your%20portfolio!',
+    desc: 'Available for calls & WhatsApp messages during IST hours.',
     action: 'Call Directly ↗',
+    color: '#10B981',
   },
   {
     Icon: MapPinIcon,
     label: 'Location',
     value: 'Kalyan, Maharashtra, India',
-    href: null,
+    href: 'https://maps.google.com/?q=Kalyan,+Maharashtra,+India',
     desc: 'Open to on-site, hybrid, and worldwide remote opportunities.',
-    action: 'IST (UTC+5:30)',
+    action: 'View on Google Maps ↗',
+    color: '#F59E0B',
   },
 ];
 
@@ -127,9 +131,28 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
 
+  const getMailtoUrl = () => {
+    const subject = encodeURIComponent(formData.subject.trim() || `Portfolio Message from ${formData.name.trim()}`);
+    const body = encodeURIComponent(
+      `Hello Sakshi,\n\n${formData.message.trim()}\n\n---\nSender Information:\nName: ${formData.name.trim()}\nEmail: ${formData.email.trim()}`
+    );
+    return `mailto:shingolesakshi@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const getGmailWebUrl = () => {
+    const subject = encodeURIComponent(formData.subject.trim() || `Portfolio Message from ${formData.name.trim()}`);
+    const body = encodeURIComponent(
+      `Hello Sakshi,\n\n${formData.message.trim()}\n\n---\nSender Information:\nName: ${formData.name.trim()}\nEmail: ${formData.email.trim()}`
+    );
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=shingolesakshi@gmail.com&su=${subject}&body=${body}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
+
+    // Automatically trigger native email client in app
+    window.location.href = getMailtoUrl();
     setSubmitted(true);
   };
 
@@ -200,11 +223,16 @@ export default function ContactSection() {
           {contactInfo.map((info) => {
             const Icon = info.Icon;
             return (
-              <div
+              <motion.a
                 key={info.label}
+                href={info.href || '#'}
+                target={info.href?.startsWith('http') ? '_blank' : '_self'}
+                rel={info.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   background: 'rgba(255, 255, 255, 0.92)',
-                  border: '1px solid rgba(0, 0, 0, 0.07)',
+                  border: `1.5px solid ${info.color}25`,
                   borderRadius: 20,
                   padding: '1.6rem',
                   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
@@ -212,58 +240,81 @@ export default function ContactSection() {
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: 16,
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  cursor: info.href ? 'pointer' : 'default',
+                  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
                 }}
               >
                 <div
                   style={{
-                    width: 44,
-                    height: 44,
+                    width: 46,
+                    height: 46,
                     borderRadius: 14,
-                    background: 'rgba(99, 102, 241, 0.15)',
-                    border: '1px solid rgba(99, 102, 241, 0.3)',
+                    background: `${info.color}15`,
+                    border: `1px solid ${info.color}35`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
                   }}
                 >
-                  <Icon c="#6366F1" s={22} />
+                  <Icon c={info.color} s={22} />
                 </div>
 
                 <div style={{ flex: 1 }}>
                   <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
                     {info.label}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1rem', fontWeight: 800, color: '#0F172A', marginBottom: 4 }}>
+                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', marginBottom: 4 }}>
                     {info.value}
                   </div>
-                  <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.82rem', color: '#64748B', lineHeight: 1.5, marginBottom: 8 }}>
+                  <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.82rem', color: '#64748B', lineHeight: 1.5, marginBottom: 10 }}>
                     {info.desc}
                   </p>
 
-                  {info.href ? (
-                    <a
-                      href={info.href}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                    <span
                       style={{
                         fontFamily: 'var(--font-space-grotesk)',
                         fontSize: '0.76rem',
                         fontWeight: 700,
-                        color: '#6366F1',
-                        textDecoration: 'none',
+                        color: info.color,
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 4,
                       }}
                     >
                       {info.action}
-                    </a>
-                  ) : (
-                    <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.74rem', fontWeight: 600, color: '#94A3B8' }}>
-                      {info.action}
                     </span>
-                  )}
+
+                    {info.whatsappHref && (
+                      <a
+                        href={info.whatsappHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          fontFamily: 'var(--font-space-grotesk)',
+                          fontSize: '0.74rem',
+                          fontWeight: 700,
+                          color: '#10B981',
+                          background: 'rgba(16, 185, 129, 0.1)',
+                          border: '1px solid rgba(16, 185, 129, 0.3)',
+                          borderRadius: 100,
+                          padding: '3px 10px',
+                          textDecoration: 'none',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4,
+                        }}
+                      >
+                        WhatsApp Chat ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </motion.a>
             );
           })}
 
@@ -342,10 +393,10 @@ export default function ContactSection() {
               marginBottom: 6,
             }}
           >
-            Send a Quick Message
+            Send a Direct Message
           </h2>
           <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.88rem', color: '#64748B', marginBottom: '1.5rem' }}>
-            I typically respond within 24 hours.
+            Clicking send will automatically open your email app with your message pre-populated.
           </p>
 
           {submitted ? (
@@ -355,36 +406,85 @@ export default function ContactSection() {
                 textAlign: 'center',
                 background: 'rgba(16, 185, 129, 0.08)',
                 border: '1px solid rgba(16, 185, 129, 0.3)',
-                borderRadius: 16,
+                borderRadius: 20,
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 14 }}>
-                <CheckCircleIcon c="#10B981" s={48} />
+                <CheckCircleIcon c="#10B981" s={52} />
               </div>
-              <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.2rem', fontWeight: 800, color: '#065F46', marginBottom: 6 }}>
-                Message Sent Successfully!
+              <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '1.25rem', fontWeight: 800, color: '#065F46', marginBottom: 6 }}>
+                Message Prepared & Ready!
               </h3>
-              <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.88rem', color: '#047857', lineHeight: 1.6, maxWidth: 360, margin: '0 auto 1.5rem' }}>
-                Thank you for reaching out, {formData.name}. I will get back to you at {formData.email} shortly.
+              <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.9rem', color: '#047857', lineHeight: 1.6, maxWidth: 420, margin: '0 auto 1.5rem' }}>
+                Your email app has been triggered. You can also use the buttons below to open directly in your preferred client:
               </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 320, margin: '0 auto 1.5rem' }}>
+                <a
+                  href={getMailtoUrl()}
+                  style={{
+                    padding: '11px 18px',
+                    background: '#6366F1',
+                    color: '#FFFFFF',
+                    borderRadius: 12,
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
+                  }}
+                >
+                  <MailIcon c="#FFFFFF" s={18} />
+                  <span>Open in Mail App ↗</span>
+                </a>
+
+                <a
+                  href={getGmailWebUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: '11px 18px',
+                    background: '#FFFFFF',
+                    color: '#0F172A',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: 12,
+                    fontFamily: 'var(--font-space-grotesk)',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                  }}
+                >
+                  <span>Open in Gmail Web ↗</span>
+                </a>
+              </div>
+
               <button
                 onClick={() => {
                   setSubmitted(false);
                   setFormData({ name: '', email: '', subject: '', message: '' });
                 }}
                 style={{
-                  padding: '8px 18px',
-                  background: '#10B981',
-                  color: '#FFFFFF',
+                  padding: '6px 14px',
+                  background: 'transparent',
+                  color: '#059669',
                   border: 'none',
-                  borderRadius: 100,
                   fontFamily: 'var(--font-space-grotesk)',
-                  fontSize: '0.78rem',
+                  fontSize: '0.8rem',
                   fontWeight: 700,
                   cursor: 'pointer',
+                  textDecoration: 'underline',
                 }}
               >
-                Send Another Message
+                ← Write Another Message
               </button>
             </div>
           ) : (
@@ -448,7 +548,7 @@ export default function ContactSection() {
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Project Opportunity / Collaboration"
+                  placeholder="e.g. Full-Stack Project Collaboration / Internship"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   style={{
@@ -514,7 +614,7 @@ export default function ContactSection() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                SEND MESSAGE →
+                OPEN IN EMAIL APP & SEND →
               </button>
             </form>
           )}
