@@ -27,6 +27,14 @@ export const metadata: Metadata = {
   title: "Sakshi Shingole — Software Engineer · Full Stack Developer · UI/UX Designer",
   description:
     "Portfolio of Sakshi Shingole — a Computer Science student who designs and builds user-friendly digital products across web, AI, cloud and modern software systems.",
+  icons: {
+    icon: [
+      { url: "/profile.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/profile.png",
+    apple: "/profile.png",
+  },
   keywords: [
     "Sakshi Shingole",
     "Software Engineer",
