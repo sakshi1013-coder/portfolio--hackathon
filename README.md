@@ -39,38 +39,6 @@
 
 ---
 
-## 🛠️ Tech Stack & Architecture
-
-- **Core**: Next.js 16 (App Router), React 19, TypeScript
-- **Styling**: Tailwind CSS, Vanilla CSS design tokens, Glassmorphism
-- **Animations & Physics**: Framer Motion, GSAP, Lenis Smooth Scroll
-- **Icons & Assets**: Lucide React, React Icons, Opentype.js
-- **Deployment**: Vercel CI/CD Pipeline
-
----
-
-## 🏃 Local Development
-
-Clone the repository and run locally:
-
-```bash
-# Clone the repository
-git clone https://github.com/sakshi1013-coder/portfolio--hackathon.git
-
-# Navigate to portfolio directory
-cd portfolio
-
-# Install dependencies
-npm install
-
-# Run the local development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
 ## 📬 Connect & Contact
 
 - **Portfolio**: [portfolio-hackathon-beta.vercel.app](https://portfolio-hackathon-beta.vercel.app/)
