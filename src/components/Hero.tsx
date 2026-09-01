@@ -364,7 +364,7 @@ export default function Hero() {
               </svg>
             </a>
             <a
-              href="[REPLACE WITH RESUME URL]"
+              href="https://drive.google.com/file/d/1LB6TmrUWnymxveRIYBIzDS0cQz3wvtkZ/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"

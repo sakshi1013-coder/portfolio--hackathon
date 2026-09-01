@@ -72,7 +72,7 @@ const LinkedinIcon = ({ c = '#0A66C2', s = 18 }: { c?: string; s?: number }) => 
 );
 
 // User Provided Resume Link
-const RESUME_DRIVE_LINK = 'https://drive.google.com/file/d/1u57jeQ33N8bsVT6qf5uGqxpljaxWEXTU/view?usp=sharing';
+const RESUME_DRIVE_LINK = 'https://drive.google.com/file/d/1LB6TmrUWnymxveRIYBIzDS0cQz3wvtkZ/view?usp=drive_link';
 
 // 5 Tech Event LinkedIn Posts with Accurate Image & Content Mapping
 const events = [

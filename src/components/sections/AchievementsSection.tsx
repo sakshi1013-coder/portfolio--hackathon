@@ -205,7 +205,7 @@ export default function AchievementsSection() {
                 lineHeight: 1.15,
               }}
             >
-              Aura — AI-Powered Real-Time Assistance Platform
+              Aura — Women's Healthtech & Reverse-Chronobiology Engine
             </h2>
             <p
               style={{
@@ -217,7 +217,7 @@ export default function AchievementsSection() {
                 maxWidth: 620,
               }}
             >
-              {mainAchievement.description} Collaborated in a cross-functional engineering team to build low-latency audio waveforms, responsive live camera streaming, and real-time multimodal intelligence.
+              {mainAchievement.description} Features a Tinder-style 10s swiper check-in and Aura Rasoi: cycle-synced Indian nutrition tailored for PCOS and cultural fasting modes.
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>

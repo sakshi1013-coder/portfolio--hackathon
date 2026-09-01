@@ -32,7 +32,7 @@ const links = [
     id: 'linkedin',
     label: 'LINKEDIN',
     description: 'Follow my professional journey & credentials.',
-    href: 'https://www.linkedin.com/in/sakshi-shingole-484913315/',
+    href: 'https://www.linkedin.com/in/sakshi-shingole/',
     cursorLabel: '↗',
     color: '#0A66C2',
     bg: '#EBF3FB',

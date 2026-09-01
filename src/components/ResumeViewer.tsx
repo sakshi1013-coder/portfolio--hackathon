@@ -6,7 +6,7 @@ import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
 
 export default function ResumeViewer() {
-  const resumeUrl = '[REPLACE WITH RESUME URL]';
+  const resumeUrl = 'https://drive.google.com/file/d/1LB6TmrUWnymxveRIYBIzDS0cQz3wvtkZ/view?usp=drive_link';
 
   return (
     <div
@@ -390,7 +390,7 @@ export default function ResumeViewer() {
                 lineHeight: 1.5,
               }}
             >
-              Built Aura: Multimodal AI Assistant delivering real-time video understanding with interactive speech support. (Role: Frontend, UI/UX, AI Integration).
+              Built Aura (Team Straw Hats): 1st Place Winner at SummerHacks 2026 (ITM x Notion) — Women's health Reverse-Chronobiology Engine with 10s swipe check-in and cycle-synced Indian nutrition. (Role: Frontend & Design Lead).
             </p>
           </div>
         </div>

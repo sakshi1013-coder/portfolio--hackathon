@@ -36,33 +36,33 @@ export const projects: Project[] = [
     id: "aura",
     number: "01",
     title: "Aura",
-    subtitle: "1st Place Hackathon Winner · Real-Time Multimodal Voice & Vision AI",
-    problem: "How do you provide low-latency visual and voice assistance for instant context reasoning?",
+    subtitle: "1st Place Hackathon Winner · Women's Healthtech & Reverse-Chronobiology Engine",
+    problem: "Current women's health apps focus on tracking past cycles rather than guiding daily actions, suffering from onboarding fatigue, rigid 28-day calendar flaws for PCOS, and lack of Indian culinary context.",
     description:
-      "Engineered an intelligent real-time visual and voice assistant featuring sub-100ms audio streaming, real-time video feed reasoning, and multimodal LLM intelligence.",
-    tags: ["AI", "FULL STACK", "WEBRTC"],
-    stack: ["Next.js", "React", "TypeScript", "Node.js", "WebSockets", "WebRTC", "Tailwind CSS"],
+      "Built Aura — a Reverse-Chronobiology Engine and daily guidance system for women's health. Converts daily inputs into actionable guidance, predicting cycle phases from real-time symptoms with a 10s swipe check-in and cycle-synced Indian nutrition (Aura Rasoi).",
+    tags: ["HEALTHTECH", "AI & ML", "NEXT.JS"],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Healthtech AI", "Node.js"],
     keyContribution:
-      "Architected the low-latency WebSocket gateway and integrated multimodal vision models for real-time video stream querying.",
+      "Frontend & Design Lead (Team Straw Hats) — engineered the frictionless 10-second Tinder-style swiper check-in, phase transition UI, and Aura Rasoi nutrition dashboard.",
     githubUrl: "https://github.com/sakshi1013-coder/aura-sh",
     liveUrl: "https://aura-sh.vercel.app/",
     caseStudy: {
       problem:
-        "Traditional voice assistants suffer from high audio turn-around latency and lack spatial visual awareness of the user's surroundings.",
+        "Standard trackers assume a perfect 28-day cycle, actively harming women with irregular cycles or PCOS. Grueling onboarding causes massive drop-off, and generic advice ignores Indian dietary context.",
       approach:
-        "Built a bidirectional streaming pipeline over WebSockets and WebRTC that pipes audio chunks and video frames directly into multimodal reasoning models.",
+        "Engineered a symptom-driven Reverse-Chronobiology Engine that predicts the active cycle phase (Menstrual, Follicular, Ovulatory, Luteal) based on real-time symptoms rather than static calendar math.",
       design:
-        "Sleek modern interface with animated voice wave feedback, live transcription feed, and responsive camera viewport.",
+        "Intuitive, empowering UI featuring a frictionless 10-second Tinder-style swiper check-in, voice input, and cycle-synced Aura Rasoi Indian recipes with cultural fasting modes.",
       technology:
-        "Next.js, TypeScript, WebSockets, WebRTC, Node.js, and OpenAI GPT-4o Vision API.",
+        "Next.js, React, TypeScript, Tailwind CSS, Python/Node.js API, and AI symptom analysis algorithms.",
       result:
-        "Awarded 1st Place Winner out of 50+ engineering teams at SummerHacks 2026 for sub-100ms response time and intuitive UX.",
+        "Awarded 1st Position Winner in Healthtech (Track 5: Open Innovation) out of 50+ engineering teams at SummerHacks 2026 (ITM x Notion) by Team Straw Hats.",
       learnings:
-        "Mastered real-time WebSocket protocol handling, audio buffer stream synchronization, and multimodal prompt optimizations.",
+        "Mastered healthtech UX workflows, rapid gamified symptom input paradigms, phase-prediction state machines, and culturally localized nutrition logic.",
     },
-    dna: { frontend: 90, backend: 85, cloud: 75, devops: 65, uiux: 88 },
+    dna: { frontend: 95, backend: 80, cloud: 75, devops: 65, uiux: 95 },
     color: "#0A0F1E",
-    accentColor: "#7C3AED",
+    accentColor: "#F59E0B",
   },
   {
     id: "modulehub",

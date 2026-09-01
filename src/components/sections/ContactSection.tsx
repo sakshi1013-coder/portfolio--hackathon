@@ -96,7 +96,7 @@ const socialProfiles = [
   {
     name: 'LinkedIn',
     handle: 'sakshi-shingole',
-    url: 'https://www.linkedin.com/in/sakshi-shingole-484913315/',
+    url: 'https://www.linkedin.com/in/sakshi-shingole/',
     Icon: LinkedinIcon,
     color: '#0077B5',
     bg: 'rgba(0, 119, 181, 0.08)',

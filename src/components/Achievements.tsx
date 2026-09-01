@@ -175,7 +175,7 @@ export default function Achievements() {
                   marginBottom: '1rem',
                 }}
               >
-                Aura — AI-Powered Real-Time Assistance Platform
+                Aura — Women's Healthtech & Reverse-Chronobiology Engine
               </motion.h3>
 
               <motion.p
@@ -191,7 +191,7 @@ export default function Achievements() {
                   maxWidth: 540,
                 }}
               >
-                Collaborated in a team to develop an AI-powered multimodal assistant that provides real-time video understanding with speech interaction.
+                Awarded 1st Place Winner at SummerHacks 2026 (ITM x Notion) by Team Straw Hats. Built a Reverse-Chronobiology Engine converting daily inputs into actionable women's health guidance with 10s swipe check-ins and cycle-synced nutrition.
               </motion.p>
 
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>

@@ -24,12 +24,12 @@ export interface Education {
 
 export const mainAchievement: Achievement = {
   rank: "1ST PLACE",
-  title: "Summer Hacks",
-  event: "Hackathon Winner",
+  title: "Summer Hacks 2026",
+  event: "Hackathon Champion (ITM x Notion)",
   description:
-    "Collaborated in a team to develop Aura — an AI-powered multimodal assistant that provides real-time video understanding with speech interaction.",
-  role: "Team Project · Frontend · UI/UX · AI",
-  tags: ["Team Project", "Frontend", "UI/UX", "AI"],
+    "Collaborated in Team Straw Hats as Frontend & Design Lead to build Aura — a 1st-place winning Reverse-Chronobiology Engine and women's health guidance system with 10s swipe check-ins and cycle-synced nutrition.",
+  role: "Team Straw Hats · Frontend & Design Lead",
+  tags: ["1st Place Winner", "Healthtech", "UI/UX Design", "Next.js", "SummerHacks 2026"],
 };
 
 export const certificates: Certificate[] = [

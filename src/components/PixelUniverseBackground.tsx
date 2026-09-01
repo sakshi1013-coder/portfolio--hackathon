@@ -60,7 +60,7 @@ const TECH_SPRITES: TechSprite[] = [
   {
     id: 'planet',
     name: 'Pixel Saturn',
-    category: 'MULTIMODAL AI & VISION',
+    category: 'HEALTHTECH & AI ENGINE',
     color: '#EC4899',
     bottom: '9%',
     left: '8%',
@@ -68,7 +68,7 @@ const TECH_SPRITES: TechSprite[] = [
     fact: 'The very first computer mouse in 1964 was carved from wood by Douglas Engelbart and had two perpendicular metallic wheels inside.',
     project: {
       title: 'Aura — 1st Place Hackathon Winner',
-      tagline: 'Real-time multimodal AI assistant utilizing WebRTC, WebSockets, and low-latency vision reasoning.',
+      tagline: 'Women\'s health guidance system featuring a Reverse-Chronobiology Engine, 10s swiper check-in, and cycle-synced nutrition.',
       badge: '1ST PLACE WINNER',
       liveUrl: 'https://aura-sh.vercel.app/',
       githubUrl: 'https://github.com/sakshi1013-coder/aura-sh',

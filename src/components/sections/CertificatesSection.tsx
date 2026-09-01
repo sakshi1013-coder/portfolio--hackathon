@@ -55,7 +55,7 @@ const ChevronRightIcon = ({ s = 18, c = 'currentColor' }: { s?: number; c?: stri
   </svg>
 );
 
-const LINKEDIN_CERT_OVERLAY = 'https://www.linkedin.com/in/sakshi-shingole-484913315/details/certifications/';
+const LINKEDIN_CERT_OVERLAY = 'https://www.linkedin.com/in/sakshi-shingole/details/certifications/';
 
 export interface ModalItem {
   id: string;
@@ -97,11 +97,11 @@ const mainAchievements: ModalItem[] = [
     companyName: 'Notion x ITM',
     badge: '1ST PLACE WINNER',
     title: 'Aura — SummerHacks 2026 1st Position Winner',
-    subtitle: '1st Place Champion at SummerHacks 2026 (ITM x Notion)',
+    subtitle: '1st Place Champion at SummerHacks 2026 (ITM x Notion) · Track: Healthtech',
     date: '2026',
-    description: '1st Position Winner at SummerHacks 2026 Hackathon. Built Aura — an intelligent real-time visual and voice assistant featuring low-latency audio processing and multimodal AI intelligence.',
-    longDescription: 'Awarded 1st Position Winner in the SummerHacks 2026 Hackathon organized by ITM School of Future Tech in collaboration with Notion. Aura is an intelligent real-time visual and voice assistant built for instant context understanding, sub-100ms WebSockets audio streaming, and multimodal LLM video feed analysis.',
-    tags: ['1st Position Winner', 'SummerHacks 2026', 'ITM x Notion', 'Multimodal AI', 'WebSockets', 'OpenAI GPT-4o'],
+    description: '1st Position Winner at SummerHacks 2026 (ITM x Notion) by Team Straw Hats. Built Aura — a Reverse-Chronobiology Engine & daily guidance system for women’s health with 10s swipe check-ins and cycle-synced Indian nutrition.',
+    longDescription: 'Awarded 1st Position Winner in the SummerHacks 2026 Hackathon organized by ITM School of Future Tech in collaboration with Notion (Track 5: Healthtech / Open Innovation). Built by Team Straw Hats: Sakshi Shingole (Frontend & Design), Saurabh Yadav (Backend), Ayush Jha (Frontend), and Mehak Yadav (Ideation & Documentation).\n\nAura solves the major shortcomings of traditional women\'s health apps: onboarding fatigue, rigid 28-day calendar flaws for PCOS/irregular cycles, and the lack of Indian cultural context. Instead of just logging past cycles, Aura acts as a "Reverse-Chronobiology Engine" that predicts the cycle phase (Menstrual, Follicular, Ovulatory, Luteal) based on real-time symptoms.\n\nKey Highlights:\n• Fast Daily Check-in: A Tinder-style swiper or voice input for frictionless 10-second daily check-ins.\n• Diet & Nutrition (Aura Rasoi): Cycle-synced Indian recipes highlighting "What to Eat" (e.g., Spinach, Makhana) and "What to Avoid" (e.g., Caffeine, Sugar), accommodating PCOS and cultural fasting modes.',
+    tags: ['1st Position Winner', 'SummerHacks 2026', 'ITM x Notion', 'Healthtech', 'Reverse-Chronobiology', 'Team Straw Hats', 'Next.js'],
     color: '#F59E0B',
     imageBanner: '/certificates/summerhacks.png',
     linkedinUrl: 'https://lnkd.in/p/dD2j2fHp',
@@ -721,7 +721,7 @@ export default function CertificatesSection() {
                   maxWidth: 720,
                 }}
               >
-                Awarded 1st Position Winner at the SummerHacks 2026 Hackathon (ITM x Notion). Engineered low-latency WebSockets audio streaming, live camera feed processing, and real-time multimodal AI intelligence. <span style={{ color: '#D97706', fontWeight: 700 }}>Click to inspect certificate & repo →</span>
+                Awarded 1st Position Winner at the SummerHacks 2026 Hackathon (ITM x Notion) by Team Straw Hats. Built Aura — a Reverse-Chronobiology Engine & women's health guidance system with 10s swipe check-ins and cycle-synced nutrition. <span style={{ color: '#D97706', fontWeight: 700 }}>Click to inspect certificate & repo →</span>
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>

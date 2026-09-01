@@ -244,7 +244,7 @@ export default function FooterSection({
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {[
-                { label: 'LinkedIn Profile', value: 'linkedin.com/in/sakshi-shingole-484913315', href: 'https://www.linkedin.com/in/sakshi-shingole-484913315/', icon: '💼' },
+                { label: 'LinkedIn Profile', value: 'linkedin.com/in/sakshi-shingole', href: 'https://www.linkedin.com/in/sakshi-shingole/', icon: '💼' },
                 { label: 'GitHub Repository', value: 'github.com/sakshi1013-coder', href: 'https://github.com/sakshi1013-coder', icon: '💻' },
                 { label: 'Instagram Profile', value: '@sakshi_shingole', href: 'https://www.instagram.com/sakshi_shingole?igsh=azdtYWF6azRpeHA1', icon: '📸' },
                 { label: 'X (Twitter)', value: '@saku_8055', href: 'https://x.com/saku_8055?t=yTgvW2O49wvmDHFF0X7Y5A&s=09', icon: '🐦' },
