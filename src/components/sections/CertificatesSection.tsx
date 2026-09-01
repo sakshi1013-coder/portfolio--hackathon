@@ -1566,32 +1566,38 @@ export default function CertificatesSection() {
 
             {/* Modal Dialog Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: 740,
-                maxHeight: '92vh',
+                maxWidth: 720,
+                maxHeight: '90vh',
                 background: '#FFFFFF',
-                borderRadius: 28,
-                boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
+                borderRadius: 24,
+                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.35)',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 zIndex: 10,
+                border: '1px solid rgba(226, 232, 240, 0.9)',
               }}
             >
               {/* Image Banner Header with Multi-Photo Gallery Support */}
               <div
                 style={{
                   position: 'relative',
-                  height: 320,
+                  height: 'clamp(180px, 26vh, 240px)',
                   width: '100%',
-                  background: '#0F172A',
+                  background: 'linear-gradient(180deg, #0B0F19 0%, #151D2F 100%)',
                   overflow: 'hidden',
+                  flexShrink: 0,
+                  borderBottom: '1px solid #E2E8F0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <img
@@ -1605,7 +1611,7 @@ export default function CertificatesSection() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    background: '#0F172A',
+                    padding: '8px',
                   }}
                 />
 
@@ -1624,17 +1630,17 @@ export default function CertificatesSection() {
                         left: 14,
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        width: 36,
-                        height: 36,
+                        width: 34,
+                        height: 34,
                         borderRadius: '50%',
-                        background: 'rgba(0, 0, 0, 0.65)',
+                        background: 'rgba(15, 23, 42, 0.85)',
                         border: '1px solid rgba(255, 255, 255, 0.3)',
                         color: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        fontSize: '1.1rem',
+                        fontSize: '1rem',
                         fontWeight: 900,
                         backdropFilter: 'blur(8px)',
                         zIndex: 2,
@@ -1652,20 +1658,20 @@ export default function CertificatesSection() {
                       }}
                       style={{
                         position: 'absolute',
-                        right: 60,
+                        right: 56,
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        width: 36,
-                        height: 36,
+                        width: 34,
+                        height: 34,
                         borderRadius: '50%',
-                        background: 'rgba(0, 0, 0, 0.65)',
+                        background: 'rgba(15, 23, 42, 0.85)',
                         border: '1px solid rgba(255, 255, 255, 0.3)',
                         color: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        fontSize: '1.1rem',
+                        fontSize: '1rem',
                         fontWeight: 900,
                         backdropFilter: 'blur(8px)',
                         zIndex: 2,
@@ -1679,15 +1685,15 @@ export default function CertificatesSection() {
                     <div
                       style={{
                         position: 'absolute',
-                        bottom: 12,
+                        bottom: 10,
                         left: 14,
-                        background: 'rgba(0,0,0,0.72)',
+                        background: 'rgba(15, 23, 42, 0.85)',
                         border: '1px solid rgba(255,255,255,0.3)',
                         borderRadius: 100,
                         padding: '3px 12px',
                         color: '#FFFFFF',
                         fontFamily: 'var(--font-space-grotesk)',
-                        fontSize: '0.72rem',
+                        fontSize: '0.7rem',
                         fontWeight: 700,
                         backdropFilter: 'blur(8px)',
                         zIndex: 2,
@@ -1703,24 +1709,25 @@ export default function CertificatesSection() {
                   onClick={() => setSelectedModalItem(null)}
                   style={{
                     position: 'absolute',
-                    top: 14,
-                    right: 14,
-                    width: 36,
-                    height: 36,
+                    top: 12,
+                    right: 12,
+                    width: 34,
+                    height: 34,
                     borderRadius: '50%',
-                    background: 'rgba(0, 0, 0, 0.65)',
+                    background: 'rgba(15, 23, 42, 0.85)',
                     border: '1px solid rgba(255, 255, 255, 0.3)',
                     color: '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    fontSize: '1.1rem',
+                    fontSize: '1rem',
                     fontWeight: 700,
                     backdropFilter: 'blur(8px)',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
                     zIndex: 3,
                   }}
+                  title="Close Modal"
                 >
                   ✕
                 </button>
@@ -1732,11 +1739,12 @@ export default function CertificatesSection() {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
-                    padding: '10px 1.5rem',
+                    gap: 8,
+                    padding: '8px 1.25rem',
                     background: '#F8FAFC',
                     borderBottom: '1px solid #E2E8F0',
                     overflowX: 'auto',
+                    flexShrink: 0,
                   }}
                 >
                   {selectedModalItem.galleryImages.map((imgUrl, gIdx) => (
@@ -1744,15 +1752,15 @@ export default function CertificatesSection() {
                       key={imgUrl}
                       onClick={() => setActiveGalleryIdx(gIdx)}
                       style={{
-                        width: 60,
-                        height: 44,
-                        borderRadius: 8,
+                        width: 56,
+                        height: 40,
+                        borderRadius: 6,
                         overflow: 'hidden',
                         border: activeGalleryIdx === gIdx ? `2px solid ${selectedModalItem.color}` : '2px solid transparent',
                         padding: 0,
                         cursor: 'pointer',
                         background: '#0F172A',
-                        boxShadow: activeGalleryIdx === gIdx ? `0 0 10px ${selectedModalItem.color}80` : 'none',
+                        boxShadow: activeGalleryIdx === gIdx ? `0 0 8px ${selectedModalItem.color}80` : 'none',
                         transition: 'all 0.2s ease',
                         flexShrink: 0,
                         opacity: activeGalleryIdx === gIdx ? 1 : 0.65,
@@ -1761,26 +1769,35 @@ export default function CertificatesSection() {
                       <img src={imgUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </button>
                   ))}
-                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.72rem', fontWeight: 600, color: '#64748B', marginLeft: 4 }}>
+                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.7rem', fontWeight: 600, color: '#64748B', marginLeft: 4 }}>
                     Click photo to switch view
                   </span>
                 </div>
               )}
 
               {/* Modal Content Scroll Area */}
-              <div style={{ padding: '1.75rem 2rem 2rem', overflowY: 'auto' }}>
+              <div
+                style={{
+                  flex: '1 1 auto',
+                  minHeight: 0,
+                  overflowY: 'auto',
+                  padding: '1.5rem 1.75rem 1.75rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
                 {/* Badge & Date */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem', flexWrap: 'wrap', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                     <span
                       style={{
                         fontFamily: 'var(--font-space-grotesk)',
-                        fontSize: '0.7rem',
+                        fontSize: '0.68rem',
                         fontWeight: 800,
                         color: selectedModalItem.color,
                         background: `${selectedModalItem.color}15`,
                         border: `1px solid ${selectedModalItem.color}30`,
-                        padding: '4px 12px',
+                        padding: '3px 10px',
                         borderRadius: 100,
                         letterSpacing: '0.06em',
                         textTransform: 'uppercase',
@@ -1796,7 +1813,7 @@ export default function CertificatesSection() {
                         fontWeight: 700,
                         color: '#64748B',
                         background: '#F1F5F9',
-                        padding: '4px 10px',
+                        padding: '3px 10px',
                         borderRadius: 100,
                       }}
                     >
@@ -1804,7 +1821,7 @@ export default function CertificatesSection() {
                     </span>
                   </div>
 
-                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.8rem', fontWeight: 700, color: '#64748B' }}>
+                  <span style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.78rem', fontWeight: 700, color: '#64748B' }}>
                     {selectedModalItem.date}
                   </span>
                 </div>
@@ -1813,52 +1830,53 @@ export default function CertificatesSection() {
                 <h2
                   style={{
                     fontFamily: 'var(--font-space-grotesk)',
-                    fontSize: '1.5rem',
+                    fontSize: 'clamp(1.2rem, 2.2vw, 1.45rem)',
                     fontWeight: 800,
                     color: '#0F172A',
-                    lineHeight: 1.2,
+                    lineHeight: 1.25,
                     marginBottom: 4,
                   }}
                 >
                   {selectedModalItem.title}
                 </h2>
-                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.88rem', fontWeight: 700, color: selectedModalItem.color, marginBottom: '1.25rem' }}>
+                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.86rem', fontWeight: 700, color: selectedModalItem.color, marginBottom: '1rem' }}>
                   {selectedModalItem.subtitle}
                 </div>
 
                 {/* Credential ID */}
                 {selectedModalItem.credentialId && (
-                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.78rem', color: '#64748B', background: '#F8FAFC', padding: '6px 12px', borderRadius: 8, marginBottom: '1.25rem', border: '1px solid #E2E8F0' }}>
+                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontSize: '0.76rem', color: '#64748B', background: '#F8FAFC', padding: '6px 12px', borderRadius: 8, marginBottom: '1rem', border: '1px solid #E2E8F0' }}>
                     <strong>Credential ID:</strong> {selectedModalItem.credentialId}
                   </div>
                 )}
 
-                {/* Full Description */}
-                <p
+                {/* Full Description with pre-line formatting */}
+                <div
                   style={{
                     fontFamily: 'var(--font-inter)',
-                    fontSize: '0.94rem',
+                    fontSize: '0.9rem',
                     color: '#334155',
                     lineHeight: 1.7,
-                    marginBottom: '1.5rem',
+                    marginBottom: '1.25rem',
+                    whiteSpace: 'pre-line',
                   }}
                 >
                   {selectedModalItem.longDescription}
-                </p>
+                </div>
 
                 {/* Tag Pills */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: '1.25rem' }}>
                   {selectedModalItem.tags.map((t) => (
                     <span
                       key={t}
                       style={{
                         fontFamily: 'var(--font-space-grotesk)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.72rem',
                         fontWeight: 600,
                         color: '#475569',
                         background: '#F1F5F9',
                         border: '1px solid #E2E8F0',
-                        padding: '4px 12px',
+                        padding: '3px 10px',
                         borderRadius: 100,
                       }}
                     >
@@ -1868,7 +1886,7 @@ export default function CertificatesSection() {
                 </div>
 
                 {/* Action Link Buttons */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, borderTop: '1px solid #E2E8F0', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginTop: 'auto' }}>
                   {selectedModalItem.linkedinUrl && (
                     <a
                       href={selectedModalItem.linkedinUrl}
@@ -1878,18 +1896,18 @@ export default function CertificatesSection() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 7,
-                        padding: '9px 16px',
-                        borderRadius: 12,
+                        padding: '8px 16px',
+                        borderRadius: 10,
                         background: '#0077B5',
                         color: '#FFFFFF',
                         fontFamily: 'var(--font-space-grotesk)',
-                        fontSize: '0.8rem',
+                        fontSize: '0.78rem',
                         fontWeight: 800,
                         textDecoration: 'none',
-                        boxShadow: '0 4px 12px rgba(0, 119, 181, 0.3)',
+                        boxShadow: '0 4px 12px rgba(0, 119, 181, 0.25)',
                       }}
                     >
-                      <LinkedinIcon c="#FFFFFF" s={16} />
+                      <LinkedinIcon c="#FFFFFF" s={15} />
                       <span>Verify on LinkedIn →</span>
                     </a>
                   )}
@@ -1903,17 +1921,17 @@ export default function CertificatesSection() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 7,
-                        padding: '9px 16px',
-                        borderRadius: 12,
+                        padding: '8px 16px',
+                        borderRadius: 10,
                         background: '#0F172A',
                         color: '#FFFFFF',
                         fontFamily: 'var(--font-space-grotesk)',
-                        fontSize: '0.8rem',
+                        fontSize: '0.78rem',
                         fontWeight: 800,
                         textDecoration: 'none',
                       }}
                     >
-                      <GithubIcon c="#FFFFFF" s={16} />
+                      <GithubIcon c="#FFFFFF" s={15} />
                       <span>View on GitHub →</span>
                     </a>
                   )}
